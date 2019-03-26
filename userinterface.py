@@ -26,6 +26,7 @@ class user_interface:
                 print("A           A  LLLLLLLLLLL  EEEEEEEEEEE    R         R       T     ")
             else:
                 pass
+            prevstate = self.name
             home_or_not = input('')
             if home_or_not == "away":
                 self.name= "away"
@@ -33,5 +34,9 @@ class user_interface:
                 self.name= "home"
             report = message("gate", "user", "", self.name, usertogate.timestamp())
             usertogate.deliver_mail(report)
-            door = message("door", "user", "", self.name, usertodoor.timestamp())
-            usertodoor.deliver_mail(door)
+            if self.name != prevstate:
+                door = message("door", "user", "statechange", self.name, usertodoor.timestamp())
+                usertodoor.deliver_mail(door)
+            else:
+                door = message("door", "user", "nochange", "", usertodoor.timestamp())
+                usertodoor.deliver_mail(door)
