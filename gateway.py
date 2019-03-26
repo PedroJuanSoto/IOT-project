@@ -104,12 +104,14 @@ class gateway:
 #whether or not to turn on the lights or(XOR) alert the user. The order of events
 #in gcome_to_life() where chosen as so, because the authors of the program to chose
 #to emphasize program correctness/security over "realistic" and/or "optimal" design.
-    def gcome_to_life(self, rbox, life_of_universe, num_of_devices, pipeboxes, usertogate):
+    def gcome_to_life(self, rbox, life_of_universe, num_of_devices, pipeboxes, usertogate, gatetobackend):
         self.activate_devices(rbox, num_of_devices)
         activate_enviroment = message("enviro", "gate", "activate", "", rbox.timestamp())
         rbox.deliver_mail(activate_enviroment)
         activate_user_interface = message("user", "gate", "activate", "", rbox.timestamp())
         rbox.deliver_mail(activate_user_interface)
+        activate_backend = message("backend", "gate", "activate", self.registry, rbox.timestamp())
+        rbox.deliver_mail(activate_backend)
         time_until_we_all_die = 0
         while time_until_we_all_die < life_of_universe:
             time_until_we_all_die = time_until_we_all_die + 1
@@ -137,3 +139,22 @@ class gateway:
             elif userstatus.data == "away":
                 self.mode = "away"
             doorstatus = pipeboxes[self.door_detidnum].wait_on_query("gate")
+            newstatus = message("backend", "gate", "hola", "yeppa", rbox.timestamp())
+            gatetobackend.deliver_mail(newstatus)
+
+
+
+#The door sensor is a push-based sensor which means that it
+#pushes a notification to the gateway whenever it senses motion
+class backend:
+    def __init__(self):
+        self.registry = []
+        self.database = []
+
+    def bcome_to_life(self, rbox, life_of_universe, gatetobackend):
+        addressbook = rbox.wait_on_mail("backend")
+        self.registry = addressbook.data
+        time_until_we_all_die = 0
+        while time_until_we_all_die < life_of_universe:
+            holapa = gatetobackend.wait_on_mail()
+            time_until_we_all_die = time_until_we_all_die + 1
