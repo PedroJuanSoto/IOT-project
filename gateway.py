@@ -67,12 +67,12 @@ class gateway:
 
 #The gateway uses query_state() to query the status of a pull-based sensor
 #(i.e. the thermostat)
-    def query_state(self, idnum, pipeboxes, life, death):
+    def query_state(self, idnum, pipeboxes, life, death, backbox):
         hola = message(idnum , "gate", "query", "", pipeboxes[idnum].timestamp())
         pipeboxes[idnum ].deliver_mail(hola)
         if life +1< death:                 #sometimes there is a deadlock issue
             x = pipeboxes[idnum].wait_on_query("gate")#on the last iteration of the
-            self.should_i_alert_heater(x.data)        #while loop and therefore
+            self.should_i_alert_heater(x.data, backbox)        #while loop and therefore
                                                       #the gateway ignores the final messsage
 
 #The gateway uses change_state() to control the devices (i.e. the lightbulb and heater)
@@ -80,11 +80,20 @@ class gateway:
         ff = message(idnum,"gate","change", state, pipeboxes[idnum].timestamp())
         pipeboxes[idnum].deliver_mail(ff)
 
-    def should_i_alert_heater(self, temp):
-            if temp < 1:                   #a simple function that computes whether
-                self.alertheater = "on"    #or not it is cold.
-            if temp > 0:
-                self.alertheater = "off"
+    def should_i_alert_heater(self, temp, backbox):
+        oldbelief = self.alertheater
+        if temp < 1:                   #a simple function that computes whether
+            self.alertheater = "on"    #or not it is cold.
+        if temp > 0:
+            self.alertheater = "off"
+        if oldbelief != self.alertheater:
+            newstatus = message("backend", "gate", "heater_change", self.alertheater, backbox.timestamp())
+            backbox.deliver_mail(newstatus)
+        else:
+            oldstatus = message("backend", "gate", "no_change", "", backbox.timestamp())
+            backbox.deliver_mail(oldstatus)
+
+
 
 #The heart of the smart home simulation is the gcome_to_life() which models the
 #behavior of a smart gateway device that monitors and controls the various sensors
@@ -116,7 +125,7 @@ class gateway:
         while time_until_we_all_die < life_of_universe:
             time_until_we_all_die = time_until_we_all_die + 1
             self.change_state(self.heateridnum, self.alertheater, pipeboxes)
-            self.query_state(self.thermoidnum, pipeboxes, time_until_we_all_die, life_of_universe)
+            self.query_state(self.thermoidnum, pipeboxes, time_until_we_all_die, life_of_universe, gatetobackend)
             isthere_intruder = pipeboxes[self.mot_detidnum].wait_on_query("gate")
             if self.mode == "home":
                 if isthere_intruder.data == "yes":
@@ -139,8 +148,7 @@ class gateway:
             elif userstatus.data == "away":
                 self.mode = "away"
             doorstatus = pipeboxes[self.door_detidnum].wait_on_query("gate")
-            newstatus = message("backend", "gate", "hola", "yeppa", rbox.timestamp())
-            gatetobackend.deliver_mail(newstatus)
+
 
 
 
@@ -155,6 +163,10 @@ class backend:
         addressbook = rbox.wait_on_mail("backend")
         self.registry = addressbook.data
         time_until_we_all_die = 0
-        while time_until_we_all_die < life_of_universe:
-            holapa = gatetobackend.wait_on_mail()
+        while time_until_we_all_die < life_of_universe-2:
             time_until_we_all_die = time_until_we_all_die + 1
+            christmastime = gatetobackend.wait_on_mail()
+            if christmastime.command == "no_change":
+                pass
+            else:
+                self.database.append(christmastime)
