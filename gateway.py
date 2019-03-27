@@ -73,7 +73,8 @@ class gateway:
         if life +1< death:                 #sometimes there is a deadlock issue
             x = pipeboxes[idnum].wait_on_query("gate")#on the last iteration of the
             self.should_i_alert_heater(x.data, backbox)        #while loop and therefore
-                                                      #the gateway ignores the final messsage
+            newstatus = message("backend", "gate", "temp_change", x.data, backbox.timestamp())
+            backbox.deliver_mail(newstatus)                   #the gateway ignores the final messsage
 
 #The gateway uses change_state() to control the devices (i.e. the lightbulb and heater)
     def change_state(self, idnum, state, pipeboxes):
@@ -127,6 +128,7 @@ class gateway:
             self.change_state(self.heateridnum, self.alertheater, pipeboxes)
             self.query_state(self.thermoidnum, pipeboxes, time_until_we_all_die, life_of_universe, gatetobackend)
             isthere_intruder = pipeboxes[self.mot_detidnum].wait_on_query("gate")
+            oldbulbstatus = self.should_i_turn_on_bulb
             if self.mode == "home":
                 if isthere_intruder.data == "yes":
                     self.should_i_turn_on_bulb = "on"
@@ -142,6 +144,12 @@ class gateway:
                 intruder_alert = message("user","gate", "", isthere_intruder.data, usertogate.timestamp())
                 usertogate.deliver_mail(intruder_alert)
             self.change_state(self.lit_bubidnum, self.should_i_turn_on_bulb, pipeboxes)
+            if oldbulbstatus != self.should_i_turn_on_bulb:
+                newbulbstatus = message("backend", "gate", "bulb_change", self.should_i_turn_on_bulb, gatetobackend.timestamp())
+                gatetobackend.deliver_mail(newbulbstatus)
+            else:
+                oldstatus = message("backend", "gate", "no_change", "", gatetobackend.timestamp())
+                gatetobackend.deliver_mail(oldstatus)
             userstatus = usertogate.wait_on_query("gate")
             if userstatus.data == "home":
                 self.mode = "home"
@@ -165,6 +173,13 @@ class backend:
         time_until_we_all_die = 0
         while time_until_we_all_die < life_of_universe-2:
             time_until_we_all_die = time_until_we_all_die + 1
+            for q in range(3):
+                christmastime = gatetobackend.wait_on_mail()
+                if christmastime.command == "no_change":
+                    pass
+                else:
+                    self.database.append(christmastime)
+        for q in range(2):
             christmastime = gatetobackend.wait_on_mail()
             if christmastime.command == "no_change":
                 pass
