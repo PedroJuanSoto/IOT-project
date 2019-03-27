@@ -106,6 +106,6 @@ class door_detect:
         time_until_we_all_die = 0
         while time_until_we_all_die < life_of_universe:
             isdooropen = usertodoortdet.wait_on_mail()
-            self.state = isdooropen.data
+            self.state = isdooropen.command
             time_until_we_all_die = time_until_we_all_die + 1
             self.report_state(pipeboxes)

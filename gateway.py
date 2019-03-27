@@ -151,11 +151,24 @@ class gateway:
                 oldstatus = message("backend", "gate", "no_change", "", gatetobackend.timestamp())
                 gatetobackend.deliver_mail(oldstatus)
             userstatus = usertogate.wait_on_query("gate")
+            oldpresencestatus = self.mode
             if userstatus.data == "home":
                 self.mode = "home"
             elif userstatus.data == "away":
                 self.mode = "away"
+            if oldpresencestatus != self.mode:
+                newpresencestatus = message("backend", "gate", "presence_change", self.mode, gatetobackend.timestamp())
+                gatetobackend.deliver_mail(newpresencestatus)
+            else:
+                oldstatus = message("backend", "gate", "no_change", "", gatetobackend.timestamp())
+                gatetobackend.deliver_mail(oldstatus)
             doorstatus = pipeboxes[self.door_detidnum].wait_on_query("gate")
+            if doorstatus.data == "statechange":
+                newdoorstatus = message("backend", "gate", "door_change", self.mode, gatetobackend.timestamp())
+                gatetobackend.deliver_mail(newdoorstatus)
+            else:
+                oldstatus = message("backend", "gate", "no_change", "", gatetobackend.timestamp())
+                gatetobackend.deliver_mail(oldstatus)
 
 
 
@@ -173,13 +186,13 @@ class backend:
         time_until_we_all_die = 0
         while time_until_we_all_die < life_of_universe-2:
             time_until_we_all_die = time_until_we_all_die + 1
-            for q in range(3):
+            for q in range(5):
                 christmastime = gatetobackend.wait_on_mail()
                 if christmastime.command == "no_change":
                     pass
                 else:
                     self.database.append(christmastime)
-        for q in range(2):
+        for q in range(6):
             christmastime = gatetobackend.wait_on_mail()
             if christmastime.command == "no_change":
                 pass
