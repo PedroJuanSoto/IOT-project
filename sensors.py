@@ -45,7 +45,7 @@ class motion_detect:
         self.name = "motion"
         self.typer = "sensor"        #Upon "activating" the thermostat by calling the mcome_to_life() function
         self.idnum = "wu"            #on line 68, the motion detector registers itself and finds its correct idnum.
-        self.state = "no"            #Without its correct idnum it does not know which mailbox to listen
+        self.state = "on"            #Without its correct idnum it does not know which mailbox to listen
                                      #in on for commands from the gateway. It begins the registration by
     def register_self(self, mbox):   #creating a temporary "wrongid" using a timestamp and filling out
         wrongid = mbox.timestamp()   #a registration form, it then listens in for the gateway to send a
@@ -81,7 +81,7 @@ class door_detect:
         self.name = "door"
         self.typer = "sensor"        #Upon "activating" the thermostat by calling the mcome_to_life() function
         self.idnum = "wu"            #on line 68, the motion detector registers itself and finds its correct idnum.
-        self.state = "no"            #Without its correct idnum it does not know which mailbox to listen
+        self.state = "on"            #Without its correct idnum it does not know which mailbox to listen
                                      #in on for commands from the gateway. It begins the registration by
     def register_self(self, mbox):   #creating a temporary "wrongid" using a timestamp and filling out
         wrongid = mbox.timestamp()   #a registration form, it then listens in for the gateway to send a

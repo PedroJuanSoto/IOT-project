@@ -123,12 +123,20 @@ class gateway:
         activate_backend = message("backend", "gate", "activate", self.registry, rbox.timestamp())
         rbox.deliver_mail(activate_backend)
         time_until_we_all_die = 0
+        oldmotdetdata = "no"
         while time_until_we_all_die < life_of_universe:
             time_until_we_all_die = time_until_we_all_die + 1
             self.change_state(self.heateridnum, self.alertheater, pipeboxes)
             self.query_state(self.thermoidnum, pipeboxes, time_until_we_all_die, life_of_universe, gatetobackend)
             isthere_intruder = pipeboxes[self.mot_detidnum].wait_on_query("gate")
             oldbulbstatus = self.should_i_turn_on_bulb
+            if oldmotdetdata != isthere_intruder.data:
+                newmotdetbstatus = message("backend", "gate", "motion_change", isthere_intruder.data, gatetobackend.timestamp())
+                gatetobackend.deliver_mail(newmotdetbstatus)
+            else:
+                oldstatus = message("backend", "gate", "no_change", "", gatetobackend.timestamp())
+                gatetobackend.deliver_mail(oldstatus)
+            oldmotdetdata = isthere_intruder.data
             if self.mode == "home":
                 if isthere_intruder.data == "yes":
                     self.should_i_turn_on_bulb = "on"
@@ -179,22 +187,84 @@ class backend:
     def __init__(self):
         self.registry = []
         self.database = []
+        self.thermoidnum = ""
+        self.heateridnum = ""
+        self.mot_detidnum = ""
+        self.lit_bubidnum = ""
+        self.door_detidnum = ""
+        self.sec_beaconidnum = ""
 
     def bcome_to_life(self, rbox, life_of_universe, gatetobackend):
         addressbook = rbox.wait_on_mail("backend")
         self.registry = addressbook.data
+        for j, x in enumerate(self.registry):
+            if x[1] == "sensor" and x[2] == "temperature":
+                self.thermoidnum = j
+            elif x[1] == "device" and x[2] == "temperature":
+                self.heateridnum = j
+            elif x[1] == "sensor" and x[2] == "motion":
+                self.mot_detidnum = j
+            elif x[1] == "device" and x[2] == "motion":
+                self.lit_bubidnum = j
+            elif x[1] == "sensor" and x[2] == "door":
+                self.door_detidnum = j
+        security_beacon = ["","sensor","security"]
+        self.sec_beaconidnum =len(self.registry)
+        self.registry.append(security_beacon)
         time_until_we_all_die = 0
         while time_until_we_all_die < life_of_universe-2:
+            for q in self.registry:
+                print(q)
             time_until_we_all_die = time_until_we_all_die + 1
-            for q in range(5):
+            for q in range(6):
                 christmastime = gatetobackend.wait_on_mail()
                 if christmastime.command == "no_change":
                     pass
                 else:
-                    self.database.append(christmastime)
-        for q in range(6):
+                    if christmastime.command == "temp_change":
+                        if self.registry[self.thermoidnum][0] !=christmastime.data:
+                            self.database.append(christmastime)
+                            self.registry[self.thermoidnum][0] =christmastime.data
+                    elif christmastime.command == "heater_change":
+                        self.database.append(christmastime)
+                        self.registry[self.heateridnum][0] =christmastime.data
+                    elif christmastime.command == "motion_change":
+                        self.database.append(christmastime)
+                        self.registry[self.mot_detidnum][0] =christmastime.data
+                    elif christmastime.command == "bulb_change":
+                        self.database.append(christmastime)
+                        self.registry[self.lit_bubidnum][0] =christmastime.data
+                    elif christmastime.command == "door_change":
+                        self.database.append(christmastime)
+                        self.registry[self.door_detidnum][0] =christmastime.data
+                    elif christmastime.command == "presence_change":
+                        self.database.append(christmastime)
+                        self.registry[self.sec_beaconidnum][0] =christmastime.data
+        for q in range(8):
             christmastime = gatetobackend.wait_on_mail()
             if christmastime.command == "no_change":
                 pass
             else:
-                self.database.append(christmastime)
+                if christmastime.command == "temp_change":
+                    if self.registry[self.thermoidnum][0] !=christmastime.data:
+                        self.database.append(christmastime)
+                        self.registry[self.thermoidnum][0] =christmastime.data
+                elif christmastime.command == "heater_change":
+                    self.database.append(christmastime)
+                    self.registry[self.heateridnum][0] =christmastime.data
+                elif christmastime.command == "motion_change":
+                    self.database.append(christmastime)
+                    self.registry[self.mot_detidnum][0] =christmastime.data
+                elif christmastime.command == "bulb_change":
+                    self.database.append(christmastime)
+                    self.registry[self.lit_bubidnum][0] =christmastime.data
+                elif christmastime.command == "door_change":
+                    self.database.append(christmastime)
+                    self.registry[self.door_detidnum][0] =christmastime.data
+                elif christmastime.command == "presence_change":
+                    self.database.append(christmastime)
+                    self.registry[self.sec_beaconidnum][0] =christmastime.data
+        for q in self.registry:
+            print(q)
+        for z in self.database:
+            z.printmessage("reader")
