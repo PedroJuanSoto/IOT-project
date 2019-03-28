@@ -1,4 +1,5 @@
 from postalservice import message, mailbox
+from leaderelection import create_edges, find_MST
 
 #The core of the program is in the gateway class. The gateway class has a
 #simple data structure and most of its complexity lies in the large number
@@ -114,7 +115,7 @@ class gateway:
 #whether or not to turn on the lights or(XOR) alert the user. The order of events
 #in gcome_to_life() where chosen as so, because the authors of the program to chose
 #to emphasize program correctness/security over "realistic" and/or "optimal" design.
-    def gcome_to_life(self, rbox, life_of_universe, num_of_devices, pipeboxes, usertogate, gatetobackend):
+    def gcome_to_life(self, rbox, life_of_universe, num_of_devices, pipeboxes, usertogate, gatetobackend, clockboxes):
         self.activate_devices(rbox, num_of_devices)
         activate_enviroment = message("enviro", "gate", "activate", "", rbox.timestamp())
         rbox.deliver_mail(activate_enviroment)
@@ -124,6 +125,8 @@ class gateway:
         rbox.deliver_mail(activate_backend)
         time_until_we_all_die = 0
         oldmotdetdata = "no"
+        neighbors = create_edges("gate",clockboxes)
+        find_MST("gate", neighbors)
         while time_until_we_all_die < life_of_universe:
             time_until_we_all_die = time_until_we_all_die + 1
             self.change_state(self.heateridnum, self.alertheater, pipeboxes)
@@ -194,9 +197,11 @@ class backend:
         self.door_detidnum = ""
         self.sec_beaconidnum = ""
 
-    def bcome_to_life(self, rbox, life_of_universe, gatetobackend):
+    def bcome_to_life(self, rbox, life_of_universe, gatetobackend, clockboxes):
         addressbook = rbox.wait_on_mail("backend")
         self.registry = addressbook.data
+        neighbors = create_edges("backend", clockboxes)
+        find_MST("backend", neighbors)
         for j, x in enumerate(self.registry):
             if x[1] == "sensor" and x[2] == "temperature":
                 self.thermoidnum = j
@@ -213,8 +218,8 @@ class backend:
         self.registry.append(security_beacon)
         time_until_we_all_die = 0
         while time_until_we_all_die < life_of_universe-2:
-            for q in self.registry:
-                print(q)
+            # for q in self.registry:
+            #     print(q)
             time_until_we_all_die = time_until_we_all_die + 1
             for q in range(6):
                 christmastime = gatetobackend.wait_on_mail()

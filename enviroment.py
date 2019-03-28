@@ -1,5 +1,6 @@
 from postalservice import message, mailbox
 import random
+from leaderelection import create_edges, find_MST
 
 #The enviroment class is the virtual enviroment which is modeled as it's own seprate
 #process so as to make the simulation more real. It has two probability distributions,
@@ -50,7 +51,7 @@ class enviroment:
 
 #The probability of an "intruder" (which can be the owner walking around the living
 #room or an authentic trespasser). The probabiltiy is affected by the time of day
-#i.e. the function isnight() (line 17) and whether the light is on. The possible 
+#i.e. the function isnight() (line 17) and whether the light is on. The possible
 # outcomes are binary; either there is or isn't an intruder.
     def intruder_change(self, thetime):
         r = random.randint(0,100)
@@ -86,9 +87,11 @@ class enviroment:
 #to relay information to the motion detecter, and lit_bubtoenviro is the mailbox
 #that the lightbulb uses to affect the virtual enviroments probability distribution
 #for the "intruder."
-    def ecome_to_life(self, mbox, life_of_universe, thermobox, heaterbox, envirotomotdet, lit_bubtoenviro):
+    def ecome_to_life(self, mbox, life_of_universe, thermobox, heaterbox, envirotomotdet, lit_bubtoenviro, clockboxes):
         mbox.wait_on_mail("enviro")
         time_until_we_all_die = 0
+        neighbors = create_edges("enviro",clockboxes)
+        find_MST("enviro", neighbors)
         while time_until_we_all_die < life_of_universe:
             self.temperature_change(time_until_we_all_die)
             temp = message("thermo","enviro", "", self.temperature, thermobox.timestamp())

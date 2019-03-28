@@ -1,4 +1,5 @@
 from postalservice import message, mailbox
+from leaderelection import create_edges, find_MST
 
 #the user process is the simplest process. It interacts with the user by asking whether
 #or not they wish to stay home (and holding down the enter key simulates staying
@@ -9,10 +10,12 @@ class user_interface:
     def __init__(self):
         self.name = "HaibinandPedro"
 
-    def ucome_to_life(self, mbox, life_of_universe, usertogate, usertodoor):
+    def ucome_to_life(self, mbox, life_of_universe, usertogate, usertodoor, clockboxes):
         mbox.wait_on_mail("user")
         time_until_we_all_die = 0
         self.name = "home"
+        neighbors = create_edges("user",clockboxes)
+        find_MST("user", neighbors)
         while time_until_we_all_die < life_of_universe:
             x = usertogate.wait_on_query("user")
             time_until_we_all_die = time_until_we_all_die + 1

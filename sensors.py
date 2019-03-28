@@ -1,4 +1,5 @@
 from postalservice import message, mailbox
+from leaderelection import create_edges, find_MST
 
 #The temperature sensor is a pull-based sensor, it responds to the gateway by
 #sending the current temperature (see line 28).
@@ -27,8 +28,10 @@ class thermostat:
 #information about the temperature of the enviroment, and the pipeboxes parameter is an array
 #of the datatype "mailboxes" (see postalservice.py) which it uses to communicate with the gateway;
 #because it does not know which pipe to listen in on, it must register_self() to discover it's self.idnum
-    def tcome_to_life(self, rbox, life_of_universe, envirobox, pipeboxes):
+    def tcome_to_life(self, rbox, life_of_universe, envirobox, pipeboxes, clockboxes):
         self.register_self(rbox)
+        neighbors = create_edges("thermo",clockboxes)
+        find_MST("thermo", neighbors)
         time_until_we_all_die = 0
         while time_until_we_all_die < life_of_universe:
             x = pipeboxes[self.idnum].wait_on_query(self.idnum)
@@ -65,8 +68,10 @@ class motion_detect:
 #information about the possible "intruders" of the enviroment, and the pipeboxes parameter is an array
 #of the datatype "mailboxes" (see postalservice.py) which it uses to communicate with the gateway;
 #because it does not know which pipe to listen in on, it must register_self() to discover it's self.idnum
-    def mcome_to_life(self, rbox, life_of_universe, pipeboxes, envirotomotdet):
+    def mcome_to_life(self, rbox, life_of_universe, pipeboxes, envirotomotdet, clockboxes):
         self.register_self(rbox)
+        neighbors = create_edges("motdet",clockboxes)
+        find_MST("motdet", neighbors)
         time_until_we_all_die = 0
         while time_until_we_all_die < life_of_universe:
             isthereintruder = envirotomotdet.wait_on_mail()
@@ -101,8 +106,10 @@ class door_detect:
 #information about the possible "intruders" of the enviroment, and the pipeboxes parameter is an array
 #of the datatype "mailboxes" (see postalservice.py) which it uses to communicate with the gateway;
 #because it does not know which pipe to listen in on, it must register_self() to discover it's self.idnum
-    def dcome_to_life(self, rbox, life_of_universe, pipeboxes, usertodoortdet):
+    def dcome_to_life(self, rbox, life_of_universe, pipeboxes, usertodoortdet, clockboxes):
         self.register_self(rbox)
+        neighbors = create_edges("doorboy",clockboxes)
+        find_MST("doorboy", neighbors)
         time_until_we_all_die = 0
         while time_until_we_all_die < life_of_universe:
             isdooropen = usertodoortdet.wait_on_mail()

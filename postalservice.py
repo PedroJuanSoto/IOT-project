@@ -85,6 +85,17 @@ class mailbox:
     def timestamp(self):
         return time.clock()
 
+    def check_mail(self):
+        try:
+            x =  self.messages.get_nowait()
+        except:
+            return -1
+            pass
+        else:
+            x.printmessage("reader")
+            return x
+
+
 #the registrationbox is almost the same as a mailbox except the functions check_mail()
 #and wait_on_mail() are different because the registration box is used between
 #ALL of the processes which can create new concurrency issues
@@ -149,3 +160,12 @@ class silent_mailbox:
 
     def timestamp(self):
         return time.clock()
+
+    def check_mail(self):
+        try:
+            x =  self.messages.get_nowait()
+        except:
+            return -1
+            pass
+        else:
+            return x

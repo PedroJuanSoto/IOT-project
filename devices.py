@@ -1,4 +1,5 @@
 from postalservice import message, mailbox
+from leaderelection import create_edges, find_MST
 
 #The heater is a device that turns itself on with the change_state() function on line
 #14 upon the request of the gateway (line 35&36). Its state then affects the
@@ -28,8 +29,10 @@ class heater:
 #and the pipeboxes parameter is an array of the datatype "mailboxes" (see postalservice.py)
 #which it uses to communicate with the gateway; because it does not know which pipe to listen in on,
 #it must register_self() (line 17) to discover it's self.idnum
-    def hcome_to_life(self, mbox, life_of_universe, pipeboxes, envirobox):
+    def hcome_to_life(self, mbox, life_of_universe, pipeboxes, envirobox, clockboxes):
         self.register_self(mbox)
+        neighbors = create_edges("heater",clockboxes)
+        find_MST("heater", neighbors)
         time_until_we_all_die = 0
         while time_until_we_all_die < life_of_universe:
             x = pipeboxes[self.idnum].wait_on_mail()
@@ -66,8 +69,10 @@ class light_bulb:
 #and the pipeboxes parameter is an array of the datatype "mailboxes" (see postalservice.py)
 #which it uses to communicate with the gateway; because it does not know which pipe to listen in on,
 #it must register_self() (line 55) to discover it's self.idnum
-    def lcome_to_life(self, mbox, life_of_universe, pipeboxes, lit_bubtoenviro):
+    def lcome_to_life(self, mbox, life_of_universe, pipeboxes, lit_bubtoenviro, clockboxes):
         self.register_self(mbox)
+        neighbors = create_edges("litbub",clockboxes)
+        find_MST("litbub", neighbors)
         time_until_we_all_die = 0
         while time_until_we_all_die < life_of_universe:
             x = pipeboxes[self.idnum].wait_on_mail()

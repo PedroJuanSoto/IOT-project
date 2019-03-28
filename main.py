@@ -1,4 +1,4 @@
-from multiprocessing import Process, Queue, cpu_count
+from multiprocessing import Process, Queue, cpu_count, Pipe
 from postalservice import message, mailbox, registration_box, silent_mailbox
 from enviroment import enviroment
 from gateway import gateway, backend
@@ -41,7 +41,7 @@ print("-----------------------------------------------------------------------")
 print("For how many \"hours\" would you like to run the simulation")
 print("(1 virtual hour is one gateway while loop,")
 print("i.e. 100000 virtual hours = approx. 1 real minute)")
-print("(Please enter a positive integer 0<x<10^7 )")
+print("(Please enter a positive integer 3<x<10^7 )")
 length_of_life = int(input(''))
 
 print(length_of_life)
@@ -53,12 +53,15 @@ if yes_or_no_one == "no":
     x[4]=0
     x[6]=0
     x[8]=0
+    x[10]=0
+    x[11]=0
 if yes_or_no_two == "no":
     x[2]=0
     x[3]=0
     x[5]=0
     x[7]=0
-if length_of_life<1 or length_of_life>10000000:
+    x[9]=0
+if length_of_life<4 or length_of_life>10000000:
     print("Time has no meaning anymore")
     print("The universe will now slowly collapse")
     print("-------------------------------------")
@@ -180,6 +183,37 @@ def create_the_universe(z, how_much_time_do_we_really_have_at_the_end_of_the_day
         cc = silent_mailbox()
         backtogate = cc
 
+    #I need to create pipes for the clock sycnh algorithms
+    gatetoheaterpipe, heatertogatepipe = Pipe()
+    gatetothermopipe, thermotogatepipe = Pipe()
+    gatetomotdetpipe, motdettogatepipe = Pipe()
+    gatetolitbubpipe, litbubtogatepipe = Pipe()
+    gatetouserpipe, usertogatepipe = Pipe()
+    gatetodoorpipe, doortogatepipe = Pipe()
+    gatetobackendpipe, backendtogatepipe = Pipe()
+
+    gatewayclockboxes = [gatetoheaterpipe, gatetothermopipe, gatetomotdetpipe, gatetolitbubpipe, gatetouserpipe, gatetodoorpipe, gatetobackendpipe]
+    backendclockboxes = [backendtogatepipe]
+
+    envirotoheaterpipe, heatertoenviropipe = Pipe()
+    envirotothermopipe, thermotoenviropipe = Pipe()
+    envirotomotdetpipe, motdettoenviropipe = Pipe()
+    envirotolitbubpipe, litbubtoenviropipe = Pipe()
+
+    enviroclockboxes = [envirotoheaterpipe, envirotothermopipe, envirotomotdetpipe, envirotolitbubpipe]
+
+    heaterclockboxes = [heatertogatepipe, heatertoenviropipe]
+    thermoclockboxes = [thermotogatepipe, thermotoenviropipe]
+    motdetclockboxes = [motdettogatepipe, motdettoenviropipe]
+    litbubclockboxes = [litbubtogatepipe, litbubtoenviropipe]
+
+    usertodoorpipe, doortouserpipe = Pipe()
+
+    userclockboxes = [usertogatepipe, usertodoorpipe]
+    doorclockboxes = [doortogatepipe, doortouserpipe]
+
+
+
 #until the calls to activate_devices() and register_self() are made, the gateway and
 #the different devices do not know which pipe to listen in on, and therefore they are
 #not given an particular names when they are passed on to the processes.
@@ -189,14 +223,14 @@ def create_the_universe(z, how_much_time_do_we_really_have_at_the_end_of_the_day
 #if __name__ == '__main__': line prevents any other processes other than "__main__"
 #from trying anything stupid.
     if __name__ == '__main__':
-        p2 = Process(target=heatboy.hcome_to_life, args=(registrationbox, time_of_death, gatewaypipeboxes, heatertoenviro))
-        p1 = Process(target=thermo.tcome_to_life, args=(registrationbox, time_of_death, envirotothermo, gatewaypipeboxes))
-        p3 = Process(target=home.ecome_to_life, args=(registrationbox, time_of_death, envirotothermo , heatertoenviro, envirotomotdet, lit_bubtoenviro))
-        p0 = Process(target=gate.gcome_to_life, args=(registrationbox, time_of_death, 5, gatewaypipeboxes, usertogate, backtogate))
-        p4 = Process(target=motdet.mcome_to_life, args=(registrationbox, time_of_death, gatewaypipeboxes, envirotomotdet))
-        p5 = Process(target=lit_bub.lcome_to_life, args=(registrationbox, time_of_death, gatewaypipeboxes, lit_bubtoenviro))
-        p6 = Process(target=doordet.dcome_to_life, args=(registrationbox, time_of_death, gatewaypipeboxes,  usertodoor))
-        p7 = Process(target=backman.bcome_to_life, args=(registrationbox, time_of_death, backtogate))
+        p2 = Process(target=heatboy.hcome_to_life, args=(registrationbox, time_of_death, gatewaypipeboxes, heatertoenviro, heaterclockboxes))
+        p1 = Process(target=thermo.tcome_to_life, args=(registrationbox, time_of_death, envirotothermo, gatewaypipeboxes, thermoclockboxes))
+        p3 = Process(target=home.ecome_to_life, args=(registrationbox, time_of_death, envirotothermo , heatertoenviro, envirotomotdet, lit_bubtoenviro, enviroclockboxes))
+        p0 = Process(target=gate.gcome_to_life, args=(registrationbox, time_of_death, 5, gatewaypipeboxes, usertogate, backtogate, gatewayclockboxes ))
+        p4 = Process(target=motdet.mcome_to_life, args=(registrationbox, time_of_death, gatewaypipeboxes, envirotomotdet, motdetclockboxes))
+        p5 = Process(target=lit_bub.lcome_to_life, args=(registrationbox, time_of_death, gatewaypipeboxes, lit_bubtoenviro, litbubclockboxes))
+        p6 = Process(target=doordet.dcome_to_life, args=(registrationbox, time_of_death, gatewaypipeboxes,  usertodoor, doorclockboxes ))
+        p7 = Process(target=backman.bcome_to_life, args=(registrationbox, time_of_death, backtogate, backendclockboxes))
 
 
         p0.start()
@@ -211,7 +245,7 @@ def create_the_universe(z, how_much_time_do_we_really_have_at_the_end_of_the_day
  #Because the user proccess takes in keyboard input, the user process must be
  #identified with the "__main__" process or else some interesting EOF errors will
  #occur.
-        user.ucome_to_life(registrationbox, time_of_death, usertogate, usertodoor)
+        user.ucome_to_life(registrationbox, time_of_death, usertogate, usertodoor, userclockboxes)
         p0.join()
         p1.join()
         p2.join()
