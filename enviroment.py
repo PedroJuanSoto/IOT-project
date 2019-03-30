@@ -87,11 +87,11 @@ class enviroment:
 #to relay information to the motion detecter, and lit_bubtoenviro is the mailbox
 #that the lightbulb uses to affect the virtual enviroments probability distribution
 #for the "intruder."
-    def ecome_to_life(self, mbox, life_of_universe, thermobox, heaterbox, envirotomotdet, lit_bubtoenviro, clockboxes):
+    def ecome_to_life(self, mbox, life_of_universe, thermobox, heaterbox, envirotomotdet, lit_bubtoenviro):#, clockboxes):
         mbox.wait_on_mail("enviro")
         time_until_we_all_die = 0
-        neighbors = create_edges("enviro",clockboxes)
-        find_MST("enviro", neighbors)
+        #neighbors = create_edges("enviro",clockboxes)
+        #find_MST("enviro", neighbors)
         while time_until_we_all_die < life_of_universe:
             self.temperature_change(time_until_we_all_die)
             temp = message("thermo","enviro", "", self.temperature, thermobox.timestamp())

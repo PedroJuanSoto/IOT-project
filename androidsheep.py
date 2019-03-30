@@ -91,7 +91,8 @@ def find_MST(name, edges = []):
             if orders.command == "search":
                 miny = find_min(edges)
                 did_i_find_min = "yes"
-
+                did_i_find_cycle_min = "no"
+                did_i_find_child_cycle_min = "no"
                 for child in children:                               #In this step a node looks through
                     child[1].send(message(["to",child[2],"from",original_name, "time",q], name, "search", my_rank, time.clock()))
                     mail = child[1].recv()                           #its children and checks if any
@@ -100,21 +101,24 @@ def find_MST(name, edges = []):
                         if mail.data < miny[0]:
                             if did_i_find_min == "yes":              #if NEW MIN then we must alert any
                                 did_i_find_min = "no"                #update any old information
+                                if did_i_find_cycle_min == "yes":    #Alert old cycle not min
+                                    maybeminy[1].send(message(["to",maybeminy[2],"from",original_name, "time",q], name, "you_are_not_min", my_rank, time.clock()))
+                                    did_i_find_cycle_min = "no"
+                            elif did_i_find_child_cycle_min == "yes":      #Alert two child cycles not min
+                                miny[1].send(cmessage(["to",miny[2],"from",original_name, "time",q], name, "you_are_not_min", my_rank, time.clock()))
+                                maybeminy[1].send(message(["to",maybeminy[2],"from",original_name, "time",q], name, "you_are_not_min", my_rank, time.clock()))
+                                did_i_find_child_cycle_min = "no"
                             else:
-                                miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "you_are_not_min", my_rank, time.clock()))
-                            oldminy = miny
+                                miny[1].send(message(["to",child[2],"from",original_name, "time",q], name, "you_are_not_min", my_rank, time.clock()))
                             miny = [mail.data, child[1],child[2]]
+
                         elif mail.data == miny[0]:                      #NEW CYCLE has been found. we must update
+                            maybeminy = [mail.data, child[1],child[2]]  #because there is the possibilty
                             if did_i_find_min == "no":                  #of a tie and the tie can
-                                miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
-                                child[1].send(message(["to",child[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
-                                miny = oldminy
+                                did_i_find_child_cycle_min = "yes"      #be between two children
                             else:                                       #or one of the edges
-                                child[1].send(message(["to",child[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
-                                for edge in edges:
-                                    if miny == edge:
-                                        edges.remove(edge)
-                                miny = find_min(edges)
+                                did_i_find_cycle_min = "yes"
+
                         else:
                             child[1].send(message(["to",child[2],"from",original_name, "time",q], name, "you_are_not_min", my_rank, time.clock()))
 
@@ -130,12 +134,16 @@ def find_MST(name, edges = []):
                     if response.command == "you_are_min":
                         if did_i_find_min == "yes":
                             miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "i_choose_you", my_rank, time.clock()))
-
+                            if did_i_find_cycle_min == "yes":
+                                maybeminy[1].send(message(["to",maybeminy[2],"from",original_name, "time",q], name, "you_are_min", my_rank, time.clock()))
                         elif did_i_find_min == "no":
                             miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "you_are_min", my_rank, time.clock()))
-
+                            if did_i_find_child_cycle_min == "yes":
+                                maybeminy[1].send(message(["to",maybeminy[2],"from",original_name, "time",q], name, "you_are_min", my_rank, time.clock()))
 
                         mail = miny[1].recv()
+                        if did_i_find_cycle_min == "yes" or did_i_find_child_cycle_min == "yes":
+                            mail = maybeminy[1].recv()
                         parent[1].send(mail)
                         response = parent[1].recv()
                         my_rank = response.data
@@ -150,7 +158,7 @@ def find_MST(name, edges = []):
                             elif did_i_find_min == "no":
                                 miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "we_lost", my_rank, time.clock()))
                                 for child in children:
-                                    if miny[1] == child[1]:
+                                    if miny[1] == edge[1]:
                                         parent = child
                                         children.remove(child)
 
@@ -163,67 +171,97 @@ def find_MST(name, edges = []):
                             elif did_i_find_min == "no":
                                 miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "we_won", my_rank, time.clock()))
 
-                    elif response.command == "cycle":
-                        if did_i_find_min == "yes":
-                            for edge in edges:
-                                if miny == edge:
-                                    edges.remove(edge)
-                        elif did_i_find_min == "no":
-                            miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
-
+                        elif response.command == "cycle":
+                            if did_i_find_cycle_min == "yes":
+                                maybeminy[1].send(message(["to",maybeminy[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
+                                for edge in edges:
+                                    if miny == edge:
+                                        edges.remove(edge)
+                            elif did_i_find_child_cycle_min == "yes":
+                                miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
+                                maybeminy[1].send(message(["to",maybeminy[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
+                            else:
+                                miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
 
                     elif response.command == "you_are_not_min":
                         if did_i_find_min == "no":
                             miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "you_are_not_min", my_rank, time.clock()))
+                        if did_i_find_cycle_min == "yes" or did_i_find_child_cycle_min == "yes":
+                            maybeminy[1].send(message(["to",maybeminy[2],"from",original_name, "time",q], name, "you_are_not_min", my_rank, time.clock()))
 
 
 
         if status == "leader":
             miny = find_min(edges)
             did_i_find_min = "yes"
-            for child in children:                               #In this step a node looks through
+            did_i_find_cycle_min = "no"
+            did_i_find_child_cycle_min = "no"
+            for child in children:                                   #In this step a node looks through
                 child[1].send(message(["to",child[2],"from",original_name, "time",q], name, "search", my_rank, time.clock()))
-                mail = child[1].recv()                           #its children and checks if any
+                mail = child[1].recv()                               #its children and checks if any
 
-                if mail.command == "my_min_is":                  #of them found a better edge
+                if mail.command == "my_min_is":                      #of them found a better edge
                     if mail.data < miny[0]:
-                        if did_i_find_min == "yes":              #if NEW MIN then we must alert any
-                            did_i_find_min = "no"                #update any old information
-                        else:
+                        if did_i_find_min == "yes":                  #if NEW MIN then we must alert any
+                            did_i_find_min = "no"                    #update any old information
+                            if did_i_find_cycle_min == "yes":        #Alert old cycle not min
+                                maybeminy[1].send(message(["to",maybeminy[2],"from",original_name, "time",q], name, "you_are_not_min", my_rank, time.clock()))
+                                did_i_find_cycle_min = "no"
+
+                        elif did_i_find_child_cycle_min == "yes":    #Alert two child cycles not min
                             miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "you_are_not_min", my_rank, time.clock()))
-                        oldminy = miny
+                            maybeminy[1].send(message(["to",maybeminy[2],"from",original_name, "time",q], name, "you_are_not_min", my_rank, time.clock()))
+                            did_i_find_child_cycle_min = "no"
+
+                        else:
+                            miny[1].send(message(["to",child[2],"from",original_name, "time",q], name, "you_are_not_min", my_rank, time.clock()))
                         miny = [mail.data, child[1],child[2]]
+
                     elif mail.data == miny[0]:                      #NEW CYCLE has been found. we must update
+                        maybeminy = [mail.data, child[1],child[2]]  #because there is the possibilty
                         if did_i_find_min == "no":                  #of a tie and the tie can
-                            miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
-                            child[1].send(message(["to",child[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
-                            miny = oldminy
+                            did_i_find_child_cycle_min = "yes"      #be between two children
                         else:                                       #or one of the edges
-                            child[1].send(message(["to",child[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
-                            for edge in edges:
-                                if miny == edge:
-                                    edges.remove(edge)
-                            miny = find_min(edges)
+                            did_i_find_cycle_min = "yes"
                     else:
                         child[1].send(message(["to",child[2],"from",original_name, "time",q], name, "you_are_not_min", my_rank, time.clock()))
 
-                if mail.command == "i_am_finished":             #one of the children could have
-                    finished_children.append(child)             #run out of territory to explore
+                if mail.command == "i_am_finished":                 #one of the children could have
+                    finished_children.append(child)                 #run out of territory to explore
                     children.remove(child)
 
-            if len(miny) == 1:
-                pass
-
-            elif len(edges)!=0 or len(children)!=0:
+            if len(edges)!=0 or len(children)!=0:
                 if did_i_find_min == "yes":
-                    miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "i_choose_you", my_rank, time.clock()))
+                    love_letter = message(["to",miny[2],"from",original_name, "time",q], name, "i_choose_you", my_rank, time.clock())
+                    miny[1].send(love_letter)
+                    if did_i_find_cycle_min == "yes":
+                        command = message(["to",maybeminy[2],"from",original_name, "time",q], name, "you_are_min", my_rank, time.clock())
+                        maybeminy[1].send(command)
                 elif did_i_find_min == "no":
-                    miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "you_are_min", my_rank, time.clock()))
+                    command = message(["to",miny[2],"from",original_name, "time",q], name, "you_are_min", my_rank, time.clock())
+                    miny[1].send(command)
+                    if did_i_find_child_cycle_min == "yes":
+                        command = message(["to",maybeminy[2],"from",original_name, "time",q], name, "you_are_min", my_rank, time.clock())
+                        maybeminy[1].send(command)
 
                 mail = miny[1].recv()
+                if did_i_find_cycle_min == "yes" or did_i_find_child_cycle_min == "yes":
+                    mail = maybeminy[1].recv()
+
+                if mail.fromy == name:
+                    if did_i_find_cycle_min == "yes":
+                        maybeminy[1].send(message(["to",maybeminy[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
+                        for edge in edges:
+                            if miny == edge:
+                                edges.remove(edge)
+                    elif did_i_find_child_cycle_min == "yes":
+                        miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
+                        maybeminy[1].send(message(["to",maybeminy[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
+                    else:
+                        miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
 
 
-                if mail.data == my_rank:
+                elif mail.data == my_rank:
                     if  mail.fromy < name:
                         if did_i_find_min == "yes":
                             children.append(miny)
@@ -232,7 +270,8 @@ def find_MST(name, edges = []):
                                 if edge == miny:
                                     edges.remove(edge)
                         elif did_i_find_min == "no":
-                            miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "we_won", my_rank, time.clock()))
+                            command = message(["to",miny[2],"from",original_name, "time",q], name, "we_won", my_rank, time.clock())
+                            miny[1].send(command)
                     elif mail.fromy > name:
                         parent = miny
                         my_rank = mail.data+1
@@ -243,13 +282,11 @@ def find_MST(name, edges = []):
                                 if edge == miny:
                                     edges.remove(edge)
                         if did_i_find_min == "no":
-                            miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "we_lost", my_rank, time.clock()))
-                            for child in children:
-                                if miny[1] == child[1]:
-                                    children.remove(child)
+                            command = message(["to",miny[2],"from",original_name, "time",q], name, "we_lost", my_rank, time.clock())
+                            miny[1].send(command)
                 elif mail.data > my_rank:
                     parent = miny
-                    my_rank = mail.data#####
+                    my_rank = mail.data+1
                     name = mail.fromy
                     status = "follower"
                     if did_i_find_min == "yes":
@@ -257,7 +294,8 @@ def find_MST(name, edges = []):
                             if edge == miny:
                                 edges.remove(edge)
                     if did_i_find_min == "no":
-                        miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "we_lost", my_rank, time.clock()))
+                        command = message(["to",miny[2],"from",original_name, "time",q], name, "we_lost", my_rank, time.clock())
+                        miny[1].send(command)
                 elif  mail.data < my_rank:
                     if did_i_find_min == "yes":
                         children.append(miny)
@@ -265,7 +303,8 @@ def find_MST(name, edges = []):
                             if edge == miny:
                                 edges.remove(edge)
                     elif did_i_find_min == "no":
-                        miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "we_won", my_rank, time.clock()))
+                        command = message(["to",miny[2],"from",original_name, "time",q], name, "we_won", my_rank, time.clock())
+                        miny[1].send(command)
                 if parent != "":
                     for edge in edges:
                         if parent == edge:
@@ -290,18 +329,3 @@ def find_MST(name, edges = []):
     #     edges.remove(miny)
     # # print("names is   ",original_name,"parent is",name,"  ",parent,"children are   ",children,"edges are   ",edges)
     # return [parent,children]
-
-
-
-
-        # if mail.fromy == name:
-        #     if did_i_find_cycle_min == "yes":
-        #         maybeminy[1].send(message(["to",maybeminy[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
-        #         for edge in edges:
-        #             if miny == edge:
-        #                 edges.remove(edge)
-        #     elif did_i_find_child_cycle_min == "yes":
-        #         miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
-        #         maybeminy[1].send(message(["to",maybeminy[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
-        #     else:
-        #         miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))

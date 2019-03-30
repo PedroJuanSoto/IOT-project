@@ -1,152 +1,255 @@
-from postalservice import message, mailbox
+from multiprocessing import Process, Queue, cpu_count, Pipe
+from postalservice import message, mailbox, registration_box, silent_mailbox, clockbox, silent_registration_box
+from enviroment import enviroment
+from gateway import gateway, backend
+from sensors import thermostat, motion_detect, door_detect
+from devices import heater, light_bulb
+from userinterface import user_interface
+
+print("-----------------------------------------------------------------------")
+print("-----------------------------------------------------------------------")
+print("-----------------------------------------------------------------------")
+print("-----------------------------------------------------------------------")
+print("Hello! Welcome to Haibin and Pedro's Smart Home Simulation")
+print("There is only two possible commands inside the simulation:")
+print("You can type in the string \"home\" or the string \"away\",")
+print("to respectively perform the action of staying home or going away.")
+print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+print("You can also hold down the enter key if you wish to stay at your")
+print("current location for a long time (it is a great way to test the program")
+print("for a large number of loops.")
+print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+print("-----------------------------------------------------------------------")
+print("-----------------------------------------------------------------------")
+print("Just a few questions before we start:")
+print("-----------------------------------------------------------------------")
+print("-----------------------------------------------------------------------")
+print("Would you like to see all the communications between the gateway and")
+print("the devices?")
+print("(Please enter \"yes\" or \"no\")")
+yes_or_no_one = input('')
+print("-----------------------------------------------------------------------")
+print("-----------------------------------------------------------------------")
+print("Would you like to see all the interactions between the enviroment and")
+print("the devices?")
+print("(Please enter \"yes\" or \"no\")")
+yes_or_no_two = input('')
+print("-----------------------------------------------------------------------")
+print("-----------------------------------------------------------------------")
+print("For how many \"hours\" would you like to run the simulation")
+print("(1 virtual hour is one gateway while loop,")
+print("i.e. 100000 virtual hours = approx. 1 real minute)")
+print("(Please enter a positive integer 3<x<10^7 )")
+length_of_life = int(input(''))
+
+print(length_of_life)
+
+x = [1,1,1,1,1,1,1,1,1,1,1,1]
+if yes_or_no_one == "no":
+    x[0]=0
+    x[1]=0
+    x[4]=0
+    x[6]=0
+    x[8]=0
+    x[10]=0
+    x[11]=0
+if yes_or_no_two == "no":
+    x[2]=0
+    x[3]=0
+    x[5]=0
+    x[7]=0
+    x[9]=0
+if length_of_life<4 or length_of_life>10000000:
+    print("Time has no meaning anymore")
+    print("The universe will now slowly collapse")
+    print("-------------------------------------")
+    print("--------------------------")
+    print("-------------------")
+    print("-------------")
+    print("--------")
+    print("----")
+    print("...")
+    print("..")
+    print(".")
+    print(".")
+    print(".")
+    exit()
 
 
-def create_edges(name, neighbors =[]):
-   edges = []
-   for friend in neighbors:
-       time = friend.timestamp()
-       sending = message("", name, "sending1", "", time)
-       friend.deliver_mail(sending)
-       new_edge = [time,friend]
-       edges.append(new_edge)
-   tasks = 0
-   while tasks < len(neighbors):
-       for j,friend in enumerate(neighbors):
-           mail = friend.check_mail()
-           if mail!=-1:
-               if mail.fromy==name:
-                   friend.deliver_mail(mail)
-               elif mail.command=="sending1":
-                   sending = message("", name, "sending2", "", time)
-                   friend.deliver_mail(sending)
-               elif mail.command=="sending2":
-                   newtime = friend.timestamp()
-                   edges[j][0]=newtime-edges[j][0]
-   return edges
+#the create_the_universe() function creates a universe that lives as long as the
+#parameter "how_much_time_do_we_really_have_at_the_end_of_the_day" which is entered by the user.
+#This parameter is limited to 10^7 because the authors of this program have only tested the
+#program for that many while loops.
+def create_the_universe(z, how_much_time_do_we_really_have_at_the_end_of_the_day):
+    home= enviroment()
+    thermo =thermostat()
+    gate = gateway()
+    heatboy = heater()
+    motdet = motion_detect()
+    lit_bub = light_bulb()
+    user = user_interface()
+    doordet = door_detect()
+    backman = backend()
 
-def create_edges(name, neighborss =[]):
-    edges = []
-    for k,friend in enumerate(neighborss):
-        heythere = [1,friend]
-        edges.append(heythere)
-    return edges
+    #registrationbox = registration_box()
+    registrationbox = silent_registration_box()
+    time_of_death = how_much_time_do_we_really_have_at_the_end_of_the_day
 
-def find_min(neighborss =[]):
-    min = 100000000000
-    for j,friend in enumerate(neighborss):
-        if friend[0] < min:
-            bestfriend = friend
-            min = friend[0]
-    return bestfriend
+#these if/elif statements control whether or not the user would like to see
+#every bit of communication that occurs between the various processes. A 1
+#makes the respective communication visible and a 0 silences that pipe.
+    if z[0]==1:
+        a = mailbox()
+        gatetodevice0 = a
+    elif z[0]==0:
+        a = silent_mailbox()
+        gatetodevice0 = a
 
-def ffind_MST(name, edges = []):
-    miny = find_min(edges)
-    return miny
+    if z[1]==1:
+        c = mailbox()
+        gatetodevice1 = c
+    elif z[1]==0:
+        c = silent_mailbox()
+        gatetodevice1 = c
 
-def find_MST(name, edges = []):
-    my_rank = [0, len(edges)]
-    miny = find_min(edges)
-    status = "leader"
-    parent = ""
-    children = []
-    for z in range(10):
-        #while status == "leader" and my_rank==0:
-            love_letter = message("", name, "i_choose_you", my_rank, miny[1].timestamp())
-            miny[1].deliver_mail(love_letter)
-            mailbag = []
-            for edge in edges:
-                mail =edge[1].check_mail()
-                if mail!=-1:
-                    if edge[1] == miny[1] and  mail.command == "i_choose_you":
-                        if mail.data[0] == my_rank:         #if they both agree that they
-                            if  mail.data[1] < my_rank[1]:     #are each others minedge then
-                                children.append(edge)             #a friendly merge occurs
-                                my_rank = my_rank+1
-                            elif mail.data[1] > my_rank[1]:
-                                parent = edge
-                                my_rank = mail.data[0]+1 #most of these if elif statements
-                                name = mail.fromy           #are a way of breaking a tie in
-                                status == "follower"        #leader selection
-                            else:
-                                if  mail.fromy < name:
-                                    children.append(edge)
-                                    my_rank = my_rank+1
-                                elif mail.fromy > name:
-                                    parent = edge
-                                    my_rank = mail.data[0]+1
-                                    name = mail.fromy
-                                    status == "follower"
-                        elif mail.data[0] < my_rank:
-                             children.append(edge)
-                             my_rank = my_rank+1
-                        elif mail.data[0] > my_rank:
-                             parent = edge
-                             my_rank = mail.data[0]+1
-                             name = mail.fromy
-                             status == "follower"
+    if z[2]==1:
+        e = mailbox()
+        envirotothermo = e
+    elif z[2]==0:
+        e = silent_mailbox()
+        envirotothermo = e
 
-    if parent != "":
-        for edge in edges:
-            if parent == edge:
-                edges.remove(edge)
-    if len(children) != 0:
-        for edge in edges:
-            if children[0] == edge:
-                edges.remove(edge)
-    while len(edges)!=0:
-        cycles = []
-        for edge in edges:
-            mail =edge[1].check_mail()
-            if mail!=-1:
-                if mail.command == "i_choose_you" and mail.data[0] < my_rank:
-                    if mail.name != name:
-                        children.append(edge)             #an absorbtion occurs if they the
-                        my_rank = my_rank+1         #other city is smaller
-                        love_letter = message("", name, "i_choose_you", my_rank, miny[1].timestamp())
-                        miny[1].deliver_mail(love_letter)
-                    else:
-                        cycles.append(edge)
-                        love_letter = message("", name, "i_choose_you", my_rank, miny[1].timestamp())
-                        miny[1].deliver_mail(love_letter)
-        for w in cycles:
-            edges.remove(w)
-        miny = find_min(edges)
-        did_i_find_min = "yes"
-        for child in children:
-            mail =child[1].check_mail()
-            if mail!=-1:
-                if mail.command == "my_min_is" and mail.data < miny[0]:
-                    miny = [mail.data, child[1]]
-                    did_i_find_min = "no"
-        if status == "follower":
-            love_letter = message("", name, "my_min_is", miny[0], miny[1].timestamp())
-            parent[1].deliver_mail(love_letter)
-            response = parent[1].wait_on_mail()
-            if response.command == "you_are_min":
-                my_rank = response.data
-                name = response.fromy
-                if did_i_find_min == "yes":
-                    love_letter = message("", name, "i_choose_you", my_rank, miny[1].timestamp())
-                    miny[1].deliver_mail(love_letter)
-                elif did_i_find_min == "no":
-                    command = message("", name, "you_are_min", my_rank, miny[1].timestamp())
-                    miny[1].deliver_mail(command)
-            if response.command == "you_are_not_min":
-                my_rank = response.data
-                name = response.fromy
-                if did_i_find_min == "yes":
-                    pass
-                elif did_i_find_min == "no":
-                    command = message("", name, "you_are_not_min", my_rank, miny[1].timestamp())
-                    miny[1].deliver_mail(command)
-        elif status == "leader":
-            if did_i_find_min == "yes":
-                love_letter = message("", name, "i_choose_you", my_rank, miny[1].timestamp())
-                miny[1].deliver_mail(love_letter)
-            elif did_i_find_min == "no":
-                command = message("", name, "you_are_min", my_rank, miny[1].timestamp())
-                miny[1].deliver_mail(command)
-        for child in children:
-            if miny[1] != child[1]:
-                command = message("", name, "you_are_not_min", my_rank, miny[1].timestamp())
-                miny[1].deliver_mail(command)
+    if z[3]==1:
+        g = mailbox()
+        heatertoenviro = g
+    elif z[3]==0:
+        g = silent_mailbox()
+        heatertoenviro = g
+
+    if z[4]==1:
+        x = mailbox()
+        gatetodevice2 = x
+    elif z[4]==0:
+        x = silent_mailbox()
+        gatetodevice2 = x
+
+    if z[5]==1:
+        y = mailbox()
+        envirotomotdet = y
+    elif z[5]==0:
+        y = silent_mailbox()
+        envirotomotdet = y
+
+    if z[6]==1:
+        w = mailbox()
+        gatetodevice3 = w
+    elif z[6]==0:
+        w = silent_mailbox()
+        gatetodevice3 = w
+
+    if z[7]==1:
+        y = mailbox()
+        lit_bubtoenviro = y
+    elif z[7]==0:
+        y = silent_mailbox()
+        lit_bubtoenviro = y
+
+    if z[8]==1:
+        u = mailbox()
+        usertogate = u
+    elif z[8]==0:
+        u = silent_mailbox()
+        usertogate = u
+
+    if z[9]==1:
+        qqqq = mailbox()
+        usertodoor = qqqq
+    elif z[9]==0:
+        qqqq = silent_mailbox()
+        usertodoor = qqqq
+
+    if z[10]==1:
+        l = mailbox()
+        gatetodevice4 = l
+    elif z[10]==0:
+        l = silent_mailbox()
+        gatetodevice4 = l
+
+    if z[11]==1:
+        cc = mailbox()
+        backtogate = cc
+    elif z[11]==0:
+        cc = silent_mailbox()
+        backtogate = cc
+
+    #I need to create pipes for the clock sycnh algorithms
+    gatetoheaterpipe, heatertogatepipe = Pipe()
+    gatetothermopipe, thermotogatepipe = Pipe()
+    gatetomotdetpipe, motdettogatepipe = Pipe()
+    gatetolitbubpipe, litbubtogatepipe = Pipe()
+    gatetouserpipe, usertogatepipe = Pipe()
+    gatetodoorpipe, doortogatepipe = Pipe()
+    gatetobackendpipe, backendtogatepipe = Pipe()
+
+    gatewayclockboxes = [clockbox(gatetoheaterpipe), clockbox(gatetothermopipe), clockbox(gatetomotdetpipe), clockbox(gatetolitbubpipe), clockbox(gatetouserpipe), clockbox(gatetodoorpipe), clockbox(gatetobackendpipe)]
+    backendclockboxes = [clockbox(backendtogatepipe)]
+
+
+
+    heaterclockboxes = [clockbox(heatertogatepipe)]
+    thermoclockboxes = [clockbox(thermotogatepipe)]
+    motdetclockboxes = [clockbox(motdettogatepipe)]
+    litbubclockboxes = [clockbox(litbubtogatepipe)]
+
+    usertodoorpipe, doortouserpipe = Pipe()
+
+    userclockboxes = [clockbox(usertogatepipe), clockbox(usertodoorpipe)]
+    doorclockboxes = [clockbox(doortogatepipe), clockbox(doortouserpipe)]
+
+
+
+#until the calls to activate_devices() and register_self() are made, the gateway and
+#the different devices do not know which pipe to listen in on, and therefore they are
+#not given an particular names when they are passed on to the processes.
+    gatewaypipeboxes = [gatetodevice0, gatetodevice1, gatetodevice2, gatetodevice3, gatetodevice4]
+
+#The proceding lines create the respective processes and start()s and join()s them
+#if __name__ == '__main__': line prevents any other processes other than "__main__"
+#from trying anything stupid.
+    if __name__ == '__main__':
+        p2 = Process(target=heatboy.hcome_to_life, args=(registrationbox, time_of_death, gatewaypipeboxes, heatertoenviro, heaterclockboxes))
+        p1 = Process(target=thermo.tcome_to_life, args=(registrationbox, time_of_death, envirotothermo, gatewaypipeboxes, thermoclockboxes))
+        p3 = Process(target=home.ecome_to_life, args=(registrationbox, time_of_death, envirotothermo , heatertoenviro, envirotomotdet, lit_bubtoenviro))
+        p0 = Process(target=gate.gcome_to_life, args=(registrationbox, time_of_death, 5, gatewaypipeboxes, usertogate, backtogate, gatewayclockboxes ))
+        p4 = Process(target=motdet.mcome_to_life, args=(registrationbox, time_of_death, gatewaypipeboxes, envirotomotdet, motdetclockboxes))
+        p5 = Process(target=lit_bub.lcome_to_life, args=(registrationbox, time_of_death, gatewaypipeboxes, lit_bubtoenviro, litbubclockboxes))
+        p6 = Process(target=doordet.dcome_to_life, args=(registrationbox, time_of_death, gatewaypipeboxes,  usertodoor, doorclockboxes ))
+        p7 = Process(target=backman.bcome_to_life, args=(registrationbox, time_of_death, backtogate, backendclockboxes))
+
+
+        p0.start()
+        p1.start()
+        p2.start()
+        p3.start()
+        p4.start()
+        p5.start()
+        p6.start()
+        p7.start()
+
+ #Because the user proccess takes in keyboard input, the user process must be
+ #identified with the "__main__" process or else some interesting EOF errors will
+ #occur.
+        user.ucome_to_life(registrationbox, time_of_death, usertogate, usertodoor, userclockboxes)
+        p0.join()
+        p1.join()
+        p2.join()
+        p3.join()
+        p4.join()
+        p5.join()
+        p6.join()
+        p7.join()
+
+#this line creates the universe.
+create_the_universe(x, length_of_life)

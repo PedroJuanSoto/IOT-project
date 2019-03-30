@@ -1,5 +1,5 @@
 from multiprocessing import Process, Queue, cpu_count, Pipe
-from postalservice import message, mailbox, registration_box, silent_mailbox
+from postalservice import message, mailbox, registration_box, silent_mailbox, clockbox, silent_registration_box
 from enviroment import enviroment
 from gateway import gateway, backend
 from sensors import thermostat, motion_detect, door_detect
@@ -93,7 +93,8 @@ def create_the_universe(z, how_much_time_do_we_really_have_at_the_end_of_the_day
     doordet = door_detect()
     backman = backend()
 
-    registrationbox = registration_box()
+    #registrationbox = registration_box()
+    registrationbox = silent_registration_box()
     time_of_death = how_much_time_do_we_really_have_at_the_end_of_the_day
 
 #these if/elif statements control whether or not the user would like to see
@@ -192,25 +193,25 @@ def create_the_universe(z, how_much_time_do_we_really_have_at_the_end_of_the_day
     gatetodoorpipe, doortogatepipe = Pipe()
     gatetobackendpipe, backendtogatepipe = Pipe()
 
-    gatewayclockboxes = [gatetoheaterpipe, gatetothermopipe, gatetomotdetpipe, gatetolitbubpipe, gatetouserpipe, gatetodoorpipe, gatetobackendpipe]
-    backendclockboxes = [backendtogatepipe]
+    gatewayclockboxes = [clockbox(gatetoheaterpipe), clockbox(gatetothermopipe), clockbox(gatetomotdetpipe), clockbox(gatetolitbubpipe), clockbox(gatetouserpipe), clockbox(gatetodoorpipe), clockbox(gatetobackendpipe)]
+    backendclockboxes = [clockbox(backendtogatepipe)]
 
     envirotoheaterpipe, heatertoenviropipe = Pipe()
     envirotothermopipe, thermotoenviropipe = Pipe()
     envirotomotdetpipe, motdettoenviropipe = Pipe()
     envirotolitbubpipe, litbubtoenviropipe = Pipe()
 
-    enviroclockboxes = [envirotoheaterpipe, envirotothermopipe, envirotomotdetpipe, envirotolitbubpipe]
+    enviroclockboxes = [clockbox(envirotoheaterpipe), clockbox(envirotothermopipe), clockbox(envirotomotdetpipe), clockbox(envirotolitbubpipe)]
 
-    heaterclockboxes = [heatertogatepipe, heatertoenviropipe]
-    thermoclockboxes = [thermotogatepipe, thermotoenviropipe]
-    motdetclockboxes = [motdettogatepipe, motdettoenviropipe]
-    litbubclockboxes = [litbubtogatepipe, litbubtoenviropipe]
+    heaterclockboxes = [clockbox(heatertogatepipe), clockbox(heatertoenviropipe)]
+    thermoclockboxes = [clockbox(thermotogatepipe), clockbox(thermotoenviropipe)]
+    motdetclockboxes = [clockbox(motdettogatepipe), clockbox(motdettoenviropipe)]
+    litbubclockboxes = [clockbox(litbubtogatepipe), clockbox(litbubtoenviropipe)]
 
     usertodoorpipe, doortouserpipe = Pipe()
 
-    userclockboxes = [usertogatepipe, usertodoorpipe]
-    doorclockboxes = [doortogatepipe, doortouserpipe]
+    userclockboxes = [clockbox(usertogatepipe), clockbox(usertodoorpipe)]
+    doorclockboxes = [clockbox(doortogatepipe), clockbox(doortouserpipe)]
 
 
 

@@ -1,8 +1,30 @@
-from multiprocessing import Queue
+from multiprocessing import Queue, Pipe
 import time
 
 #The "message" data type is the main object that is communicated between the
 #processes. It has 5 parameters:
+
+class clockbox:
+    def __init__(self, pipe):
+        self.pipey = pipe
+
+    def send(self, inmessage):      #This function delivers the message "inmessage"
+        self.pipey.send(inmessage)
+        inmessage.printmessage("sender")
+
+    def recv(self):
+        x =  self.pipey.recv()
+        x.printmessage("reader")
+        return x
+
+    def ssssend(self, inmessage):      #This function delivers the message "inmessage"
+        self.pipey.send(inmessage)
+        #inmessage.printmessage("sender")
+
+    def rrrrecv(self):
+        x =  self.pipey.recv()
+        #x.printmessage("reader")
+        return x
 
 class message:
     def __init__(self, to, fromy, command, data, time):
@@ -169,3 +191,33 @@ class silent_mailbox:
             pass
         else:
             return x
+
+class silent_registration_box:
+    def __init__(self):
+        self.messages = Queue()
+
+    def check_mail(self, id): #In order to speed up the registration process while
+        try:                  #simaltanously resolving any deadlock issues or exceptions that will be thrown
+            x =  self.messages.get_nowait() #the get_nowait() function was used instead
+        except:                             #of the get()
+            return -1
+            pass
+        else:
+            if x.to == id:
+                return x
+            else:
+                self.messages.put(x)
+                return -1
+
+    def deliver_mail(self, inmessage):
+        x = inmessage
+        self.messages.put(x)
+
+    def wait_on_mail(self, id): #Because the registration box is used by all of
+        z = -1                  #processes we must also pass the id parameter
+        while z == -1:          #to make sure that the process has not left wothout
+            z = self.check_mail(id)     #the message that it was wating for
+        return z
+
+    def timestamp(self):
+        return time.clock()
