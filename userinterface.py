@@ -11,11 +11,11 @@ class user_interface:
         self.name = "HaibinandPedro"
 
     def ucome_to_life(self, mbox, life_of_universe, usertogate, usertodoor, clockboxes):
+        neighbors = create_edges("user",4,clockboxes)
+        find_MST("user", neighbors)
         mbox.wait_on_mail("user")
         time_until_we_all_die = 0
         self.name = "home"
-        neighbors = create_edges("user",4,clockboxes)
-        find_MST("user", neighbors)
         while time_until_we_all_die < life_of_universe:
             x = usertogate.wait_on_query("user")
             time_until_we_all_die = time_until_we_all_die + 1

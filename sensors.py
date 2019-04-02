@@ -29,10 +29,10 @@ class thermostat:
 #of the datatype "mailboxes" (see postalservice.py) which it uses to communicate with the gateway;
 #because it does not know which pipe to listen in on, it must register_self() to discover it's self.idnum
     def tcome_to_life(self, rbox, life_of_universe, envirobox, pipeboxes, clockboxes):
-        self.register_self(rbox)
         neighbors = create_edges("thermo",7,clockboxes)
         find_MST("thermo", neighbors)
         time_until_we_all_die = 0
+        self.register_self(rbox)
         while time_until_we_all_die < life_of_universe:
             x = pipeboxes[self.idnum].wait_on_query(self.idnum)
             if x.command == "query":
@@ -69,10 +69,10 @@ class motion_detect:
 #of the datatype "mailboxes" (see postalservice.py) which it uses to communicate with the gateway;
 #because it does not know which pipe to listen in on, it must register_self() to discover it's self.idnum
     def mcome_to_life(self, rbox, life_of_universe, pipeboxes, envirotomotdet, clockboxes):
-        self.register_self(rbox)
         neighbors = create_edges("motdet",8,clockboxes)
         find_MST("motdet", neighbors)
         time_until_we_all_die = 0
+        self.register_self(rbox)
         while time_until_we_all_die < life_of_universe:
             isthereintruder = envirotomotdet.wait_on_mail()
             self.state = isthereintruder.data
@@ -107,10 +107,10 @@ class door_detect:
 #of the datatype "mailboxes" (see postalservice.py) which it uses to communicate with the gateway;
 #because it does not know which pipe to listen in on, it must register_self() to discover it's self.idnum
     def dcome_to_life(self, rbox, life_of_universe, pipeboxes, usertodoortdet, clockboxes):
-        self.register_self(rbox)
         neighbors = create_edges("doorboy",9,clockboxes)
         find_MST("doorboy", neighbors)
         time_until_we_all_die = 0
+        self.register_self(rbox)
         while time_until_we_all_die < life_of_universe:
             isdooropen = usertodoortdet.wait_on_mail()
             self.state = isdooropen.command

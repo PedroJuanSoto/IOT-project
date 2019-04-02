@@ -30,10 +30,10 @@ class heater:
 #which it uses to communicate with the gateway; because it does not know which pipe to listen in on,
 #it must register_self() (line 17) to discover it's self.idnum
     def hcome_to_life(self, mbox, life_of_universe, pipeboxes, envirobox, clockboxes):
-        self.register_self(mbox)
         neighbors = create_edges("heater",1,clockboxes)
         find_MST("heater", neighbors)
         time_until_we_all_die = 0
+        self.register_self(mbox)
         while time_until_we_all_die < life_of_universe:
             x = pipeboxes[self.idnum].wait_on_mail()
             self.change_state(x.data)
@@ -70,10 +70,10 @@ class light_bulb:
 #which it uses to communicate with the gateway; because it does not know which pipe to listen in on,
 #it must register_self() (line 55) to discover it's self.idnum
     def lcome_to_life(self, mbox, life_of_universe, pipeboxes, lit_bubtoenviro, clockboxes):
-        self.register_self(mbox)
         neighbors = create_edges("litbub",5,clockboxes)
         find_MST("litbub", neighbors)
         time_until_we_all_die = 0
+        self.register_self(mbox)
         while time_until_we_all_die < life_of_universe:
             x = pipeboxes[self.idnum].wait_on_mail()
             self.change_state(x.data)
