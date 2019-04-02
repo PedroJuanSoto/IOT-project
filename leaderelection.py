@@ -22,7 +22,7 @@ def create_edges(name, neighbors =[]):
        edge[1].ssssend(my_second_message)
    for edge in edges:
        friends_second_message = edge[1].rrrrecv()
-       if friends_second_message.time < edge[0]:
+       if friends_second_message.time > edge[0]:
            edge[0] = friends_second_message.time
    return edges
 
@@ -46,7 +46,7 @@ def find_MST(name, edges = []):
     q = 1
 
     love_letter = message(["to",miny[2],"from",original_name, "time",q], name, "i_choose_you", my_rank, time.clock())
-    miny[1].ssssend(love_letter)
+    miny[1].send(love_letter)
     mail = miny[1].rrrrecv()
     if mail.data == my_rank:         #if they both agree that they
         if  mail.fromy < name:       #are each others minedge then
@@ -116,6 +116,11 @@ def find_MST(name, edges = []):
                                         if miny == edge:
                                             edges.remove(edge)
                                     miny = find_min(edges)
+                                for edge in edges:
+                                    if miny == edge:
+                                        did_i_find_min = "yes"
+                                if len(miny) == 1:
+                                    did_i_find_min = "yes"
                             else:
                                 child[1].send(message(["to",child[2],"from",original_name, "time",q], name, "you_are_not_min", my_rank, time.clock()))
 
@@ -228,6 +233,11 @@ def find_MST(name, edges = []):
                                     if miny == edge:
                                         edges.remove(edge)
                                 miny = find_min(edges)
+                            for edge in edges:
+                                if miny == edge:
+                                    did_i_find_min = "yes"
+                            if len(miny) == 1:
+                                did_i_find_min = "yes"
                         else:
                             child[1].send(message(["to",child[2],"from",original_name, "time",q], name, "you_are_not_min", my_rank, time.clock()))
 
@@ -324,3 +334,5 @@ def find_MST(name, edges = []):
     if status == "follower":
         letter_of_resignation = message(["to",parent[2],"from",original_name, "time",q], name, "i_am_finished", my_rank, time.clock())
         parent[1].send(letter_of_resignation)
+
+    return [parent, finished_children, status]
