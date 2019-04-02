@@ -30,7 +30,7 @@ class thermostat:
 #because it does not know which pipe to listen in on, it must register_self() to discover it's self.idnum
     def tcome_to_life(self, rbox, life_of_universe, envirobox, pipeboxes, clockboxes):
         self.register_self(rbox)
-        neighbors = create_edges("thermo",clockboxes)
+        neighbors = create_edges("thermo",7,clockboxes)
         find_MST("thermo", neighbors)
         time_until_we_all_die = 0
         while time_until_we_all_die < life_of_universe:
@@ -70,7 +70,7 @@ class motion_detect:
 #because it does not know which pipe to listen in on, it must register_self() to discover it's self.idnum
     def mcome_to_life(self, rbox, life_of_universe, pipeboxes, envirotomotdet, clockboxes):
         self.register_self(rbox)
-        neighbors = create_edges("motdet",clockboxes)
+        neighbors = create_edges("motdet",8,clockboxes)
         find_MST("motdet", neighbors)
         time_until_we_all_die = 0
         while time_until_we_all_die < life_of_universe:
@@ -108,7 +108,7 @@ class door_detect:
 #because it does not know which pipe to listen in on, it must register_self() to discover it's self.idnum
     def dcome_to_life(self, rbox, life_of_universe, pipeboxes, usertodoortdet, clockboxes):
         self.register_self(rbox)
-        neighbors = create_edges("doorboy",clockboxes)
+        neighbors = create_edges("doorboy",9,clockboxes)
         find_MST("doorboy", neighbors)
         time_until_we_all_die = 0
         while time_until_we_all_die < life_of_universe:

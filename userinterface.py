@@ -14,7 +14,7 @@ class user_interface:
         mbox.wait_on_mail("user")
         time_until_we_all_die = 0
         self.name = "home"
-        neighbors = create_edges("user",clockboxes)
+        neighbors = create_edges("user",4,clockboxes)
         find_MST("user", neighbors)
         while time_until_we_all_die < life_of_universe:
             x = usertogate.wait_on_query("user")

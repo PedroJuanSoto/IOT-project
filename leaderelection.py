@@ -1,7 +1,9 @@
 from postalservice import message
 import time
+import random
 
-def create_edges(name, neighbors =[]):
+def create_edges(name, seedy,neighbors =[]):
+   random.seed(2**seedy)
    edges = []
    for friend in neighbors:
        timey = time.clock()
@@ -16,7 +18,7 @@ def create_edges(name, neighbors =[]):
    for edge in edges:
        my_first_message_returns = edge[1].rrrrecv()
        timey = time.clock()
-       timey = timey- my_first_message_returns.time
+       timey = 2**( random.random()*(timey- my_first_message_returns.time))
        edge[0] = timey
        my_second_message = message("", name, "second", "", timey)
        edge[1].ssssend(my_second_message)

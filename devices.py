@@ -31,7 +31,7 @@ class heater:
 #it must register_self() (line 17) to discover it's self.idnum
     def hcome_to_life(self, mbox, life_of_universe, pipeboxes, envirobox, clockboxes):
         self.register_self(mbox)
-        neighbors = create_edges("heater",clockboxes)
+        neighbors = create_edges("heater",1,clockboxes)
         find_MST("heater", neighbors)
         time_until_we_all_die = 0
         while time_until_we_all_die < life_of_universe:
@@ -71,7 +71,7 @@ class light_bulb:
 #it must register_self() (line 55) to discover it's self.idnum
     def lcome_to_life(self, mbox, life_of_universe, pipeboxes, lit_bubtoenviro, clockboxes):
         self.register_self(mbox)
-        neighbors = create_edges("litbub",clockboxes)
+        neighbors = create_edges("litbub",5,clockboxes)
         find_MST("litbub", neighbors)
         time_until_we_all_die = 0
         while time_until_we_all_die < life_of_universe:

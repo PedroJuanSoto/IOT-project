@@ -125,7 +125,7 @@ class gateway:
         rbox.deliver_mail(activate_backend)
         time_until_we_all_die = 0
         oldmotdetdata = "no"
-        neighbors = create_edges("gate",clockboxes)
+        neighbors = create_edges("gate",2,clockboxes)
         find_MST("gate", neighbors)
         while time_until_we_all_die < life_of_universe:
             time_until_we_all_die = time_until_we_all_die + 1
@@ -200,7 +200,7 @@ class backend:
     def bcome_to_life(self, rbox, life_of_universe, gatetobackend, clockboxes):
         addressbook = rbox.wait_on_mail("backend")
         self.registry = addressbook.data
-        neighbors = create_edges("backend", clockboxes)
+        neighbors = create_edges("backend", 3,clockboxes)
         find_MST("backend", neighbors)
         for j, x in enumerate(self.registry):
             if x[1] == "sensor" and x[2] == "temperature":

@@ -1,7 +1,9 @@
 from postalservice import message
 import time
+import random
 
-def create_edges(name, neighbors =[]):
+def create_edges(name, seedy,neighbors =[]):
+   random.seed(2**seedy)
    edges = []
    for friend in neighbors:
        timey = time.clock()
@@ -16,13 +18,13 @@ def create_edges(name, neighbors =[]):
    for edge in edges:
        my_first_message_returns = edge[1].rrrrecv()
        timey = time.clock()
-       timey = timey- my_first_message_returns.time
+       timey = 2**( random.random()*(timey- my_first_message_returns.time))
        edge[0] = timey
        my_second_message = message("", name, "second", "", timey)
        edge[1].ssssend(my_second_message)
    for edge in edges:
        friends_second_message = edge[1].rrrrecv()
-       if friends_second_message.time < edge[0]:
+       if friends_second_message.time > edge[0]:
            edge[0] = friends_second_message.time
    return edges
 
@@ -46,7 +48,7 @@ def find_MST(name, edges = []):
     q = 1
 
     love_letter = message(["to",miny[2],"from",original_name, "time",q], name, "i_choose_you", my_rank, time.clock())
-    miny[1].ssssend(love_letter)
+    miny[1].send(love_letter)
     mail = miny[1].rrrrecv()
     if mail.data == my_rank:         #if they both agree that they
         if  mail.fromy < name:       #are each others minedge then
@@ -86,10 +88,13 @@ def find_MST(name, edges = []):
                 miny = find_min(edges)
                 did_i_find_min = "yes"
                 did_i_find_cycle = "no"
-                did_child_finish = "no"
 
-                for child in children:
-                    if did_i_find_cycle == "no" and did_child_finish == "no":                      #In this step a node looks through
+                j=0
+                while j < len(children):
+                    child = children[j]
+                    j=j+1
+
+                    if did_i_find_cycle == "no":                      #In this step a node looks through
                         child[1].send(message(["to",child[2],"from",original_name, "time",q], name, "search", my_rank, time.clock()))
                         mail = child[1].recv()                           #its children and checks if any
 
@@ -113,18 +118,18 @@ def find_MST(name, edges = []):
                                         if miny == edge:
                                             edges.remove(edge)
                                     miny = find_min(edges)
+                                for edge in edges:
+                                    if miny == edge:
+                                        did_i_find_min = "yes"
+                                if len(miny) == 1:
+                                    did_i_find_min = "yes"
                             else:
                                 child[1].send(message(["to",child[2],"from",original_name, "time",q], name, "you_are_not_min", my_rank, time.clock()))
 
                         if mail.command == "i_am_finished":             #one of the children could have
                             finished_children.append(child)             #run out of territory to explore
                             children.remove(child)
-                            did_child_finish = "yes"
-                            parent[1].send(message(["to",parent[2],"from",original_name, "time",q], name, "child_finished", miny[0], time.clock()))
-
-                        if mail.command == "child_finished":
-                            parent[1].send(message(["to",parent[2],"from",original_name, "time",q], name, "child_finished", miny[0], time.clock()))
-                            did_child_finish = "yes"
+                            j=j-1
 
                         if mail.command == "cycle":
                             alert_min = "yes"
@@ -136,16 +141,7 @@ def find_MST(name, edges = []):
                                 if alert_min == "yes":
                                     miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "you_are_not_min", my_rank, time.clock()))
 
-                if did_child_finish == "yes":
-                    alert_min = "yes"
-                    for edge in edges:
-                        if miny == edge:
-                            alert_min == "no"
-                    if len(miny) != 1:
-                        if alert_min == "yes":
-                            miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "you_are_not_min", my_rank, time.clock()))
-
-                elif did_i_find_cycle == "yes":
+                if did_i_find_cycle == "yes":
                     parent[1].send(message(["to",parent[2],"from",original_name, "time",q], name, "cycle", miny[0], time.clock()))
 
                 elif len(edges)!=0 or len(children)!=0:
@@ -179,7 +175,7 @@ def find_MST(name, edges = []):
                                     if miny[2] == child[2]:
                                         parent = child
                                         children.remove(child)
-                            #children.append(parent)
+
 
                         elif response.command == "we_won":
                             if did_i_find_min == "yes":
@@ -209,10 +205,13 @@ def find_MST(name, edges = []):
             miny = find_min(edges)
             did_i_find_min = "yes"
             did_i_find_cycle = "no"
-            did_child_finish = "no"
 
-            for child in children:
-                if did_i_find_cycle == "no" and did_child_finish == "no":                            #In this step a node looks through
+            j=0
+            while j < len(children):
+                child = children[j]
+                j=j+1
+
+                if did_i_find_cycle == "no":                            #In this step a node looks through
                     child[1].send(message(["to",child[2],"from",original_name, "time",q], name, "search", my_rank, time.clock()))
                     mail = child[1].recv()                           #its children and checks if any
 
@@ -236,16 +235,18 @@ def find_MST(name, edges = []):
                                     if miny == edge:
                                         edges.remove(edge)
                                 miny = find_min(edges)
+                            for edge in edges:
+                                if miny == edge:
+                                    did_i_find_min = "yes"
+                            if len(miny) == 1:
+                                did_i_find_min = "yes"
                         else:
                             child[1].send(message(["to",child[2],"from",original_name, "time",q], name, "you_are_not_min", my_rank, time.clock()))
 
                     if mail.command == "i_am_finished":             #one of the children could have
                         finished_children.append(child)             #run out of territory to explore
                         children.remove(child)
-                        did_child_finish = "yes"
-
-                    if mail.command == "child_finished":
-                        did_child_finish = "yes"
+                        j=j-1
 
                     if mail.command == "cycle":
                         alert_min = "yes"
@@ -257,16 +258,7 @@ def find_MST(name, edges = []):
                             if alert_min == "yes":
                                 miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "you_are_not_min", my_rank, time.clock()))
 
-            if did_child_finish == "yes":
-                alert_min = "yes"
-                for edge in edges:
-                    if miny == edge:
-                        alert_min == "no"
-                if len(miny) != 1:
-                    if alert_min == "yes":
-                        miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "you_are_not_min", my_rank, time.clock()))
-
-            elif len(miny) == 1:
+            if len(miny) == 1:
                 pass
 
             elif did_i_find_cycle == "yes":
@@ -340,42 +332,9 @@ def find_MST(name, edges = []):
                     elif did_i_find_min == "no":
                         miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "we_won", my_rank, time.clock()))
 
-                # if parent != "":
-                #     for edge in edges:
-                #         if parent == edge:
-                #             edges.remove(edge)
-                #     for child in children:
-                #         if parent == child:
-                #             children.remove(child)
 
     if status == "follower":
         letter_of_resignation = message(["to",parent[2],"from",original_name, "time",q], name, "i_am_finished", my_rank, time.clock())
         parent[1].send(letter_of_resignation)
 
-
-
-
-
-
-    # while len(edges)!=0:
-    #     miny = find_min(edges)
-    #     love_letter = message("", name, "i_choose_you", my_rank, time.clock())
-    #     miny[1].send(love_letter)
-    #     edges.remove(miny)
-    # # print("names is   ",original_name,"parent is",name,"  ",parent,"children are   ",children,"edges are   ",edges)
-    # return [parent,children]
-
-
-
-
-        # if mail.fromy == name:
-        #     if did_i_find_cycle == "yes":
-        #         maybeminy[1].send(message(["to",maybeminy[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
-        #         for edge in edges:
-        #             if miny == edge:
-        #                 edges.remove(edge)
-        #     elif did_i_find_child_cycle_min == "yes":
-        #         miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
-        #         maybeminy[1].send(message(["to",maybeminy[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
-        #     else:
-        #         miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
+    return [parent, finished_children, status]
