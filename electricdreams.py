@@ -1,350 +1,289 @@
-from postalservice import message
-import time
+from postalservice import message, mailbox
+from leaderelection import create_edges, find_MST
+from berkeley import berkeley_clock_synch
 
-def create_edges(name, neighbors =[]):
-   edges = []
-   for friend in neighbors:
-       timey = time.clock()
-       my_first_message = message("", name, "first", "", timey)
-       friend.ssssend(my_first_message)
-       new_edge = [time,friend]
-       edges.append(new_edge)
-   for edge in edges:
-       friends_firstmessage = edge[1].rrrrecv()
-       edge[1].ssssend(friends_firstmessage)
-       edge.append(friends_firstmessage.fromy)
-   for edge in edges:
-       my_first_message_returns = edge[1].rrrrecv()
-       timey = time.clock()
-       timey = timey- my_first_message_returns.time
-       edge[0] = timey
-       my_second_message = message("", name, "second", "", timey)
-       edge[1].ssssend(my_second_message)
-   for edge in edges:
-       friends_second_message = edge[1].rrrrecv()
-       if friends_second_message.time < edge[0]:
-           edge[0] = friends_second_message.time
-   return edges
+#The core of the program is in the gateway class. The gateway class has a
+#simple data structure and most of its complexity lies in the large number
+#of functions and the equally large number of roles and tasks that are
+#performed by the gateway. self.registry is where the gateway keeps the information
+#about which device types and names are which but in practice this information is
+#more efficiently used by the self.thermoidnum, self.heateridnum, self.mot_detidnum,
+#and self.lit_bubidnum which is effectively a quick "addressbook" which it uses
+#to quickly locate which "pipebox" to use to communicate the required task and/or
+#information. It uses self.alertheater to store whether the heater needs to be
+#on, self.should_i_turn_on_bulb to keep track of whether or not it should activate
+#the lightbulb, self.time_since_last_intruder to count to five in order to
+#keep track of when to turn off the lightbulb, and self.mode to keep track of
+#whether or not the user is home. Most of the code for the gateway can be
+#broken down into two parts: registering the devices(and sensors) and
+#managing the devices(and sensors). In order to make the code (and in particular the
+#monlithic gcome_to_life()) more understandle and safe/secure this class was
+#made highly modular.
+class gateway:
+    def __init__(self):
+        self.registry = []
+        self.mode = "home"
+        self.thermoidnum = ""
+        self.heateridnum = ""
+        self.mot_detidnum = ""
+        self.lit_bubidnum = ""
+        self.door_detidnum = ""
+        self.alertheater = "no"
+        self.should_i_turn_on_bulb = "no"
+        self.time_since_last_intruder = 0
+        self.offset = 0
 
-def find_min(neighborss =[]):
-    min = 1000000000000
-    if len(neighborss)==0:
-        return [min]
-    for friend in neighborss:
-        if friend[0] < min:
-            bestfriend = friend
-            min = friend[0]
-    return bestfriend
+    def activate_devices(self, rbox, num_of_devices):  #The call to activate_devices()
+        # # self.time=of_devices>0:                        #in line XX begins the process of
+            z = self.check_registration_mail(rbox)     #correctly registering all devices
+            if z == 1:                                 #so that they know which mailbox to
+                num_of_devices = num_of_devices - 1    #listen in on and num_of_devices
+                                                       #keeps track of the number of devices
+    def check_registration_mail(self, rbox):           #that need to be registered
+        newmail = rbox.check_mail("gate")
+        if newmail == -1:                      #in check_registration_mail() the gateway
+            return 0                           #listens in on the registration mailbox
+        if newmail.command == "register":      #until it finds a device in need of an id
+            self.register_device(rbox, newmail)
+            return 1                           #in register_device() the gateway takes a
+                                               #"registration form" out of the registration
+    def register_device(self, rbox, registrationform):  #box and appends the data to its
+        devicedata = registrationform.data     #registry. the wrongid is a timestamp used
+        correctidnum = len(self.registry)      #by the device to temporaily identify itself
+        self.registry.append(devicedata)       #in the registration box until it is given a
+        wrongid = registrationform.fromy       #"correctid" which it then stores in update_addressbook()
+        correctid = message( wrongid, "gate", "correctid", correctidnum, rbox.timestamp(self.offset))
+        rbox.deliver_mail(correctid)
+        self.update_addressbook(devicedata, correctidnum)
 
-def find_MST(name, edges = []):
-    original_name = name
-    my_rank = 0
-    miny = find_min(edges)
-    status = "leader"
-    parent = ""
-    children = []
-    q = 1
+    def update_addressbook(self, devicedata, correctidnum):
+        if devicedata[1] == "sensor" and devicedata[2] == "temperature":
+            self.thermoidnum = correctidnum
+        elif devicedata[1] == "device" and devicedata[2] == "temperature":
+            self.heateridnum = correctidnum
+        elif devicedata[1] == "sensor" and devicedata[2] == "motion":
+            self.mot_detidnum = correctidnum
+        elif devicedata[1] == "device" and devicedata[2] == "motion":
+            self.lit_bubidnum = correctidnum
+        elif devicedata[1] == "sensor" and devicedata[2] == "door":
+            self.door_detidnum = correctidnum
 
-    love_letter = message(["to",miny[2],"from",original_name, "time",q], name, "i_choose_you", my_rank, time.clock())
-    miny[1].ssssend(love_letter)
-    mail = miny[1].rrrrecv()
-    if mail.data == my_rank:         #if they both agree that they
-        if  mail.fromy < name:       #are each others minedge then
-            children.append(miny)    #a friendly merge occurs
-            my_rank = my_rank+1      #we compare names to break potential
-        elif mail.fromy > name:      #ties in leader elections
-            parent = miny
-            my_rank = mail.data+1
-            name = mail.fromy
-            status = "follower"
-    elif mail.data > my_rank:
-         parent = miny
-         my_rank = mail.data
-         name = mail.fromy
-         status = "follower"
-    if parent != "":
-        for edge in edges:
-            if parent == edge:
-                edges.remove(edge)
-    if len(children) != 0:
-        for edge in edges:
-            if children[0] == edge:
-                edges.remove(edge)
-    finished_children = []
+#The gateway uses query_state() to query the status of a pull-based sensor
+#(i.e. the thermostat)
+    def query_state(self, idnum, pipeboxes, life, death, backbox):
+        hola = message(idnum , "gate", "query", "", pipeboxes[idnum].timestamp(self.offset))
+        pipeboxes[idnum ].deliver_mail(self.offset,hola)
+        if life +1< death:                 #sometimes there is a deadlock issue
+            x = pipeboxes[idnum].wait_on_query(self.offset,"gate")#on the last iteration of the
+            self.should_i_alert_heater(x.data, backbox)        #while loop and therefore
+            newstatus = message("backend", "gate", "temp_change", x.data, backbox.timestamp(self.offset))
+            backbox.deliver_mail(self.offset,newstatus)                   #the gateway ignores the final messsage
 
-    print("NEW NODE AWOKEN!!!",status,"names is   ",original_name,"city is        ",name,"            parent is ",parent,"children are",children,"edges are   ",edges)
+#The gateway uses change_state() to control the devices (i.e. the lightbulb and heater)
+    def change_state(self, idnum, state, pipeboxes):
+        ff = message(idnum,"gate","change", state, pipeboxes[idnum].timestamp(self.offset))
+        pipeboxes[idnum].deliver_mail(self.offset,ff)
 
-    while len(edges)!=0 or len(children)!=0:
-        q=q+1
-
-        if status == "follower":
-            orders = parent[1].recv()
-            my_rank = orders.data
-            name = orders.fromy
-
-            if orders.command == "search":
-                miny = find_min(edges)
-                did_i_find_min = "yes"
-                did_i_find_cycle = "no"
-
-                for child in children:
-                    if did_i_find_cycle == "no":                      #In this step a node looks through
-                        child[1].send(message(["to",child[2],"from",original_name, "time",q], name, "search", my_rank, time.clock()))
-                        mail = child[1].recv()                           #its children and checks if any
-
-                        if mail.command == "my_min_is":                  #of them found a better edge
-                            if mail.data < miny[0]:
-                                if did_i_find_min == "yes":              #if NEW MIN then we must alert any
-                                    did_i_find_min = "no"                #update any old information
-                                else:
-                                    miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "you_are_not_min", my_rank, time.clock()))
-                                oldminy = miny
-                                miny = [mail.data, child[1],child[2]]
-                            elif mail.data == miny[0]:
-                                did_i_find_cycle = "yes"                     #NEW CYCLE has been found. we must update
-                                if did_i_find_min == "no":                  #of a tie and the tie can
-                                    miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
-                                    child[1].send(message(["to",child[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
-                                    miny = oldminy
-                                else:                                       #or one of the edges
-                                    child[1].send(message(["to",child[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
-                                    for edge in edges:
-                                        if miny == edge:
-                                            edges.remove(edge)
-                                    miny = find_min(edges)
-                            else:
-                                child[1].send(message(["to",child[2],"from",original_name, "time",q], name, "you_are_not_min", my_rank, time.clock()))
-
-                        if mail.command == "i_am_finished":             #one of the children could have
-                            finished_children.append(child)             #run out of territory to explore
-                            children.remove(child)
-
-                        if mail.command == "cycle":
-                            alert_min = "yes"
-                            for edge in edges:
-                                if miny == edge:
-                                    alert_min == "no"
-                            did_i_find_cycle = "yes"
-                            if len(miny) != 1:
-                                if alert_min == "yes":
-                                    miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "you_are_not_min", my_rank, time.clock()))
-
-                if did_i_find_cycle == "yes":
-                    parent[1].send(message(["to",parent[2],"from",original_name, "time",q], name, "cycle", miny[0], time.clock()))
-
-                elif len(edges)!=0 or len(children)!=0:
-                    parent[1].send(message(["to",parent[2],"from",original_name, "time",q], name, "my_min_is", miny[0], time.clock()))
-                    response = parent[1].recv()
-                    my_rank = response.data
-                    name = response.fromy
-                    if response.command == "you_are_min":
-                        if did_i_find_min == "yes":
-                            miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "i_choose_you", my_rank, time.clock()))
-
-                        elif did_i_find_min == "no":
-                            miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "you_are_min", my_rank, time.clock()))
-
-
-                        mail = miny[1].recv()
-                        parent[1].send(mail)
-                        response = parent[1].recv()
-                        my_rank = response.data
-                        name = response.fromy
-                        if response.command == "we_lost":
-                            children.append(parent)
-                            if did_i_find_min == "yes":
-                                parent = miny
-                                for edge in edges:
-                                    if parent == edge:
-                                        edges.remove(edge)
-                            elif did_i_find_min == "no":
-                                miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "we_lost", my_rank, time.clock()))
-                                for child in children:
-                                    if miny[2] == child[2]:
-                                        parent = child
-                                        children.remove(child)
-                            #children.append(parent)
-
-                        elif response.command == "we_won":
-                            if did_i_find_min == "yes":
-                                children.append(miny)
-                                for edge in edges:
-                                    if miny == edge:
-                                        edges.remove(edge)
-                            elif did_i_find_min == "no":
-                                miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "we_won", my_rank, time.clock()))
-
-                    elif response.command == "cycle":
-                        if did_i_find_min == "yes":
-                            for edge in edges:
-                                if miny == edge:
-                                    edges.remove(edge)
-                        elif did_i_find_min == "no":
-                            miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
-
-
-                    elif response.command == "you_are_not_min":
-                        if did_i_find_min == "no":
-                            miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "you_are_not_min", my_rank, time.clock()))
+    def should_i_alert_heater(self, temp, backbox):
+        oldbelief = self.alertheater
+        if temp < 1:                   #a simple function that computes whether
+            self.alertheater = "on"    #or not it is cold.
+        if temp > 0:
+            self.alertheater = "off"
+        if oldbelief != self.alertheater:
+            newstatus = message("backend", "gate", "heater_change", self.alertheater, backbox.timestamp(self.offset))
+            backbox.deliver_mail(self.offset,newstatus)
+        else:
+            oldstatus = message("backend", "gate", "no_change", "", backbox.timestamp(self.offset))
+            backbox.deliver_mail(self.offset,oldstatus)
 
 
 
-        if status == "leader":
-            miny = find_min(edges)
-            did_i_find_min = "yes"
-            did_i_find_cycle = "no"
-            for child in children:
-                if did_i_find_cycle == "no":                            #In this step a node looks through
-                    child[1].send(message(["to",child[2],"from",original_name, "time",q], name, "search", my_rank, time.clock()))
-                    mail = child[1].recv()                           #its children and checks if any
+#The heart of the smart home simulation is the gcome_to_life() which models the
+#behavior of a smart gateway device that monitors and controls the various sensors
+#and devices of a virtual smarthome. gcome_to_life() begins by registering all of
+#the devices (line 105) and giving them an idnum. This first step is very important
+#because each device(or sensor) needs to have its own individual "pipebox" in order
+#to reduce the probability of concurrency issues and information bottlenecks
+#(and also to reduce the probability of errors like "EOFError: Ran out of input"
+#and "_pickle.UnpicklingError: could not find MARK"). Then after registering the
+#devices the gateway alerts the user process and the virtual enviroment process,
+#(lines 106-107) which seems silly but this step is also neccessary to prevent any
+#concurrency issues or any potential "end of file"/"pickling" errors that occur because
+#ofa lack of synchronization. It then checks on the thermostat with and alerts the
+#heater if it needs to be turned on (lines 113-114). The rest of the code is dedicated
+#to simaltanously communicating with the motion detector and the user process
+#(while keeping track of whether time_since_last_intruder =5) so that it knows
+#whether or not to turn on the lights or(XOR) alert the user. The order of events
+#in gcome_to_life() where chosen as so, because the authors of the program to chose
+#to emphasize program correctness/security over "realistic" and/or "optimal" design.
+    def gcome_to_life(self, rbox, life_of_universe, num_of_devices, pipeboxes, usertogate, gatetobackend, clockboxes):
+        neighbors = create_edges("gate",2,clockboxes)
+        parent, children, status = find_MST("gate", neighbors)
+        self.time=berkeley_clock_synch("gate", self.offset, parent, children, status)
+        self.activate_devices(rbox, num_of_devices)
+        activate_enviroment = message("enviro", "gate", "activate", "", rbox.timestamp(self.offset))
+        rbox.deliver_mail(activate_enviroment)
+        activate_user_interface = message("user", "gate", "activate", "", rbox.timestamp(self.offset))
+        rbox.deliver_mail(activate_user_interface)
+        activate_backend = message("backend", "gate", "activate", self.registry, rbox.timestamp(self.offset))
+        rbox.deliver_mail(activate_backend)
+        time_until_we_all_die = 0
+        oldmotdetdata = "no"
+        while time_until_we_all_die < life_of_universe:
+            time_until_we_all_die = time_until_we_all_die + 1
+            self.change_state(self.heateridnum, self.alertheater, pipeboxes)
+            self.query_state(self.thermoidnum, pipeboxes, time_until_we_all_die, life_of_universe, gatetobackend)
+            isthere_intruder = pipeboxes[self.mot_detidnum].wait_on_query(self.offset,"gate")
+            oldbulbstatus = self.should_i_turn_on_bulb
+            if oldmotdetdata != isthere_intruder.data:
+                newmotdetbstatus = message("backend", "gate", "motion_change", isthere_intruder.data, gatetobackend.timestamp(self.offset))
+                gatetobackend.deliver_mail(self.offset,newmotdetbstatus)
+            else:
+                oldstatus = message("backend", "gate", "no_change", "", gatetobackend.timestamp(self.offset))
+                gatetobackend.deliver_mail(self.offset,oldstatus)
+            oldmotdetdata = isthere_intruder.data
+            if self.mode == "home":
+                if isthere_intruder.data == "yes":
+                    self.should_i_turn_on_bulb = "on"
+                    self.time_since_last_intruder = 0
+                else:
+                    self.time_since_last_intruder = self.time_since_last_intruder + 1
+                    if self.time_since_last_intruder == 5:
+                        self.should_i_turn_on_bulb = "off"
+                hola = message("user","gate", "", "", usertogate.timestamp(self.offset))
+                usertogate.deliver_mail(self.offset,hola)
+            elif self.mode == "away":
+                self.should_i_turn_on_bulb = "off"
+                intruder_alert = message("user","gate", "", isthere_intruder.data, usertogate.timestamp(self.offset))
+                usertogate.deliver_mail(self.offset,intruder_alert)
+            self.change_state(self.lit_bubidnum, self.should_i_turn_on_bulb, pipeboxes)
+            if oldbulbstatus != self.should_i_turn_on_bulb:
+                newbulbstatus = message("backend", "gate", "bulb_change", self.should_i_turn_on_bulb, gatetobackend.timestamp(self.offset))
+                gatetobackend.deliver_mail(self.offset,newbulbstatus)
+            else:
+                oldstatus = message("backend", "gate", "no_change", "", gatetobackend.timestamp(self.offset))
+                gatetobackend.deliver_mail(self.offset,oldstatus)
+            userstatus = usertogate.wait_on_query(self.offset,"gate")
+            oldpresencestatus = self.mode
+            if userstatus.data == "home":
+                self.mode = "home"
+            elif userstatus.data == "away":
+                self.mode = "away"
+            if oldpresencestatus != self.mode:
+                newpresencestatus = message("backend", "gate", "presence_change", self.mode, gatetobackend.timestamp(self.offset))
+                gatetobackend.deliver_mail(self.offset,newpresencestatus)
+            else:
+                oldstatus = message("backend", "gate", "no_change", "", gatetobackend.timestamp(self.offset))
+                gatetobackend.deliver_mail(self.offset,oldstatus)
+            doorstatus = pipeboxes[self.door_detidnum].wait_on_query(self.offset,"gate")
+            if doorstatus.data == "statechange":
+                newdoorstatus = message("backend", "gate", "door_change", self.mode, gatetobackend.timestamp(self.offset))
+                gatetobackend.deliver_mail(self.offset,newdoorstatus)
+            else:
+                oldstatus = message("backend", "gate", "no_change", "", gatetobackend.timestamp(self.offset))
+                gatetobackend.deliver_mail(self.offset,oldstatus)
+            # rbox.deliver_mail(message("enviro", "gate", "activate", "", rbox.timestamp(self.offset)))
+            # rbox.deliver_mail(message("thermo", "gate", "activate", "", rbox.timestamp(self.offset)))
+            # rbox.deliver_mail(message("motdet", "gate", "activate", "", rbox.timestamp(self.offset)))
+            # rbox.deliver_mail(message("heater", "gate", "activate", "", rbox.timestamp(self.offset)))
+            # rbox.deliver_mail(message("litbub", "gate", "activate", "", rbox.timestamp(self.offset)))
+            # rbox.deliver_mail(message("doorboy", "gate", "activate", "", rbox.timestamp(self.offset)))
+            # rbox.deliver_mail(message("user", "gate", "activate", "", rbox.timestamp(self.offset)))
+            # rbox.deliver_mail(message("backend", "gate", "activate", "", rbox.timestamp(self.offset)))
+            # self.time=berkeley_clock_synch("gate", self.offset, parent, children, status)
 
-                    if mail.command == "my_min_is":                  #of them found a better edge
-                        if mail.data < miny[0]:
-                            if did_i_find_min == "yes":              #if NEW MIN then we must alert any
-                                did_i_find_min = "no"                #update any old information
-                            else:
-                                miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "you_are_not_min", my_rank, time.clock()))
-                            oldminy = miny
-                            miny = [mail.data, child[1],child[2]]
-                        elif mail.data == miny[0]:
-                            did_i_find_cycle = "yes"                       #NEW CYCLE has been found. we must update
-                            if did_i_find_min == "no":                  #of a tie and the tie can
-                                miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
-                                child[1].send(message(["to",child[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
-                                miny = oldminy
-                            else:                                       #or one of the edges
-                                child[1].send(message(["to",child[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
-                                for edge in edges:
-                                    if miny == edge:
-                                        edges.remove(edge)
-                                miny = find_min(edges)
-                        else:
-                            child[1].send(message(["to",child[2],"from",original_name, "time",q], name, "you_are_not_min", my_rank, time.clock()))
 
-                    if mail.command == "i_am_finished":             #one of the children could have
-                        finished_children.append(child)             #run out of territory to explore
-                        children.remove(child)
 
-                    if mail.command == "cycle":
-                        alert_min = "yes"
-                        for edge in edges:
-                            if miny == edge:
-                                alert_min == "no"
-                        did_i_find_cycle = "yes"
-                        if len(miny) != 1:
-                            if alert_min == "yes":
-                                miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "you_are_not_min", my_rank, time.clock()))
+#The door sensor is a push-based sensor which means that it
+#pushes a notification to the gateway whenever it senses motion
+class backend:
+    def __init__(self):
+        self.registry = []
+        self.database = []
+        self.thermoidnum = ""
+        self.heateridnum = ""
+        self.mot_detidnum = ""
+        self.lit_bubidnum = ""
+        self.door_detidnum = ""
+        self.sec_beaconidnum = ""
+        self.offset = 0
 
-            if len(miny) == 1:
+    def bcome_to_life(self, rbox, life_of_universe, gatetobackend, clockboxes):
+        neighbors = create_edges("backend", 3,clockboxes)
+        parent, children, status = find_MST("backend", neighbors)
+        self.time=berkeley_clock_synch("backend", self.offset, parent, children, status)
+        addressbook = rbox.wait_on_mail("backend")
+        self.registry = addressbook.data
+        for j, x in enumerate(self.registry):
+            if x[1] == "sensor" and x[2] == "temperature":
+                self.thermoidnum = j
+            elif x[1] == "device" and x[2] == "temperature":
+                self.heateridnum = j
+            elif x[1] == "sensor" and x[2] == "motion":
+                self.mot_detidnum = j
+            elif x[1] == "device" and x[2] == "motion":
+                self.lit_bubidnum = j
+            elif x[1] == "sensor" and x[2] == "door":
+                self.door_detidnum = j
+        security_beacon = ["","sensor","security"]
+        self.sec_beaconidnum =len(self.registry)
+        self.registry.append(security_beacon)
+        time_until_we_all_die = 0
+        while time_until_we_all_die < life_of_universe-2:
+            # for q in self.registry:
+            #     print(q)
+            time_until_we_all_die = time_until_we_all_die + 1
+            for q in range(6):
+                christmastime = gatetobackend.wait_on_mail(self.offset)
+                if christmastime.command == "no_change":
+                    pass
+                else:
+                    if christmastime.command == "temp_change":
+                        if self.registry[self.thermoidnum][0] !=christmastime.data:
+                            self.database.append(christmastime)
+                            self.registry[self.thermoidnum][0] =christmastime.data
+                    elif christmastime.command == "heater_change":
+                        self.database.append(christmastime)
+                        self.registry[self.heateridnum][0] =christmastime.data
+                    elif christmastime.command == "motion_change":
+                        self.database.append(christmastime)
+                        self.registry[self.mot_detidnum][0] =christmastime.data
+                    elif christmastime.command == "bulb_change":
+                        self.database.append(christmastime)
+                        self.registry[self.lit_bubidnum][0] =christmastime.data
+                    elif christmastime.command == "door_change":
+                        self.database.append(christmastime)
+                        self.registry[self.door_detidnum][0] =christmastime.data
+                    elif christmastime.command == "presence_change":
+                        self.database.append(christmastime)
+                        self.registry[self.sec_beaconidnum][0] =christmastime.data
+            self.time=berkeley_clock_synch("backend", self.offset, parent, children, status)
+        for q in range(8):
+            christmastime = gatetobackend.wait_on_mail(self.offset)
+            if christmastime.command == "no_change":
                 pass
-
-            elif did_i_find_cycle == "yes":
-                pass
-
-            elif len(edges)!=0 or len(children)!=0:
-                if did_i_find_min == "yes":
-                    miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "i_choose_you", my_rank, time.clock()))
-                elif did_i_find_min == "no":
-                    miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "you_are_min", my_rank, time.clock()))
-
-                mail = miny[1].recv()
-
-
-                if mail.data == my_rank:
-
-                    if  mail.fromy < name:
-                        if did_i_find_min == "yes":
-                            children.append(miny)
-                            my_rank = my_rank+1
-                            for edge in edges:
-                                if edge == miny:
-                                    edges.remove(edge)
-
-                        elif did_i_find_min == "no":
-                            miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "we_won", my_rank, time.clock()))
-
-                    elif mail.fromy > name:
-                        my_rank = mail.data+1
-                        name = mail.fromy
-                        status = "follower"
-
-                        if did_i_find_min == "yes":
-                            parent = miny
-                            for edge in edges:
-                                if edge == miny:
-                                    edges.remove(edge)
-
-                        if did_i_find_min == "no":
-                            miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "we_lost", my_rank, time.clock()))
-                            for child in children:
-                                if miny[2] == child[2]:
-                                    parent = child
-                                    children.remove(child)
-
-                elif mail.data > my_rank:
-                    my_rank = mail.data#####
-                    name = mail.fromy
-                    status = "follower"
-
-                    if did_i_find_min == "yes":
-                        parent = miny
-                        for edge in edges:
-                            if edge == miny:
-                                edges.remove(edge)
-
-                    if did_i_find_min == "no":
-                        miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "we_lost", my_rank, time.clock()))
-                        for child in children:
-                            if miny[2] == child[2]:
-                                parent = child
-                                children.remove(child)
-
-                elif  mail.data < my_rank:
-                    if did_i_find_min == "yes":
-                        children.append(miny)
-                        for edge in edges:
-                            if edge == miny:
-                                edges.remove(edge)
-
-                    elif did_i_find_min == "no":
-                        miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "we_won", my_rank, time.clock()))
-
-                # if parent != "":
-                #     for edge in edges:
-                #         if parent == edge:
-                #             edges.remove(edge)
-                #     for child in children:
-                #         if parent == child:
-                #             children.remove(child)
-
-    if status == "follower":
-        letter_of_resignation = message(["to",parent[2],"from",original_name, "time",q], name, "i_am_finished", my_rank, time.clock())
-        parent[1].send(letter_of_resignation)
-
-
-
-
-
-
-    # while len(edges)!=0:
-    #     miny = find_min(edges)
-    #     love_letter = message("", name, "i_choose_you", my_rank, time.clock())
-    #     miny[1].send(love_letter)
-    #     edges.remove(miny)
-    # # print("names is   ",original_name,"parent is",name,"  ",parent,"children are   ",children,"edges are   ",edges)
-    # return [parent,children]
-
-
-
-
-        # if mail.fromy == name:
-        #     if did_i_find_cycle == "yes":
-        #         maybeminy[1].send(message(["to",maybeminy[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
-        #         for edge in edges:
-        #             if miny == edge:
-        #                 edges.remove(edge)
-        #     elif did_i_find_child_cycle_min == "yes":
-        #         miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
-        #         maybeminy[1].send(message(["to",maybeminy[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
-        #     else:
-        #         miny[1].send(message(["to",miny[2],"from",original_name, "time",q], name, "cycle", my_rank, time.clock()))
+            else:
+                if christmastime.command == "temp_change":
+                    if self.registry[self.thermoidnum][0] !=christmastime.data:
+                        self.database.append(christmastime)
+                        self.registry[self.thermoidnum][0] =christmastime.data
+                elif christmastime.command == "heater_change":
+                    self.database.append(christmastime)
+                    self.registry[self.heateridnum][0] =christmastime.data
+                elif christmastime.command == "motion_change":
+                    self.database.append(christmastime)
+                    self.registry[self.mot_detidnum][0] =christmastime.data
+                elif christmastime.command == "bulb_change":
+                    self.database.append(christmastime)
+                    self.registry[self.lit_bubidnum][0] =christmastime.data
+                elif christmastime.command == "door_change":
+                    self.database.append(christmastime)
+                    self.registry[self.door_detidnum][0] =christmastime.data
+                elif christmastime.command == "presence_change":
+                    self.database.append(christmastime)
+                    self.registry[self.sec_beaconidnum][0] =christmastime.data
+        for q in self.registry:
+            print(q)
+        for z in self.database:
+            z.printmessage(self.offset,"reader")

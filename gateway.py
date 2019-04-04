@@ -1,5 +1,6 @@
 from postalservice import message, mailbox
 from leaderelection import create_edges, find_MST
+from berkeley import berkeley_clock_synch
 
 #The core of the program is in the gateway class. The gateway class has a
 #simple data structure and most of its complexity lies in the large number
@@ -30,6 +31,7 @@ class gateway:
         self.alertheater = "no"
         self.should_i_turn_on_bulb = "no"
         self.time_since_last_intruder = 0
+        self.offset = 0
 
     def activate_devices(self, rbox, num_of_devices):  #The call to activate_devices()
         while num_of_devices>0:                        #in line XX begins the process of
@@ -50,7 +52,7 @@ class gateway:
         correctidnum = len(self.registry)      #by the device to temporaily identify itself
         self.registry.append(devicedata)       #in the registration box until it is given a
         wrongid = registrationform.fromy       #"correctid" which it then stores in update_addressbook()
-        correctid = message( wrongid, "gate", "correctid", correctidnum, rbox.timestamp())
+        correctid = message( wrongid, "gate", "correctid", correctidnum, rbox.timestamp(self.offset))
         rbox.deliver_mail(correctid)
         self.update_addressbook(devicedata, correctidnum)
 
@@ -69,18 +71,18 @@ class gateway:
 #The gateway uses query_state() to query the status of a pull-based sensor
 #(i.e. the thermostat)
     def query_state(self, idnum, pipeboxes, life, death, backbox):
-        hola = message(idnum , "gate", "query", "", pipeboxes[idnum].timestamp())
-        pipeboxes[idnum ].deliver_mail(hola)
+        hola = message(idnum , "gate", "query", "", pipeboxes[idnum].timestamp(self.offset))
+        pipeboxes[idnum ].deliver_mail(self.offset,hola)
         if life +1< death:                 #sometimes there is a deadlock issue
-            x = pipeboxes[idnum].wait_on_query("gate")#on the last iteration of the
+            x = pipeboxes[idnum].wait_on_query(self.offset,"gate")#on the last iteration of the
             self.should_i_alert_heater(x.data, backbox)        #while loop and therefore
-            newstatus = message("backend", "gate", "temp_change", x.data, backbox.timestamp())
-            backbox.deliver_mail(newstatus)                   #the gateway ignores the final messsage
+            newstatus = message("backend", "gate", "temp_change", x.data, backbox.timestamp(self.offset))
+            backbox.deliver_mail(self.offset,newstatus)                   #the gateway ignores the final messsage
 
 #The gateway uses change_state() to control the devices (i.e. the lightbulb and heater)
     def change_state(self, idnum, state, pipeboxes):
-        ff = message(idnum,"gate","change", state, pipeboxes[idnum].timestamp())
-        pipeboxes[idnum].deliver_mail(ff)
+        ff = message(idnum,"gate","change", state, pipeboxes[idnum].timestamp(self.offset))
+        pipeboxes[idnum].deliver_mail(self.offset,ff)
 
     def should_i_alert_heater(self, temp, backbox):
         oldbelief = self.alertheater
@@ -89,11 +91,11 @@ class gateway:
         if temp > 0:
             self.alertheater = "off"
         if oldbelief != self.alertheater:
-            newstatus = message("backend", "gate", "heater_change", self.alertheater, backbox.timestamp())
-            backbox.deliver_mail(newstatus)
+            newstatus = message("backend", "gate", "heater_change", self.alertheater, backbox.timestamp(self.offset))
+            backbox.deliver_mail(self.offset,newstatus)
         else:
-            oldstatus = message("backend", "gate", "no_change", "", backbox.timestamp())
-            backbox.deliver_mail(oldstatus)
+            oldstatus = message("backend", "gate", "no_change", "", backbox.timestamp(self.offset))
+            backbox.deliver_mail(self.offset,oldstatus)
 
 
 
@@ -117,13 +119,14 @@ class gateway:
 #to emphasize program correctness/security over "realistic" and/or "optimal" design.
     def gcome_to_life(self, rbox, life_of_universe, num_of_devices, pipeboxes, usertogate, gatetobackend, clockboxes):
         neighbors = create_edges("gate",2,clockboxes)
-        find_MST("gate", neighbors)
+        parent, children, status = find_MST("gate", neighbors)
+        self.time=berkeley_clock_synch("gate", self.offset, parent, children, status)
         self.activate_devices(rbox, num_of_devices)
-        activate_enviroment = message("enviro", "gate", "activate", "", rbox.timestamp())
+        activate_enviroment = message("enviro", "gate", "activate", "", rbox.timestamp(self.offset))
         rbox.deliver_mail(activate_enviroment)
-        activate_user_interface = message("user", "gate", "activate", "", rbox.timestamp())
+        activate_user_interface = message("user", "gate", "activate", "", rbox.timestamp(self.offset))
         rbox.deliver_mail(activate_user_interface)
-        activate_backend = message("backend", "gate", "activate", self.registry, rbox.timestamp())
+        activate_backend = message("backend", "gate", "activate", self.registry, rbox.timestamp(self.offset))
         rbox.deliver_mail(activate_backend)
         time_until_we_all_die = 0
         oldmotdetdata = "no"
@@ -131,14 +134,14 @@ class gateway:
             time_until_we_all_die = time_until_we_all_die + 1
             self.change_state(self.heateridnum, self.alertheater, pipeboxes)
             self.query_state(self.thermoidnum, pipeboxes, time_until_we_all_die, life_of_universe, gatetobackend)
-            isthere_intruder = pipeboxes[self.mot_detidnum].wait_on_query("gate")
+            isthere_intruder = pipeboxes[self.mot_detidnum].wait_on_query(self.offset,"gate")
             oldbulbstatus = self.should_i_turn_on_bulb
             if oldmotdetdata != isthere_intruder.data:
-                newmotdetbstatus = message("backend", "gate", "motion_change", isthere_intruder.data, gatetobackend.timestamp())
-                gatetobackend.deliver_mail(newmotdetbstatus)
+                newmotdetbstatus = message("backend", "gate", "motion_change", isthere_intruder.data, gatetobackend.timestamp(self.offset))
+                gatetobackend.deliver_mail(self.offset,newmotdetbstatus)
             else:
-                oldstatus = message("backend", "gate", "no_change", "", gatetobackend.timestamp())
-                gatetobackend.deliver_mail(oldstatus)
+                oldstatus = message("backend", "gate", "no_change", "", gatetobackend.timestamp(self.offset))
+                gatetobackend.deliver_mail(self.offset,oldstatus)
             oldmotdetdata = isthere_intruder.data
             if self.mode == "home":
                 if isthere_intruder.data == "yes":
@@ -148,38 +151,39 @@ class gateway:
                     self.time_since_last_intruder = self.time_since_last_intruder + 1
                     if self.time_since_last_intruder == 5:
                         self.should_i_turn_on_bulb = "off"
-                hola = message("user","gate", "", "", usertogate.timestamp())
-                usertogate.deliver_mail(hola)
+                hola = message("user","gate", "", "", usertogate.timestamp(self.offset))
+                usertogate.deliver_mail(self.offset,hola)
             elif self.mode == "away":
                 self.should_i_turn_on_bulb = "off"
-                intruder_alert = message("user","gate", "", isthere_intruder.data, usertogate.timestamp())
-                usertogate.deliver_mail(intruder_alert)
+                intruder_alert = message("user","gate", "", isthere_intruder.data, usertogate.timestamp(self.offset))
+                usertogate.deliver_mail(self.offset,intruder_alert)
             self.change_state(self.lit_bubidnum, self.should_i_turn_on_bulb, pipeboxes)
             if oldbulbstatus != self.should_i_turn_on_bulb:
-                newbulbstatus = message("backend", "gate", "bulb_change", self.should_i_turn_on_bulb, gatetobackend.timestamp())
-                gatetobackend.deliver_mail(newbulbstatus)
+                newbulbstatus = message("backend", "gate", "bulb_change", self.should_i_turn_on_bulb, gatetobackend.timestamp(self.offset))
+                gatetobackend.deliver_mail(self.offset,newbulbstatus)
             else:
-                oldstatus = message("backend", "gate", "no_change", "", gatetobackend.timestamp())
-                gatetobackend.deliver_mail(oldstatus)
-            userstatus = usertogate.wait_on_query("gate")
+                oldstatus = message("backend", "gate", "no_change", "", gatetobackend.timestamp(self.offset))
+                gatetobackend.deliver_mail(self.offset,oldstatus)
+            userstatus = usertogate.wait_on_query(self.offset,"gate")
             oldpresencestatus = self.mode
             if userstatus.data == "home":
                 self.mode = "home"
             elif userstatus.data == "away":
                 self.mode = "away"
             if oldpresencestatus != self.mode:
-                newpresencestatus = message("backend", "gate", "presence_change", self.mode, gatetobackend.timestamp())
-                gatetobackend.deliver_mail(newpresencestatus)
+                newpresencestatus = message("backend", "gate", "presence_change", self.mode, gatetobackend.timestamp(self.offset))
+                gatetobackend.deliver_mail(self.offset,newpresencestatus)
             else:
-                oldstatus = message("backend", "gate", "no_change", "", gatetobackend.timestamp())
-                gatetobackend.deliver_mail(oldstatus)
-            doorstatus = pipeboxes[self.door_detidnum].wait_on_query("gate")
+                oldstatus = message("backend", "gate", "no_change", "", gatetobackend.timestamp(self.offset))
+                gatetobackend.deliver_mail(self.offset,oldstatus)
+            doorstatus = pipeboxes[self.door_detidnum].wait_on_query(self.offset,"gate")
             if doorstatus.data == "statechange":
-                newdoorstatus = message("backend", "gate", "door_change", self.mode, gatetobackend.timestamp())
-                gatetobackend.deliver_mail(newdoorstatus)
+                newdoorstatus = message("backend", "gate", "door_change", self.mode, gatetobackend.timestamp(self.offset))
+                gatetobackend.deliver_mail(self.offset,newdoorstatus)
             else:
-                oldstatus = message("backend", "gate", "no_change", "", gatetobackend.timestamp())
-                gatetobackend.deliver_mail(oldstatus)
+                oldstatus = message("backend", "gate", "no_change", "", gatetobackend.timestamp(self.offset))
+                gatetobackend.deliver_mail(self.offset,oldstatus)
+            self.time=berkeley_clock_synch("gate", self.offset, parent, children, status)
 
 
 
@@ -196,10 +200,12 @@ class backend:
         self.lit_bubidnum = ""
         self.door_detidnum = ""
         self.sec_beaconidnum = ""
+        self.offset = 0
 
     def bcome_to_life(self, rbox, life_of_universe, gatetobackend, clockboxes):
         neighbors = create_edges("backend", 3,clockboxes)
-        find_MST("backend", neighbors)
+        parent, children, status = find_MST("backend", neighbors)
+        self.time=berkeley_clock_synch("backend", self.offset, parent, children, status)
         addressbook = rbox.wait_on_mail("backend")
         self.registry = addressbook.data
         for j, x in enumerate(self.registry):
@@ -222,7 +228,7 @@ class backend:
             #     print(q)
             time_until_we_all_die = time_until_we_all_die + 1
             for q in range(6):
-                christmastime = gatetobackend.wait_on_mail()
+                christmastime = gatetobackend.wait_on_mail(self.offset)
                 if christmastime.command == "no_change":
                     pass
                 else:
@@ -245,8 +251,11 @@ class backend:
                     elif christmastime.command == "presence_change":
                         self.database.append(christmastime)
                         self.registry[self.sec_beaconidnum][0] =christmastime.data
+            self.time=berkeley_clock_synch("backend", self.offset, parent, children, status)
+        self.time=berkeley_clock_synch("backend", self.offset, parent, children, status)
+        self.time=berkeley_clock_synch("backend", self.offset, parent, children, status)
         for q in range(8):
-            christmastime = gatetobackend.wait_on_mail()
+            christmastime = gatetobackend.wait_on_mail(self.offset)
             if christmastime.command == "no_change":
                 pass
             else:
@@ -272,4 +281,4 @@ class backend:
         for q in self.registry:
             print(q)
         for z in self.database:
-            z.printmessage("reader")
+            z.printmessage(self.offset,"reader")

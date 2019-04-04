@@ -8,20 +8,20 @@ class clockbox:
     def __init__(self, pipe):
         self.pipey = pipe
 
-    def send(self, inmessage):      #This function delivers the message "inmessage"
+    def send(self, offset, inmessage):      #This function delivers the message "inmessage"
         self.pipey.send(inmessage)
-        inmessage.printmessage("sender")
+        inmessage.printmessage(offset,"sender")
 
-    def recv(self):
+    def recv(self,offset):
         x =  self.pipey.recv()
-        x.printmessage("reader")
+        x.printmessage(offset,"reader")
         return x
 
-    def ssssend(self, inmessage):      #This function delivers the message "inmessage"
+    def ssssend(self, offset,inmessage):      #This function delivers the message "inmessage"
         self.pipey.send(inmessage)
         #inmessage.printmessage("sender")
 
-    def rrrrecv(self):
+    def rrrrecv(self,offset):
         x =  self.pipey.recv()
         #x.printmessage("reader")
         return x
@@ -38,7 +38,7 @@ class message:
                              #clocks or time (especially the gateway which spends much more time active)
 
     #The function printmessage does exactly what it is called
-    def printmessage(self, sender_or_reader):
+    def printmessage(self,offset, sender_or_reader):
         if sender_or_reader == "sender":
             l = []
             l.append("SENT:     to=")
@@ -52,7 +52,7 @@ class message:
             l.append(" time_stamp=")
             l.append(self.time)
             l.append("      ##AT_TIME:")
-            l.append(time.clock())
+            l.append(time.clock()+offset)
             print("".join(str(x) for x in l))
         elif sender_or_reader == "reader":
             l = []
@@ -67,7 +67,7 @@ class message:
             l.append(" time_stamp=")
             l.append(self.time)
             l.append("      ##AT_TIME:")
-            l.append(time.clock())
+            l.append(time.clock()+offset)
             print("".join(str(x) for x in l))
 
 #The mailbox class is the main "connection" object used to communicate between
@@ -79,17 +79,17 @@ class mailbox:
         self.messages = Queue()
 
 
-    def wait_on_query(self, id):     #the difference between the wait_on_mail and the
+    def wait_on_query(offset,self, id):     #the difference between the wait_on_mail and the
         z=-1                         #wait_on_query function is that the wait_on_mail
         while z ==-1:                #function is only safe to use in a one-sided communication
             x =  self.messages.get() #procedure; basically wait_on_query puts back any
             if x.to == id:           #mail that was not inteded for the process opening the mail
-                x.printmessage("reader")
+                x.printmessage(offset,"reader")
                 return x
             else:
                 self.messages.put(x)
 
-    def deliver_mail(self, inmessage):      #This function delivers the message "inmessage"
+    def deliver_mail(self, offset, inmessage):      #This function delivers the message "inmessage"
         try:
             self.messages.put_nowait(inmessage)
         except:
@@ -97,15 +97,15 @@ class mailbox:
             return -1
             pass
         else:
-            inmessage.printmessage("sender")
+            inmessage.printmessage(offset,"sender")
 
-    def wait_on_mail(self):
+    def wait_on_mail(self,offset):
         x =  self.messages.get()
         x.printmessage("reader")
         return x
 
-    def timestamp(self):
-        return time.clock()
+    def timestamp(self,offset):
+        return time.clock()+offset
 
     def check_mail(self):
         try:
@@ -150,8 +150,8 @@ class registration_box:
             z = self.check_mail(id)     #the message that it was wating for
         return z
 
-    def timestamp(self):
-        return time.clock()
+    def timestamp(self,offset):
+        return time.clock()+offset
 
 #The silent mailbox is identical to the mailbox except for the fact that it does
 #not have print() statements
@@ -159,7 +159,7 @@ class silent_mailbox:
     def __init__(self):
         self.messages = Queue()
 
-    def wait_on_query(self, id):
+    def wait_on_query(self, offset, id):
         z=-1
         while z ==-1:
             x =  self.messages.get()
@@ -168,7 +168,7 @@ class silent_mailbox:
             else:
                 self.messages.put(x)
 
-    def deliver_mail(self, inmessage):
+    def deliver_mail(self, offset, inmessage):
         try:
             self.messages.put_nowait(inmessage)
         except:
@@ -176,12 +176,12 @@ class silent_mailbox:
             return -1
             pass
 
-    def wait_on_mail(self):
+    def wait_on_mail(self,offset):
         x =  self.messages.get()
         return x
 
-    def timestamp(self):
-        return time.clock()
+    def timestamp(self,offset):
+        return time.clock()+offset
 
     def check_mail(self):
         try:
@@ -219,5 +219,5 @@ class silent_registration_box:
             z = self.check_mail(id)     #the message that it was wating for
         return z
 
-    def timestamp(self):
-        return time.clock()
+    def timestamp(self,offset):
+        return time.clock()+offset

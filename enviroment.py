@@ -1,6 +1,7 @@
 from postalservice import message, mailbox
 import random
 from leaderelection import create_edges, find_MST
+from berkeley import berkeley_clock_synch
 
 #The enviroment class is the virtual enviroment which is modeled as it's own seprate
 #process so as to make the simulation more real. It has two probability distributions,
@@ -12,6 +13,7 @@ class enviroment:
         random.seed()
         self.is_heater_on = "no"
         self.is_light_on = "no"
+        self.offset = 0
 
 #an hour of time is simulated by one while loop so that thetime%24 < 12 means that
 #it is "daytime" and "nighttime" otherwise
@@ -89,24 +91,26 @@ class enviroment:
 #for the "intruder."
     def ecome_to_life(self, mbox, life_of_universe, thermobox, heaterbox, envirotomotdet, lit_bubtoenviro, clockboxes):
         neighbors = create_edges("enviro",6,clockboxes)
-        find_MST("enviro", neighbors)
+        parent, children, status = find_MST("enviro", neighbors)
+        self.time=berkeley_clock_synch("enviro", self.offset, parent, children, status)
         mbox.wait_on_mail("enviro")
         time_until_we_all_die = 0
         while time_until_we_all_die < life_of_universe:
             self.temperature_change(time_until_we_all_die)
-            temp = message("thermo","enviro", "", self.temperature, thermobox.timestamp())
-            thermobox.deliver_mail(temp)
-            x = heaterbox.wait_on_mail()
+            temp = message("thermo","enviro", "", self.temperature, thermobox.timestamp(self.offset))
+            thermobox.deliver_mail(self.offset,temp)
+            x = heaterbox.wait_on_mail(self.offset)
             if x.data == "on":
                 self.is_heater_on = "yes"
             else:
                 self.is_heater_on = "no"
             time_until_we_all_die = time_until_we_all_die + 1
             self.intruder_change(time_until_we_all_die)
-            isthereintruder = message("mot_det","enviro", "", self.intruder, envirotomotdet.timestamp())
-            envirotomotdet.deliver_mail(isthereintruder)
-            x = lit_bubtoenviro.wait_on_mail()
+            isthereintruder = message("mot_det","enviro", "", self.intruder, envirotomotdet.timestamp(self.offset))
+            envirotomotdet.deliver_mail(self.offset,isthereintruder)
+            x = lit_bubtoenviro.wait_on_mail(self.offset)
             if x.data == "on":
                 self.is_light_on = "yes"
             else:
                 self.is_light_on = "no"
+            self.time=berkeley_clock_synch("enviro", self.offset, parent, children, status)
