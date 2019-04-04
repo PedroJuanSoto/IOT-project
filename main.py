@@ -38,6 +38,12 @@ print("(Please enter \"yes\" or \"no\")")
 yes_or_no_two = input('')
 print("-----------------------------------------------------------------------")
 print("-----------------------------------------------------------------------")
+print("Would you like to use the Berkeley or Lamport algorithm to perform ")
+print("clock synchronization?")
+print("(Please enter \"berkeley\" or \"lamport\")")
+berkeley_or_lamport = input('')
+print("-----------------------------------------------------------------------")
+print("-----------------------------------------------------------------------")
 print("For how many \"hours\" would you like to run the simulation")
 print("(1 virtual hour is one gateway while loop,")
 print("i.e. 100000 virtual hours = approx. 1 real minute)")
@@ -76,13 +82,29 @@ if length_of_life<4 or length_of_life>10000000:
     print(".")
     print(".")
     exit()
+if berkeley_or_lamport!= "berkeley" and berkeley_or_lamport!= "lamport":
+    print("The type of clok you chose does not exist")
+    print("Time has no meaning anymore")
+    print("The universe will now slowly collapse")
+    print("-------------------------------------")
+    print("--------------------------")
+    print("-------------------")
+    print("-------------")
+    print("--------")
+    print("----")
+    print("...")
+    print("..")
+    print(".")
+    print(".")
+    print(".")
+    exit()
 
 
 #the create_the_universe() function creates a universe that lives as long as the
 #parameter "how_much_time_do_we_really_have_at_the_end_of_the_day" which is entered by the user.
 #This parameter is limited to 10^7 because the authors of this program have only tested the
 #program for that many while loops.
-def create_the_universe(z, how_much_time_do_we_really_have_at_the_end_of_the_day):
+def create_the_universe(z, how_much_time_do_we_really_have_at_the_end_of_the_day, berkeley_or_lamport):
     home= enviroment()
     thermo =thermostat()
     gate = gateway()
@@ -224,15 +246,25 @@ def create_the_universe(z, how_much_time_do_we_really_have_at_the_end_of_the_day
 #if __name__ == '__main__': line prevents any other processes other than "__main__"
 #from trying anything stupid.
     if __name__ == '__main__':
-        p2 = Process(target=heatboy.hcome_to_life, args=(registrationbox, time_of_death, gatewaypipeboxes, heatertoenviro, heaterclockboxes))
-        p1 = Process(target=thermo.tcome_to_life, args=(registrationbox, time_of_death, envirotothermo, gatewaypipeboxes, thermoclockboxes))
-        p3 = Process(target=home.ecome_to_life, args=(registrationbox, time_of_death, envirotothermo , heatertoenviro, envirotomotdet, lit_bubtoenviro, enviroclockboxes))
-        p0 = Process(target=gate.gcome_to_life, args=(registrationbox, time_of_death, 5, gatewaypipeboxes, usertogate, backtogate, gatewayclockboxes ))
-        p4 = Process(target=motdet.mcome_to_life, args=(registrationbox, time_of_death, gatewaypipeboxes, envirotomotdet, motdetclockboxes))
-        p5 = Process(target=lit_bub.lcome_to_life, args=(registrationbox, time_of_death, gatewaypipeboxes, lit_bubtoenviro, litbubclockboxes))
-        p6 = Process(target=doordet.dcome_to_life, args=(registrationbox, time_of_death, gatewaypipeboxes,  usertodoor, doorclockboxes ))
-        p7 = Process(target=backman.bcome_to_life, args=(registrationbox, time_of_death, backtogate, backendclockboxes))
+        if berkeley_or_lamport == "berkeley":
+            p2 = Process(target=heatboy.hcome_to_life, args=(registrationbox, time_of_death, gatewaypipeboxes, heatertoenviro, heaterclockboxes, "berkeley"))
+            p1 = Process(target=thermo.tcome_to_life, args=(registrationbox, time_of_death, envirotothermo, gatewaypipeboxes, thermoclockboxes, "berkeley"))
+            p3 = Process(target=home.ecome_to_life, args=(registrationbox, time_of_death, envirotothermo , heatertoenviro, envirotomotdet, lit_bubtoenviro, enviroclockboxes, "berkeley"))
+            p0 = Process(target=gate.gcome_to_life, args=(registrationbox, time_of_death, 5, gatewaypipeboxes, usertogate, backtogate, gatewayclockboxes, "berkeley"))
+            p4 = Process(target=motdet.mcome_to_life, args=(registrationbox, time_of_death, gatewaypipeboxes, envirotomotdet, motdetclockboxes, "berkeley"))
+            p5 = Process(target=lit_bub.lcome_to_life, args=(registrationbox, time_of_death, gatewaypipeboxes, lit_bubtoenviro, litbubclockboxes, "berkeley"))
+            p6 = Process(target=doordet.dcome_to_life, args=(registrationbox, time_of_death, gatewaypipeboxes,  usertodoor, doorclockboxes, "berkeley" ))
+            p7 = Process(target=backman.bcome_to_life, args=(registrationbox, time_of_death, backtogate, backendclockboxes, "berkeley"))
 
+        elif berkeley_or_lamport == "lamport":
+            p2 = Process(target=heatboy.hcome_to_life, args=(registrationbox, time_of_death, gatewaypipeboxes, heatertoenviro, heaterclockboxes, "lamport"))
+            p1 = Process(target=thermo.tcome_to_life, args=(registrationbox, time_of_death, envirotothermo, gatewaypipeboxes, thermoclockboxes, "lamport"))
+            p3 = Process(target=home.ecome_to_life, args=(registrationbox, time_of_death, envirotothermo , heatertoenviro, envirotomotdet, lit_bubtoenviro, enviroclockboxes, "lamport"))
+            p0 = Process(target=gate.gcome_to_life, args=(registrationbox, time_of_death, 5, gatewaypipeboxes, usertogate, backtogate, gatewayclockboxes, "lamport"))
+            p4 = Process(target=motdet.mcome_to_life, args=(registrationbox, time_of_death, gatewaypipeboxes, envirotomotdet, motdetclockboxes, "lamport"))
+            p5 = Process(target=lit_bub.lcome_to_life, args=(registrationbox, time_of_death, gatewaypipeboxes, lit_bubtoenviro, litbubclockboxes, "lamport"))
+            p6 = Process(target=doordet.dcome_to_life, args=(registrationbox, time_of_death, gatewaypipeboxes,  usertodoor, doorclockboxes, "lamport" ))
+            p7 = Process(target=backman.bcome_to_life, args=(registrationbox, time_of_death, backtogate, backendclockboxes, "lamport"))
 
         p0.start()
         p1.start()
@@ -246,7 +278,10 @@ def create_the_universe(z, how_much_time_do_we_really_have_at_the_end_of_the_day
  #Because the user proccess takes in keyboard input, the user process must be
  #identified with the "__main__" process or else some interesting EOF errors will
  #occur.
-        user.ucome_to_life(registrationbox, time_of_death, usertogate, usertodoor, userclockboxes)
+        if berkeley_or_lamport == "berkeley":
+            user.ucome_to_life(registrationbox, time_of_death, usertogate, usertodoor, userclockboxes, "berkeley")
+        elif berkeley_or_lamport == "lamport":
+            user.ucome_to_life(registrationbox, time_of_death, usertogate, usertodoor, userclockboxes, "lamport")
         p0.join()
         p1.join()
         p2.join()
@@ -257,4 +292,4 @@ def create_the_universe(z, how_much_time_do_we_really_have_at_the_end_of_the_day
         p7.join()
 
 #this line creates the universe.
-create_the_universe(x, length_of_life)
+create_the_universe(x, length_of_life, berkeley_or_lamport)

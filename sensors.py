@@ -30,20 +30,30 @@ class thermostat:
 #information about the temperature of the enviroment, and the pipeboxes parameter is an array
 #of the datatype "mailboxes" (see postalservice.py) which it uses to communicate with the gateway;
 #because it does not know which pipe to listen in on, it must register_self() to discover it's self.idnum
-    def tcome_to_life(self, rbox, life_of_universe, envirobox, pipeboxes, clockboxes):
-        neighbors = create_edges("thermo",7,clockboxes)
-        parent, children, status = find_MST("thermo", neighbors)
-        self.time=berkeley_clock_synch("thermo", self.offset, parent, children, status)
+    def tcome_to_life(self, rbox, life_of_universe, envirobox, pipeboxes, clockboxes, berkeley_or_lamport):
+        if berkeley_or_lamport == "berkeley":
+            neighbors = create_edges("thermo",7,clockboxes)
+            parent, children, status = find_MST("thermo", neighbors)
+            self.time=berkeley_clock_synch("thermo", self.offset, parent, children, status)
         time_until_we_all_die = 0
         self.register_self(rbox)
         while time_until_we_all_die < life_of_universe:
             x = pipeboxes[self.idnum].wait_on_query(self.offset,self.idnum)
+            if berkeley_or_lamport == "lamport":
+                current_time = pipeboxes[self.idnum].timestamp(self.offset)
+                if x.time > current_time :
+                    self.offset = x.time - current_time + 1
             if x.command == "query":
                 self.query_response(pipeboxes)
             temp = envirobox.wait_on_mail(self.offset)
+            if berkeley_or_lamport == "lamport":
+                current_time = envirobox.timestamp(self.offset)
+                if temp.time > current_time :
+                    self.offset = temp.time - current_time + 1
             self.state = temp.data
             time_until_we_all_die = time_until_we_all_die + 1
-            self.time=berkeley_clock_synch("thermo", self.offset, parent, children, status)
+            if berkeley_or_lamport == "berkeley":
+                self.time=berkeley_clock_synch("thermo", self.offset, parent, children, status)
 
 #The motion sensor is a push-based sensor which means that it
 #pushes a notification to the gateway whenever it senses motion
@@ -73,18 +83,24 @@ class motion_detect:
 #information about the possible "intruders" of the enviroment, and the pipeboxes parameter is an array
 #of the datatype "mailboxes" (see postalservice.py) which it uses to communicate with the gateway;
 #because it does not know which pipe to listen in on, it must register_self() to discover it's self.idnum
-    def mcome_to_life(self, rbox, life_of_universe, pipeboxes, envirotomotdet, clockboxes):
-        neighbors = create_edges("motdet",8,clockboxes)
-        parent, children, status = find_MST("motdet", neighbors)
-        self.time=berkeley_clock_synch("motdet", self.offset, parent, children, status)
+    def mcome_to_life(self, rbox, life_of_universe, pipeboxes, envirotomotdet, clockboxes, berkeley_or_lamport):
+        if berkeley_or_lamport == "berkeley":
+            neighbors = create_edges("motdet",8,clockboxes)
+            parent, children, status = find_MST("motdet", neighbors)
+            self.time=berkeley_clock_synch("motdet", self.offset, parent, children, status)
         time_until_we_all_die = 0
         self.register_self(rbox)
         while time_until_we_all_die < life_of_universe:
             isthereintruder = envirotomotdet.wait_on_mail(self.offset)
+            if berkeley_or_lamport == "lamport":
+                current_time = envirotomotdet.timestamp(self.offset)
+                if isthereintruder.time > current_time :
+                    self.offset = isthereintruder.time - current_time + 1
             self.state = isthereintruder.data
             time_until_we_all_die = time_until_we_all_die + 1
             self.report_state(pipeboxes)
-            self.time=berkeley_clock_synch("motdet", self.offset, parent, children, status)
+            if berkeley_or_lamport == "berkeley":
+                self.time=berkeley_clock_synch("motdet", self.offset, parent, children, status)
 
 #The door sensor is a push-based sensor which means that it
 #pushes a notification to the gateway whenever it senses motion
@@ -114,15 +130,21 @@ class door_detect:
 #information about the possible "intruders" of the enviroment, and the pipeboxes parameter is an array
 #of the datatype "mailboxes" (see postalservice.py) which it uses to communicate with the gateway;
 #because it does not know which pipe to listen in on, it must register_self() to discover it's self.idnum
-    def dcome_to_life(self, rbox, life_of_universe, pipeboxes, usertodoortdet, clockboxes):
-        neighbors = create_edges("doorboy",9,clockboxes)
-        parent, children, status = find_MST("doorboy", neighbors)
-        self.time=berkeley_clock_synch("doorboy", self.offset, parent, children, status)
+    def dcome_to_life(self, rbox, life_of_universe, pipeboxes, usertodoortdet, clockboxes, berkeley_or_lamport):
+        if berkeley_or_lamport == "berkeley":
+            neighbors = create_edges("doorboy",9,clockboxes)
+            parent, children, status = find_MST("doorboy", neighbors)
+            self.time=berkeley_clock_synch("doorboy", self.offset, parent, children, status)
         time_until_we_all_die = 0
         self.register_self(rbox)
         while time_until_we_all_die < life_of_universe:
             isdooropen = usertodoortdet.wait_on_mail(self.offset)
+            if berkeley_or_lamport == "lamport":
+                current_time = usertodoortdet.timestamp(self.offset)
+                if isdooropen.time > current_time :
+                    self.offset = isdooropen.time - current_time + 1
             self.state = isdooropen.command
             time_until_we_all_die = time_until_we_all_die + 1
             self.report_state(pipeboxes)
-            self.time=berkeley_clock_synch("doorboy", self.offset, parent, children, status)
+            if berkeley_or_lamport == "berkeley":
+                self.time=berkeley_clock_synch("doorboy", self.offset, parent, children, status)

@@ -1,6 +1,7 @@
 #!/bin/bash
 echo "no
 no
+lamport
 50
 home
 away

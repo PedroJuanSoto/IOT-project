@@ -12,15 +12,20 @@ class user_interface:
         self.name = "HaibinandPedro"
         self.offset = 0
 
-    def ucome_to_life(self, mbox, life_of_universe, usertogate, usertodoor, clockboxes):
-        neighbors = create_edges("user",4,clockboxes)
-        parent, children, status = find_MST("user", neighbors)
-        self.time=berkeley_clock_synch("user", self.offset, parent, children, status)
+    def ucome_to_life(self, mbox, life_of_universe, usertogate, usertodoor, clockboxes, berkeley_or_lamport):
+        if berkeley_or_lamport == "berkeley":
+            neighbors = create_edges("user",4,clockboxes)
+            parent, children, status = find_MST("user", neighbors)
+            self.time=berkeley_clock_synch("user", self.offset, parent, children, status)
         mbox.wait_on_mail("user")
         time_until_we_all_die = 0
         self.name = "home"
         while time_until_we_all_die < life_of_universe:
             x = usertogate.wait_on_query(self.offset,"user")
+            if berkeley_or_lamport == "lamport":
+                current_time = usertogate.timestamp(self.offset)
+                if x.time > current_time :
+                    self.offset = x.time - current_time + 1
             time_until_we_all_die = time_until_we_all_die + 1
             if x.data == "yes" and self.name=="away":
                 print("      A        L            EEEEEEEEEEE    RRRRRRRR    TTTTTTTTTTTTT")
@@ -46,4 +51,5 @@ class user_interface:
             else:
                 door = message("door", "user", "nochange", "", usertodoor.timestamp(self.offset))
                 usertodoor.deliver_mail(self.offset,door)
-            self.time=berkeley_clock_synch("user", self.offset, parent, children, status)
+            if berkeley_or_lamport == "berkeley":
+                self.time=berkeley_clock_synch("user", self.offset, parent, children, status)

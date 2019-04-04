@@ -1,7 +1,7 @@
 #!/bin/bash
-echo "no
-no
-berkeley
+echo "yes
+yes
+lamport
 4
 home
 away

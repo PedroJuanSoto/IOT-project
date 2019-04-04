@@ -89,10 +89,11 @@ class enviroment:
 #to relay information to the motion detecter, and lit_bubtoenviro is the mailbox
 #that the lightbulb uses to affect the virtual enviroments probability distribution
 #for the "intruder."
-    def ecome_to_life(self, mbox, life_of_universe, thermobox, heaterbox, envirotomotdet, lit_bubtoenviro, clockboxes):
-        neighbors = create_edges("enviro",6,clockboxes)
-        parent, children, status = find_MST("enviro", neighbors)
-        self.time=berkeley_clock_synch("enviro", self.offset, parent, children, status)
+    def ecome_to_life(self, mbox, life_of_universe, thermobox, heaterbox, envirotomotdet, lit_bubtoenviro, clockboxes, berkeley_or_lamport):
+        if berkeley_or_lamport == "berkeley":
+            neighbors = create_edges("enviro",6,clockboxes)
+            parent, children, status = find_MST("enviro", neighbors)
+            self.time=berkeley_clock_synch("enviro", self.offset, parent, children, status)
         mbox.wait_on_mail("enviro")
         time_until_we_all_die = 0
         while time_until_we_all_die < life_of_universe:
@@ -100,6 +101,10 @@ class enviroment:
             temp = message("thermo","enviro", "", self.temperature, thermobox.timestamp(self.offset))
             thermobox.deliver_mail(self.offset,temp)
             x = heaterbox.wait_on_mail(self.offset)
+            if berkeley_or_lamport == "lamport":
+                current_time = heaterbox.timestamp(self.offset)
+                if x.time > current_time :
+                    self.offset = x.time - current_time + 1
             if x.data == "on":
                 self.is_heater_on = "yes"
             else:
@@ -109,8 +114,13 @@ class enviroment:
             isthereintruder = message("mot_det","enviro", "", self.intruder, envirotomotdet.timestamp(self.offset))
             envirotomotdet.deliver_mail(self.offset,isthereintruder)
             x = lit_bubtoenviro.wait_on_mail(self.offset)
+            if berkeley_or_lamport == "lamport":
+                current_time = lit_bubtoenviro.timestamp(self.offset)
+                if x.time > current_time :
+                    self.offset = x.time - current_time + 1
             if x.data == "on":
                 self.is_light_on = "yes"
             else:
                 self.is_light_on = "no"
-            self.time=berkeley_clock_synch("enviro", self.offset, parent, children, status)
+            if berkeley_or_lamport == "berkeley":
+                self.time=berkeley_clock_synch("enviro", self.offset, parent, children, status)

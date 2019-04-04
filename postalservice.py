@@ -79,7 +79,7 @@ class mailbox:
         self.messages = Queue()
 
 
-    def wait_on_query(offset,self, id):     #the difference between the wait_on_mail and the
+    def wait_on_query(self, offset, id):     #the difference between the wait_on_mail and the
         z=-1                         #wait_on_query function is that the wait_on_mail
         while z ==-1:                #function is only safe to use in a one-sided communication
             x =  self.messages.get() #procedure; basically wait_on_query puts back any
@@ -101,7 +101,7 @@ class mailbox:
 
     def wait_on_mail(self,offset):
         x =  self.messages.get()
-        x.printmessage("reader")
+        x.printmessage(offset, "reader")
         return x
 
     def timestamp(self,offset):

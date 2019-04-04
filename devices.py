@@ -31,20 +31,25 @@ class heater:
 #and the pipeboxes parameter is an array of the datatype "mailboxes" (see postalservice.py)
 #which it uses to communicate with the gateway; because it does not know which pipe to listen in on,
 #it must register_self() (line 17) to discover it's self.idnum
-    def hcome_to_life(self, mbox, life_of_universe, pipeboxes, envirobox, clockboxes):
-        neighbors = create_edges("heater",1,clockboxes)
-        parent, children, status = find_MST("heater", neighbors)
-        self.time=berkeley_clock_synch("heater", self.offset, parent, children, status)
+    def hcome_to_life(self, mbox, life_of_universe, pipeboxes, envirobox, clockboxes, berkeley_or_lamport):
+        if berkeley_or_lamport == "berkeley":
+            neighbors = create_edges("heater",1,clockboxes)
+            parent, children, status = find_MST("heater", neighbors)
+            self.time=berkeley_clock_synch("heater", self.offset, parent, children, status)
         time_until_we_all_die = 0
         self.register_self(mbox)
         while time_until_we_all_die < life_of_universe:
             x = pipeboxes[self.idnum].wait_on_mail(self.offset)
+            if berkeley_or_lamport == "lamport":
+                current_time = pipeboxes[self.idnum].timestamp(self.offset)
+                if x.time > current_time :
+                    self.offset = x.time - current_time + 1
             self.change_state(x.data)
             ff = message("envirobox","heater","change", self.state, envirobox.timestamp(self.offset))
             envirobox.deliver_mail(self.offset,ff)
             time_until_we_all_die = time_until_we_all_die + 1
-            # mbox.wait_on_mail("heater")
-            self.time=berkeley_clock_synch("heater", self.offset, parent, children, status)
+            if berkeley_or_lamport == "berkeley":
+                self.time=berkeley_clock_synch("heater", self.offset, parent, children, status)
 
 #The light_bulb is a device that turns itself on with the change_state() function on line
 #52 upon the request of the gateway (line 73&74). Its state then affects the
@@ -75,16 +80,22 @@ class light_bulb:
 #and the pipeboxes parameter is an array of the datatype "mailboxes" (see postalservice.py)
 #which it uses to communicate with the gateway; because it does not know which pipe to listen in on,
 #it must register_self() (line 55) to discover it's self.idnum
-    def lcome_to_life(self, mbox, life_of_universe, pipeboxes, lit_bubtoenviro, clockboxes):
-        neighbors = create_edges("litbub",5,clockboxes)
-        parent, children, status = find_MST("litbub", neighbors)
-        self.time=berkeley_clock_synch("litbub", self.offset, parent, children, status)
+    def lcome_to_life(self, mbox, life_of_universe, pipeboxes, lit_bubtoenviro, clockboxes, berkeley_or_lamport):
+        if berkeley_or_lamport == "berkeley":
+            neighbors = create_edges("litbub",5,clockboxes)
+            parent, children, status = find_MST("litbub", neighbors)
+            self.time=berkeley_clock_synch("litbub", self.offset, parent, children, status)
         time_until_we_all_die = 0
         self.register_self(mbox)
         while time_until_we_all_die < life_of_universe:
             x = pipeboxes[self.idnum].wait_on_mail(self.offset)
+            if berkeley_or_lamport == "lamport":
+                current_time = pipeboxes[self.idnum].timestamp(self.offset)
+                if x.time > current_time :
+                    self.offset = x.time - current_time + 1
             self.change_state(x.data)
             ff = message("envirobox","lit_bub","change", self.state, lit_bubtoenviro.timestamp(self.offset))
             lit_bubtoenviro.deliver_mail(self.offset,ff)
             time_until_we_all_die = time_until_we_all_die + 1
-            self.time=berkeley_clock_synch("heater", self.offset, parent, children, status)
+            if berkeley_or_lamport == "berkeley":
+                self.time=berkeley_clock_synch("heater", self.offset, parent, children, status)
