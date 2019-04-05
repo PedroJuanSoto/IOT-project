@@ -26,7 +26,8 @@ def berkeley_clock_synch(name, offset, parent, children, status):
         for j,child in enumerate(children):
             child[1].send(offset,message(child[2], name, "your_time_is", average_time + communication_delays[j], my_time(offset)))
         return old_time - average_time + offset
-        return 1
+
+
     if status == "follower":
         orders = parent[1].recv(0,)
         if orders.command == "lets_see_how_fast_you_are":
@@ -62,7 +63,7 @@ def berkeley_clock_synch(name, offset, parent, children, status):
         for j,child in enumerate(children):
             child[1].send(offset,message(child[2], name, "your_time_is", orders.data + new_offset + communication_delays[j], my_time(offset)))
         return new_offset + offset
-        return 1
+        
 
 
 

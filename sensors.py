@@ -3,13 +3,13 @@ from leaderelection import create_edges, find_MST
 from berkeley import berkeley_clock_synch
 
 #The temperature sensor is a pull-based sensor, it responds to the gateway by
-#sending the current temperature (see line 28).
+#sending the current temperature (see line 47).
 class thermostat:
     def __init__(self):
         self.offset = 0
         self.name = "temperature"
         self.typer = "sensor"        #Upon "activating" the thermostat by calling the tcome_to_life() function
-        self.idnum = "wu"            #on line 30, the thermostat registers itself and finds its correct idnum.
+        self.idnum = "wu"            #on line 33, the thermostat registers itself and finds its correct idnum.
         self.state = -1              #Without its correct idnum it does not know which mailbox to listen
                                      #in on for commands from the gateway. It begins the registration by
     def register_self(self, mbox):   #creating a temporary "wrongid" using a timestamp and filling out
@@ -62,7 +62,7 @@ class motion_detect:
         self.offset = 0
         self.name = "motion"
         self.typer = "sensor"        #Upon "activating" the thermostat by calling the mcome_to_life() function
-        self.idnum = "wu"            #on line 68, the motion detector registers itself and finds its correct idnum.
+        self.idnum = "wu"            #on line 86, the motion detector registers itself and finds its correct idnum.
         self.state = "on"            #Without its correct idnum it does not know which mailbox to listen
                                      #in on for commands from the gateway. It begins the registration by
     def register_self(self, mbox):   #creating a temporary "wrongid" using a timestamp and filling out
@@ -103,13 +103,13 @@ class motion_detect:
                 self.time=berkeley_clock_synch("motdet", self.offset, parent, children, status)
 
 #The door sensor is a push-based sensor which means that it
-#pushes a notification to the gateway whenever it senses motion
+#pushes a notification to the gateway whenever it senses motionfrom the door
 class door_detect:
     def __init__(self):
         self.offset = 0
         self.name = "door"
-        self.typer = "sensor"        #Upon "activating" the thermostat by calling the mcome_to_life() function
-        self.idnum = "wu"            #on line 68, the motion detector registers itself and finds its correct idnum.
+        self.typer = "sensor"        #Upon "activating" the door sensor by calling the dcome_to_life() function
+        self.idnum = "wu"            #on line 133, the door sensor registers itself and finds its correct idnum.
         self.state = "on"            #Without its correct idnum it does not know which mailbox to listen
                                      #in on for commands from the gateway. It begins the registration by
     def register_self(self, mbox):   #creating a temporary "wrongid" using a timestamp and filling out
@@ -119,15 +119,15 @@ class door_detect:
         mbox.deliver_mail(registrationform)
         self.idnum = mbox.wait_on_mail(wrongid).data
 
-#Because the motion detector is a push-based sensor it mus have an
+#Because the door sensor is a push-based sensor it mus have an
 #implementation of the report_state() function.
     def report_state(self, pipeboxes):
         report = message("gate", self.idnum, "report", self.state, pipeboxes[self.idnum].timestamp(self.offset))
         pipeboxes[self.idnum].deliver_mail(self.offset,report)
-#mcome_to_life is the function that models the motion detector's behavior. The rbox parameter is
+#dcome_to_life is the function that models the door sensor's behavior. The rbox parameter is
 #the registrationbox() that it uses to register itself, life_of_universe is the duration of
 #time for which the motion detector will exist, usertodoortdet is the mailbox from which it recieves
-#information about the possible "intruders" of the enviroment, and the pipeboxes parameter is an array
+#information about whether the user has moved the door, and the pipeboxes parameter is an array
 #of the datatype "mailboxes" (see postalservice.py) which it uses to communicate with the gateway;
 #because it does not know which pipe to listen in on, it must register_self() to discover it's self.idnum
     def dcome_to_life(self, rbox, life_of_universe, pipeboxes, usertodoortdet, clockboxes, berkeley_or_lamport):

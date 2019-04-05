@@ -34,7 +34,7 @@ class gateway:
         self.offset = 0
 
     def activate_devices(self, rbox, num_of_devices):  #The call to activate_devices()
-        while num_of_devices>0:                        #in line XX begins the process of
+        while num_of_devices>0:                        #in line 129 begins the process of
             z = self.check_registration_mail(rbox)     #correctly registering all devices
             if z == 1:                                 #so that they know which mailbox to
                 num_of_devices = num_of_devices - 1    #listen in on and num_of_devices
@@ -106,16 +106,16 @@ class gateway:
 #The heart of the smart home simulation is the gcome_to_life() which models the
 #behavior of a smart gateway device that monitors and controls the various sensors
 #and devices of a virtual smarthome. gcome_to_life() begins by registering all of
-#the devices (line 105) and giving them an idnum. This first step is very important
+#the devices (line 129) and giving them an idnum. This first step is very important
 #because each device(or sensor) needs to have its own individual "pipebox" in order
 #to reduce the probability of concurrency issues and information bottlenecks
 #(and also to reduce the probability of errors like "EOFError: Ran out of input"
 #and "_pickle.UnpicklingError: could not find MARK"). Then after registering the
 #devices the gateway alerts the user process and the virtual enviroment process,
-#(lines 106-107) which seems silly but this step is also neccessary to prevent any
+#(lines 129-135) which seems silly but this step is also neccessary to prevent any
 #concurrency issues or any potential "end of file"/"pickling" errors that occur because
 #ofa lack of synchronization. It then checks on the thermostat with and alerts the
-#heater if it needs to be turned on (lines 113-114). The rest of the code is dedicated
+#heater if it needs to be turned on (lines 140-141). The rest of the code is dedicated
 #to simaltanously communicating with the motion detector and the user process
 #(while keeping track of whether time_since_last_intruder =5) so that it knows
 #whether or not to turn on the lights or(XOR) alert the user. The order of events
@@ -206,8 +206,11 @@ class gateway:
 
 
 
-#The door sensor is a push-based sensor which means that it
-#pushes a notification to the gateway whenever it senses motion
+#The backend is a database of all of the changes that have occured. It only
+#saves a message from the gateway if the state of a device has been changed.
+#It does so by matching the new state with the change it currently has stored in
+#in the registry and then changing accordingly. This is achieved by the Boolean
+#statements found on lines 259,263,266,269,272,275
 class backend:
     def __init__(self):
         self.registry = []
@@ -243,8 +246,6 @@ class backend:
         self.registry.append(security_beacon)
         time_until_we_all_die = 0
         while time_until_we_all_die < life_of_universe-2:
-            # for q in self.registry:
-            #     print(q)
             time_until_we_all_die = time_until_we_all_die + 1
             for q in range(6):
                 christmastime = gatetobackend.wait_on_mail(self.offset)

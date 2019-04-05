@@ -23,7 +23,7 @@ class enviroment:
         else:
             return 1
 #The temperature is a simple markov chain which at any time can rise, drop, or stay
-#the same. The probabiltiy is affected by the time of day i.e. the function isnight() (line 17)
+#the same. The probabiltiy is affected by the time of day i.e. the function isnight() (line 20)
 #and whether the heater is on. If the heater is on it is more likely that the temperature
 #will rise and if it is night it is more likely that the temperature will drop
     def temperature_change(self, thetime):
@@ -53,7 +53,7 @@ class enviroment:
 
 #The probability of an "intruder" (which can be the owner walking around the living
 #room or an authentic trespasser). The probabiltiy is affected by the time of day
-#i.e. the function isnight() (line 17) and whether the light is on. The possible
+#i.e. the function isnight() (line 20) and whether the light is on. The possible
 # outcomes are binary; either there is or isn't an intruder.
     def intruder_change(self, thetime):
         r = random.randint(0,100)
