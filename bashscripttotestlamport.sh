@@ -6,4 +6,4 @@ lamport
 home
 away
 home
-away" | python3 main.py
+away" | python3 main.py >> outputlamport.txt

@@ -101,11 +101,11 @@ class enviroment:
             temp = message("thermo","enviro", "", self.temperature, thermobox.timestamp(self.offset))
             thermobox.deliver_mail(self.offset,temp)
             x = heaterbox.wait_on_mail(self.offset)
-            if berkeley_or_lamport == "lamport":
-                current_time = heaterbox.timestamp(self.offset)
-                if x.time > current_time :
-                    self.offset = x.time - current_time + 1
-            if x.data == "on":
+            if berkeley_or_lamport == "lamport":                                 #This performs the Lamport logical clocks algorithm: everytime the process
+                current_time = heaterbox.timestamp(self.offset)                  #recieves a new message it compares it's own clock time to that of the
+                if x.time > current_time :                                       #timestamp in the message; if the time in the timestamp is larger than the
+                    self.offset = x.time - current_time + 1                      #time in its own logical clock then it knows that it is a contradicton and
+            if x.data == "on":                                                   #it must add the difference between (plus 1) to its current offset
                 self.is_heater_on = "yes"
             else:
                 self.is_heater_on = "no"
@@ -114,11 +114,11 @@ class enviroment:
             isthereintruder = message("mot_det","enviro", "", self.intruder, envirotomotdet.timestamp(self.offset))
             envirotomotdet.deliver_mail(self.offset,isthereintruder)
             x = lit_bubtoenviro.wait_on_mail(self.offset)
-            if berkeley_or_lamport == "lamport":
-                current_time = lit_bubtoenviro.timestamp(self.offset)
-                if x.time > current_time :
-                    self.offset = x.time - current_time + 1
-            if x.data == "on":
+            if berkeley_or_lamport == "lamport":                                 #This performs the Lamport logical clocks algorithm: everytime the process
+                current_time = lit_bubtoenviro.timestamp(self.offset)            #recieves a new message it compares it's own clock time to that of the
+                if x.time > current_time :                                       #timestamp in the message; if the time in the timestamp is larger than the
+                    self.offset = x.time - current_time + 1                      #time in its own logical clock then it knows that it is a contradicton and
+            if x.data == "on":                                                   #it must add the difference between (plus 1) to its current offset 
                 self.is_light_on = "yes"
             else:
                 self.is_light_on = "no"

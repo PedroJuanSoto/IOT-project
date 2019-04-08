@@ -22,11 +22,11 @@ class user_interface:
         self.name = "home"
         while time_until_we_all_die < life_of_universe:
             x = usertogate.wait_on_query(self.offset,"user")
-            if berkeley_or_lamport == "lamport":
-                current_time = usertogate.timestamp(self.offset)
-                if x.time > current_time :
-                    self.offset = x.time - current_time + 1
-            time_until_we_all_die = time_until_we_all_die + 1
+            if berkeley_or_lamport == "lamport":                                                 #This performs the Lamport logical clocks algorithm: everytime the process
+                current_time = usertogate.timestamp(self.offset)                                 #recieves a new message it compares it's own clock time to that of the
+                if x.time > current_time :                                                       #timestamp in the message; if the time in the timestamp is larger than the
+                    self.offset = x.time - current_time + 1                                      #time in its own logical clock then it knows that it is a contradicton and
+            time_until_we_all_die = time_until_we_all_die + 1                                    #it must add the difference between (plus 1) to its current offset
             if x.data == "yes" and self.name=="away":
                 print("      A        L            EEEEEEEEEEE    RRRRRRRR    TTTTTTTTTTTTT")
                 print("     A A       L            E              R       R         T     ")

@@ -6,4 +6,4 @@ berkeley
 home
 away
 home
-away" | python3 main.py
+away" | python3 main.py >> outputforleaderelection.txt

@@ -1,0 +1,1510 @@
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+Hello! Welcome to Haibin and Pedro's Smart Home Simulation
+There is only two possible commands inside the simulation:
+You can type in the string "home" or the string "away",
+to respectively perform the action of staying home or going away.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+You can also hold down the enter key if you wish to stay at your
+current location for a long time (it is a great way to test the program
+for a large number of loops.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+Just a few questions before we start:
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+Would you like to see all the communications between the gateway and
+the devices?
+(Please enter "yes" or "no")
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+Would you like to see all the interactions between the enviroment and
+the devices?
+(Please enter "yes" or "no")
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+Would you like to use the Berkeley or Lamport algorithm to perform 
+clock synchronization?
+(Please enter "berkeley" or "lamport")
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+For how many "hours" would you like to run the simulation
+(1 virtual hour is one gateway while loop,
+i.e. 100000 virtual hours = approx. 1 real minute)
+(Please enter a positive integer 3<x<10^7 )
+4
+SENT:     to=['to', 'motdet', 'from', 'enviro', 'time', 1] from=enviro command=i_choose_you data=0 time_stamp=0.001186      ##AT_TIME:0.00121
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 1] from=motdet command=i_choose_you data=0 time_stamp=0.001063      ##AT_TIME:0.001315
+NEW NODE AWOKEN!!! follower names is    enviro city is         motdet             parent is  [1.0000809245478701, <postalservice.clockbox object at 0x7f73b14d80b8>, 'motdet'] children are [] edges are    [[1.000132027817691, <postalservice.clockbox object at 0x7f73b14d8048>, 'heater'], [1.0001266900470909, <postalservice.clockbox object at 0x7f73b14d8080>, 'thermo'], [1.0001881427515058, <postalservice.clockbox object at 0x7f73b14d80f0>, 'litbub']]
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 2] from=motdet command=search data=1 time_stamp=0.001162      ##AT_TIME:0.001407
+SENT:     to=['to', 'motdet', 'from', 'enviro', 'time', 2] from=motdet command=my_min_is data=1.0001266900470909 time_stamp=0.001422      ##AT_TIME:0.001447
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 2] from=motdet command=you_are_min data=1 time_stamp=0.001216      ##AT_TIME:0.001515
+SENT:     to=['to', 'thermo', 'from', 'enviro', 'time', 2] from=motdet command=i_choose_you data=1 time_stamp=0.001525      ##AT_TIME:0.001549
+RECIEVED: to=['to', 'enviro', 'from', 'thermo', 'time', 1] from=thermo command=i_choose_you data=0 time_stamp=0.001118      ##AT_TIME:0.001571
+SENT:     to=['to', 'enviro', 'from', 'thermo', 'time', 1] from=thermo command=i_choose_you data=0 time_stamp=0.001118      ##AT_TIME:0.001592
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 2] from=motdet command=we_won data=1 time_stamp=0.001291      ##AT_TIME:0.001656
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 3] from=motdet command=search data=1 time_stamp=0.001315      ##AT_TIME:0.001679
+SENT:     to=['to', 'thermo', 'from', 'enviro', 'time', 3] from=motdet command=search data=1 time_stamp=0.001686      ##AT_TIME:0.001709
+RECIEVED: to=['to', 'enviro', 'from', 'thermo', 'time', 2] from=motdet command=my_min_is data=1.0001987522523161 time_stamp=0.001356      ##AT_TIME:0.001826
+SENT:     to=['to', 'thermo', 'from', 'enviro', 'time', 3] from=motdet command=you_are_not_min data=1 time_stamp=0.001852      ##AT_TIME:0.001889
+SENT:     to=['to', 'motdet', 'from', 'enviro', 'time', 3] from=motdet command=my_min_is data=1.000132027817691 time_stamp=0.001916      ##AT_TIME:0.001933
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 3] from=motdet command=you_are_min data=1 time_stamp=0.001457      ##AT_TIME:0.002009
+SENT:     to=['to', 'heater', 'from', 'enviro', 'time', 3] from=motdet command=i_choose_you data=1 time_stamp=0.00202      ##AT_TIME:0.002073
+RECIEVED: to=['to', 'enviro', 'from', 'heater', 'time', 1] from=heater command=i_choose_you data=0 time_stamp=0.001128      ##AT_TIME:0.002094
+SENT:     to=['to', 'enviro', 'from', 'heater', 'time', 1] from=heater command=i_choose_you data=0 time_stamp=0.001128      ##AT_TIME:0.002116
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 3] from=motdet command=we_won data=1 time_stamp=0.001552      ##AT_TIME:0.002137
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 4] from=motdet command=search data=1 time_stamp=0.001584      ##AT_TIME:0.002155
+SENT:     to=['to', 'thermo', 'from', 'enviro', 'time', 4] from=motdet command=search data=1 time_stamp=0.002162      ##AT_TIME:0.002178
+RECIEVED: to=['to', 'enviro', 'from', 'thermo', 'time', 3] from=motdet command=my_min_is data=1.0001987522523161 time_stamp=0.001632      ##AT_TIME:0.00221
+SENT:     to=['to', 'thermo', 'from', 'enviro', 'time', 4] from=motdet command=you_are_not_min data=1 time_stamp=0.002217      ##AT_TIME:0.002232
+SENT:     to=['to', 'heater', 'from', 'enviro', 'time', 4] from=motdet command=search data=1 time_stamp=0.002238      ##AT_TIME:0.00228
+RECIEVED: to=['to', 'enviro', 'from', 'heater', 'time', 2] from=motdet command=my_min_is data=1.0001928562802647 time_stamp=0.001323      ##AT_TIME:0.002299
+SENT:     to=['to', 'heater', 'from', 'enviro', 'time', 4] from=motdet command=you_are_not_min data=1 time_stamp=0.002306      ##AT_TIME:0.002321
+SENT:     to=['to', 'motdet', 'from', 'enviro', 'time', 4] from=motdet command=my_min_is data=1.0001881427515058 time_stamp=0.002339      ##AT_TIME:0.002367
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 4] from=motdet command=you_are_not_min data=1 time_stamp=0.001671      ##AT_TIME:0.002391
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 5] from=user command=search data=2 time_stamp=0.001804      ##AT_TIME:0.002411
+SENT:     to=['to', 'thermo', 'from', 'enviro', 'time', 5] from=user command=search data=2 time_stamp=0.002418      ##AT_TIME:0.002447
+RECIEVED: to=['to', 'enviro', 'from', 'thermo', 'time', 4] from=user command=my_min_is data=1.0001987522523161 time_stamp=0.001828      ##AT_TIME:0.002466
+SENT:     to=['to', 'thermo', 'from', 'enviro', 'time', 5] from=user command=you_are_not_min data=2 time_stamp=0.002472      ##AT_TIME:0.002499
+SENT:     to=['to', 'heater', 'from', 'enviro', 'time', 5] from=user command=search data=2 time_stamp=0.002517      ##AT_TIME:0.002544
+RECIEVED: to=['to', 'enviro', 'from', 'heater', 'time', 3] from=user command=my_min_is data=1.0001928562802647 time_stamp=0.001504      ##AT_TIME:0.002579
+SENT:     to=['to', 'heater', 'from', 'enviro', 'time', 5] from=user command=you_are_not_min data=2 time_stamp=0.002585      ##AT_TIME:0.002598
+SENT:     to=['to', 'motdet', 'from', 'enviro', 'time', 5] from=user command=my_min_is data=1.0001881427515058 time_stamp=0.002604      ##AT_TIME:0.002643
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 5] from=user command=you_are_not_min data=2 time_stamp=0.002013      ##AT_TIME:0.002679
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 6] from=user command=search data=2 time_stamp=0.002119      ##AT_TIME:0.002706
+SENT:     to=['to', 'thermo', 'from', 'enviro', 'time', 6] from=user command=search data=2 time_stamp=0.002731      ##AT_TIME:0.002753
+RECIEVED: to=['to', 'enviro', 'from', 'thermo', 'time', 5] from=user command=my_min_is data=1.0001987522523161 time_stamp=0.002008      ##AT_TIME:0.002824
+SENT:     to=['to', 'thermo', 'from', 'enviro', 'time', 6] from=user command=you_are_not_min data=2 time_stamp=0.002836      ##AT_TIME:0.00287
+SENT:     to=['to', 'heater', 'from', 'enviro', 'time', 6] from=user command=search data=2 time_stamp=0.002892      ##AT_TIME:0.002908
+RECIEVED: to=['to', 'enviro', 'from', 'heater', 'time', 4] from=user command=my_min_is data=1.0001928562802647 time_stamp=0.001716      ##AT_TIME:0.002979
+SENT:     to=['to', 'heater', 'from', 'enviro', 'time', 6] from=user command=you_are_not_min data=2 time_stamp=0.00299      ##AT_TIME:0.003025
+SENT:     to=['to', 'motdet', 'from', 'enviro', 'time', 6] from=user command=my_min_is data=1.0001881427515058 time_stamp=0.003048      ##AT_TIME:0.003063
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 6] from=user command=cycle data=2 time_stamp=0.002294      ##AT_TIME:0.00314
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 7] from=user command=search data=2 time_stamp=0.002405      ##AT_TIME:0.003206
+SENT:     to=['to', 'thermo', 'from', 'enviro', 'time', 7] from=user command=search data=2 time_stamp=0.003217      ##AT_TIME:0.003242
+RECIEVED: to=['to', 'enviro', 'from', 'thermo', 'time', 6] from=user command=my_min_is data=1.0001987522523161 time_stamp=0.002173      ##AT_TIME:0.003274
+SENT:     to=['to', 'heater', 'from', 'enviro', 'time', 7] from=user command=search data=2 time_stamp=0.003282      ##AT_TIME:0.0033
+RECIEVED: to=['to', 'enviro', 'from', 'heater', 'time', 5] from=user command=my_min_is data=1.0001928562802647 time_stamp=0.001888      ##AT_TIME:0.003384
+SENT:     to=['to', 'thermo', 'from', 'enviro', 'time', 7] from=user command=you_are_not_min data=2 time_stamp=0.003395      ##AT_TIME:0.003424
+SENT:     to=['to', 'motdet', 'from', 'enviro', 'time', 7] from=user command=my_min_is data=1.0001928562802647 time_stamp=0.003448      ##AT_TIME:0.003487
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 7] from=user command=cycle data=2 time_stamp=0.0026      ##AT_TIME:0.003523SENT:     to=['to', 'litbub', 'from', 'gate', 'time', 1] from=gate command=i_choose_you data=0 time_stamp=0.001727      ##AT_TIME:0.001754
+RECIEVED: to=['to', 'gate', 'from', 'litbub', 'time', 1] from=litbub command=i_choose_you data=0 time_stamp=0.001041      ##AT_TIME:0.001793
+NEW NODE AWOKEN!!! follower names is    gate city is         litbub             parent is  [1.0000621972992707, <postalservice.clockbox object at 0x7f73b14d3cf8>, 'litbub'] children are [] edges are    [[1.0001928562802647, <postalservice.clockbox object at 0x7f73b14d3c50>, 'heater'], [1.0001987522523161, <postalservice.clockbox object at 0x7f73b14d3c88>, 'thermo'], [1.0001537467441732, <postalservice.clockbox object at 0x7f73b14d3cc0>, 'motdet'], [1.0000837000590292, <postalservice.clockbox object at 0x7f73b14d3d30>, 'user'], [1.0001700934503817, <postalservice.clockbox object at 0x7f73b14d3d68>, 'doorboy'], [1.0004022085285662, <postalservice.clockbox object at 0x7f73b14d3da0>, 'backend']]
+RECIEVED: to=['to', 'gate', 'from', 'litbub', 'time', 2] from=litbub command=search data=1 time_stamp=0.001167      ##AT_TIME:0.001882
+SENT:     to=['to', 'litbub', 'from', 'gate', 'time', 2] from=litbub command=my_min_is data=1.0000837000590292 time_stamp=0.001893      ##AT_TIME:0.00191
+RECIEVED: to=['to', 'gate', 'from', 'litbub', 'time', 2] from=litbub command=you_are_min data=1 time_stamp=0.001246      ##AT_TIME:0.00194
+SENT:     to=['to', 'user', 'from', 'gate', 'time', 2] from=litbub command=i_choose_you data=1 time_stamp=0.001946      ##AT_TIME:0.001962
+RECIEVED: to=['to', 'gate', 'from', 'user', 'time', 2] from=user command=i_choose_you data=1 time_stamp=0.040696      ##AT_TIME:0.001986
+SENT:     to=['to', 'gate', 'from', 'user', 'time', 2] from=user command=i_choose_you data=1 time_stamp=0.040696      ##AT_TIME:0.002007
+RECIEVED: to=['to', 'gate', 'from', 'litbub', 'time', 2] from=user command=we_lost data=2 time_stamp=0.0013      ##AT_TIME:0.002034
+RECIEVED: to=['to', 'gate', 'from', 'user', 'time', 3] from=user command=search data=2 time_stamp=0.040797      ##AT_TIME:0.002129
+SENT:     to=['to', 'litbub', 'from', 'gate', 'time', 3] from=user command=search data=2 time_stamp=0.002156      ##AT_TIME:0.002193
+RECIEVED: to=['to', 'gate', 'from', 'litbub', 'time', 3] from=user command=my_min_is data=1.0001881427515058 time_stamp=0.001374      ##AT_TIME:0.002239
+SENT:     to=['to', 'litbub', 'from', 'gate', 'time', 3] from=user command=you_are_not_min data=2 time_stamp=0.00226      ##AT_TIME:0.002293
+SENT:     to=['to', 'user', 'from', 'gate', 'time', 3] from=user command=my_min_is data=1.0001537467441732 time_stamp=0.002305      ##AT_TIME:0.002325
+RECIEVED: to=['to', 'gate', 'from', 'user', 'time', 3] from=user command=you_are_min data=2 time_stamp=0.0409      ##AT_TIME:0.002346
+SENT:     to=['to', 'motdet', 'from', 'gate', 'time', 3] from=user command=i_choose_you data=2 time_stamp=0.002352      ##AT_TIME:0.002367
+RECIEVED: to=['to', 'gate', 'from', 'motdet', 'time', 4] from=motdet command=i_choose_you data=1 time_stamp=0.001703      ##AT_TIME:0.002384
+SENT:     to=['to', 'gate', 'from', 'motdet', 'time', 4] from=motdet command=i_choose_you data=1 time_stamp=0.001703      ##AT_TIME:0.002404
+RECIEVED: to=['to', 'gate', 'from', 'user', 'time', 3] from=user command=we_won data=2 time_stamp=0.040936      ##AT_TIME:0.002423
+RECIEVED: to=['to', 'gate', 'from', 'user', 'time', 4] from=user command=search data=2 time_stamp=0.041022      ##AT_TIME:0.00246
+SENT:     to=['to', 'litbub', 'from', 'gate', 'time', 4] from=user command=search data=2 time_stamp=0.002472      ##AT_TIME:0.002494
+RECIEVED: to=['to', 'gate', 'from', 'litbub', 'time', 4] from=user command=my_min_is data=1.0001881427515058 time_stamp=0.001459      ##AT_TIME:0.002523
+SENT:     to=['to', 'litbub', 'from', 'gate', 'time', 4] from=user command=you_are_not_min data=2 time_stamp=0.002534      ##AT_TIME:0.002554
+SENT:     to=['to', 'motdet', 'from', 'gate', 'time', 4] from=user command=search data=2 time_stamp=0.002564      ##AT_TIME:0.002582
+RECIEVED: to=['to', 'gate', 'from', 'motdet', 'time', 5] from=user command=my_min_is data=1.0001881427515058 time_stamp=0.001901      ##AT_TIME:0.002643
+SENT:     to=['to', 'motdet', 'from', 'gate', 'time', 4] from=user command=you_are_not_min data=2 time_stamp=0.002651      ##AT_TIME:0.002683
+SENT:     to=['to', 'user', 'from', 'gate', 'time', 4] from=user command=my_min_is data=1.0001700934503817 time_stamp=0.002704      ##AT_TIME:0.002717
+RECIEVED: to=['to', 'gate', 'from', 'user', 'time', 4] from=user command=cycle data=2 time_stamp=0.041104      ##AT_TIME:0.002792
+RECIEVED: to=['to', 'gate', 'from', 'user', 'time', 5] from=user command=search data=2 time_stamp=0.041222      ##AT_TIME:0.002918
+SENT:     to=['to', 'litbub', 'from', 'gate', 'time', 5] from=user command=search data=2 time_stamp=0.00293      ##AT_TIME:0.002965
+RECIEVED: to=['to', 'gate', 'from', 'litbub', 'time', 5] from=user command=my_min_is data=1.0001881427515058 time_stamp=0.001516      ##AT_TIME:0.003064
+SENT:     to=['to', 'motdet', 'from', 'gate', 'time', 5] from=user command=search data=2 time_stamp=0.003075      ##AT_TIME:0.003098
+RECIEVED: to=['to', 'gate', 'from', 'motdet', 'time', 6] from=user command=my_min_is data=1.0001881427515058 time_stamp=0.002197      ##AT_TIME:0.003167
+SENT:     to=['to', 'litbub', 'from', 'gate', 'time', 5] from=user command=cycle data=2 time_stamp=0.003178      ##AT_TIME:0.003201
+SENT:     to=['to', 'motdet', 'from', 'gate', 'time', 5] from=user command=cycle data=2 time_stamp=0.003207      ##AT_TIME:0.003244
+SENT:     to=['to', 'user', 'from', 'gate', 'time', 5] from=user command=cycle data=1.0001928562802647 time_stamp=0.003252      ##AT_TIME:0.003266
+RECIEVED: to=['to', 'gate', 'from', 'user', 'time', 6] from=user command=search data=2 time_stamp=0.041373      ##AT_TIME:0.003403
+SENT:     to=['to', 'litbub', 'from', 'gate', 'time', 6] from=user command=search data=2 time_stamp=0.003415      ##AT_TIME:0.003438
+RECIEVED: to=['to', 'gate', 'from', 'litbub', 'time', 5] from=user command=i_am_finished data=2 time_stamp=0.001622      ##AT_TIME:0.003456
+SENT:     to=['to', 'motdet', 'from', 'gate', 'time', 6] from=user command=search data=2 time_stamp=0.003463      ##AT_TIME:0.003479
+RECIEVED: to=['to', 'gate', 'from', 'motdet', 'time', 7] from=user command=my_min_is data=1.0001928562802647 time_stamp=0.002503      ##AT_TIME:0.003516
+SENT:     to=['to', 'motdet', 'from', 'gate', 'time', 6] from=user command=cycle data=2 time_stamp=0.003523      ##AT_TIME:0.003539
+SENT:     to=['to', 'user', 'from', 'gate', 'time', 6] from=user command=cycle data=1.0001987522523161 time_stamp=0.003547      ##AT_TIME:0.003561
+RECIEVED: to=['to', 'gate', 'from', 'user', 'time', 7] from=user command=search data=2 time_stamp=0.041519      ##AT_TIME:0.003582
+SENT:     to=['to', 'motdet', 'from', 'gate', 'time', 7] from=user command=search data=2 time_stamp=0.003589      ##AT_TIME:0.003603
+RECIEVED: to=['to', 'gate', 'from', 'motdet', 'time', 8] from=user command=my_min_is data=1.0001987522523161 time_stamp=0.002721      ##AT_TIME:0.003624
+SENT:     to=['to', 'motdet', 'from', 'gate', 'time', 7] from=user command=cycle data=2 time_stamp=0.003631      ##AT_TIME:0.003646
+SENT:     to=['to', 'user', 'from', 'gate', 'time', 7] from=user command=cycle data=1.0004022085285662 time_stamp=0.003654      ##AT_TIME:0.003667
+RECIEVED: to=['to', 'gate', 'from', 'user', 'time', 8] from=user command=search data=2 time_stamp=0.041613      ##AT_TIME:0.003725
+SENT:     to=['to', 'motdet', 'from', 'gate', 'time', 8] from=user command=search data=2 time_stamp=0.003737      ##AT_TIME:0.003761
+RECIEVED: to=['to', 'gate', 'from', 'motdet', 'time', 9] from=user command=i_am_finished data=2 time_stamp=0.00295      ##AT_TIME:0.003783
+SENT:     to=['to', 'user', 'from', 'gate', 'time', 8] from=user command=my_min_is data=1.0004022085285662 time_stamp=0.00379      ##AT_TIME:0.003808
+RECIEVED: to=['to', 'gate', 'from', 'user', 'time', 8] from=user command=you_are_min data=2 time_stamp=0.041704      ##AT_TIME:0.0039
+SENT:     to=['to', 'backend', 'from', 'gate', 'time', 8] from=user command=i_choose_you data=2 time_stamp=0.003911      ##AT_TIME:0.003934SENT:     to=['to', 'doorboy', 'from', 'user', 'time', 1] from=user command=i_choose_you data=0 time_stamp=0.040369      ##AT_TIME:0.040399
+RECIEVED: to=['to', 'user', 'from', 'doorboy', 'time', 1] from=doorboy command=i_choose_you data=0 time_stamp=0.001104      ##AT_TIME:0.040473
+NEW NODE AWOKEN!!! leader names is    user city is         user             parent is   children are [[1.0000586174300212, <postalservice.clockbox object at 0x7f73b14d8390>, 'doorboy']] edges are    [[1.0000837000590292, <postalservice.clockbox object at 0x7f73b14d8358>, 'gate']]
+SENT:     to=['to', 'doorboy', 'from', 'user', 'time', 2] from=user command=search data=1 time_stamp=0.040505      ##AT_TIME:0.040542
+RECIEVED: to=['to', 'user', 'from', 'doorboy', 'time', 2] from=user command=my_min_is data=1.0001700934503817 time_stamp=0.001279      ##AT_TIME:0.040651
+SENT:     to=['to', 'doorboy', 'from', 'user', 'time', 2] from=user command=you_are_not_min data=1 time_stamp=0.040663      ##AT_TIME:0.040687
+SENT:     to=['to', 'gate', 'from', 'user', 'time', 2] from=user command=i_choose_you data=1 time_stamp=0.040696      ##AT_TIME:0.040713
+RECIEVED: to=['to', 'user', 'from', 'gate', 'time', 2] from=litbub command=i_choose_you data=1 time_stamp=0.001946      ##AT_TIME:0.040733
+SENT:     to=['to', 'doorboy', 'from', 'user', 'time', 3] from=user command=search data=2 time_stamp=0.040741      ##AT_TIME:0.040756
+RECIEVED: to=['to', 'user', 'from', 'doorboy', 'time', 3] from=user command=my_min_is data=1.0001700934503817 time_stamp=0.001488      ##AT_TIME:0.040777
+SENT:     to=['to', 'gate', 'from', 'user', 'time', 3] from=user command=search data=2 time_stamp=0.040797      ##AT_TIME:0.040812
+RECIEVED: to=['to', 'user', 'from', 'gate', 'time', 3] from=user command=my_min_is data=1.0001537467441732 time_stamp=0.002305      ##AT_TIME:0.040844
+SENT:     to=['to', 'doorboy', 'from', 'user', 'time', 3] from=user command=you_are_not_min data=2 time_stamp=0.040851      ##AT_TIME:0.040878
+SENT:     to=['to', 'gate', 'from', 'user', 'time', 3] from=user command=you_are_min data=2 time_stamp=0.0409      ##AT_TIME:0.040912
+RECIEVED: to=['to', 'gate', 'from', 'motdet', 'time', 4] from=motdet command=i_choose_you data=1 time_stamp=0.001703      ##AT_TIME:0.04093
+SENT:     to=['to', 'gate', 'from', 'user', 'time', 3] from=user command=we_won data=2 time_stamp=0.040936      ##AT_TIME:0.040963
+SENT:     to=['to', 'doorboy', 'from', 'user', 'time', 4] from=user command=search data=2 time_stamp=0.040969      ##AT_TIME:0.040981
+RECIEVED: to=['to', 'user', 'from', 'doorboy', 'time', 4] from=user command=my_min_is data=1.0001700934503817 time_stamp=0.001671      ##AT_TIME:0.041015
+SENT:     to=['to', 'gate', 'from', 'user', 'time', 4] from=user command=search data=2 time_stamp=0.041022      ##AT_TIME:0.041036
+RECIEVED: to=['to', 'user', 'from', 'gate', 'time', 4] from=user command=my_min_is data=1.0001700934503817 time_stamp=0.002704      ##AT_TIME:0.041066
+SENT:     to=['to', 'doorboy', 'from', 'user', 'time', 4] from=user command=cycle data=2 time_stamp=0.041072      ##AT_TIME:0.041086
+SENT:     to=['to', 'gate', 'from', 'user', 'time', 4] from=user command=cycle data=2 time_stamp=0.041104      ##AT_TIME:0.041131
+SENT:     to=['to', 'doorboy', 'from', 'user', 'time', 5] from=user command=search data=2 time_stamp=0.041138      ##AT_TIME:0.041149
+RECIEVED: to=['to', 'user', 'from', 'doorboy', 'time', 4] from=user command=i_am_finished data=2 time_stamp=0.001782      ##AT_TIME:0.041198
+SENT:     to=['to', 'gate', 'from', 'user', 'time', 5] from=user command=search data=2 time_stamp=0.041222      ##AT_TIME:0.041245
+RECIEVED: to=['to', 'user', 'from', 'gate', 'time', 5] from=user command=cycle data=1.0001928562802647 time_stamp=0.003252      ##AT_TIME:0.041359
+SENT:     to=['to', 'gate', 'from', 'user', 'time', 6] from=user command=search data=2 time_stamp=0.041373      ##AT_TIME:0.041395
+RECIEVED: to=['to', 'user', 'from', 'gate', 'time', 6] from=user command=cycle data=1.0001987522523161 time_stamp=0.003547      ##AT_TIME:0.041506
+SENT:     to=['to', 'gate', 'from', 'user', 'time', 7] from=user command=search data=2 time_stamp=0.041519      ##AT_TIME:0.041542
+RECIEVED: to=['to', 'user', 'from', 'gate', 'time', 7] from=user command=cycle data=1.0004022085285662 time_stamp=0.003654      ##AT_TIME:0.0416
+SENT:     to=['to', 'gate', 'from', 'user', 'time', 8] from=user command=search data=2 time_stamp=0.041613      ##AT_TIME:0.041636
+RECIEVED: to=['to', 'user', 'from', 'gate', 'time', 8] from=user command=my_min_is data=1.0004022085285662 time_stamp=0.00379      ##AT_TIME:0.041691
+SENT:     to=['to', 'gate', 'from', 'user', 'time', 8] from=user command=you_are_min data=2 time_stamp=0.041704      ##AT_TIME:0.041727
+RECIEVED: to=['to', 'gate', 'from', 'backend', 'time', 1] from=backend command=i_choose_you data=0 time_stamp=0.000996      ##AT_TIME:0.041803
+SENT:     to=['to', 'gate', 'from', 'user', 'time', 8] from=user command=we_won data=2 time_stamp=0.041811      ##AT_TIME:0.041828
+SENT:     to=['to', 'gate', 'from', 'user', 'time', 9] from=user command=search data=2 time_stamp=0.041835      ##AT_TIME:0.041849
+RECIEVED: to=['to', 'user', 'from', 'gate', 'time', 9] from=user command=i_am_finished data=2 time_stamp=0.00412      ##AT_TIME:0.041893
+I AM FINISHED  [[1.0000586174300212, <postalservice.clockbox object at 0x7f73b14d8390>, 'doorboy'], [1.0000837000590292, <postalservice.clockbox object at 0x7f73b14d8358>, 'gate']] leader
+SENT:     to=doorboy from=user command=lets_see_how_fast_you_are data= time_stamp=0.041913      ##AT_TIME:0.04193
+RECIEVED: to=user from=doorboy command=this_is_how_fast_i_am data= time_stamp=0.00195      ##AT_TIME:0.041977
+SENT:     to=gate from=user command=lets_see_how_fast_you_are data= time_stamp=0.041985      ##AT_TIME:0.041999
+RECIEVED: to=user from=gate command=this_is_how_fast_i_am data= time_stamp=0.004187      ##AT_TIME:0.042018
+SENT:     to=doorboy from=user command=give_me_your_time data= time_stamp=0.042024      ##AT_TIME:0.042037
+RECIEVED: to=user from=doorboy command=my_time_is data=[0.001981, 1] time_stamp=0.002055      ##AT_TIME:0.042054
+SENT:     to=gate from=user command=give_me_your_time data= time_stamp=0.04206      ##AT_TIME:0.042072
+RECIEVED: to=user from=gate command=my_time_is data=[0.0028311428571428576, 7] time_stamp=0.004451      ##AT_TIME:0.042088
+SENT:     to=doorboy from=user command=your_time_is data=0.007171333333333337 time_stamp=0.042097      ##AT_TIME:0.04211
+SENT:     to=gate from=user command=your_time_is data=0.007138333333333332 time_stamp=0.042115      ##AT_TIME:0.042126
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 1] from=motdet command=i_choose_you data=0 time_stamp=0.001063      ##AT_TIME:0.001096
+RECIEVED: to=['to', 'motdet', 'from', 'enviro', 'time', 1] from=enviro command=i_choose_you data=0 time_stamp=0.001186      ##AT_TIME:0.001132
+NEW NODE AWOKEN!!! leader names is    motdet city is         motdet             parent is   children are [[1.0000809245478701, <postalservice.clockbox object at 0x7f73b14d8240>, 'enviro']] edges are    [[1.0001537467441732, <postalservice.clockbox object at 0x7f73b14d8208>, 'gate']]
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 2] from=motdet command=search data=1 time_stamp=0.001162      ##AT_TIME:0.001181
+RECIEVED: to=['to', 'motdet', 'from', 'enviro', 'time', 2] from=motdet command=my_min_is data=1.0001266900470909 time_stamp=0.001422      ##AT_TIME:0.001205
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 2] from=motdet command=you_are_min data=1 time_stamp=0.001216      ##AT_TIME:0.001246
+RECIEVED: to=['to', 'enviro', 'from', 'thermo', 'time', 1] from=thermo command=i_choose_you data=0 time_stamp=0.001118      ##AT_TIME:0.001283
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 2] from=motdet command=we_won data=1 time_stamp=0.001291      ##AT_TIME:0.001308
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 3] from=motdet command=search data=1 time_stamp=0.001315      ##AT_TIME:0.001328
+RECIEVED: to=['to', 'motdet', 'from', 'enviro', 'time', 3] from=motdet command=my_min_is data=1.000132027817691 time_stamp=0.001916      ##AT_TIME:0.001429
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 3] from=motdet command=you_are_min data=1 time_stamp=0.001457      ##AT_TIME:0.001481
+RECIEVED: to=['to', 'enviro', 'from', 'heater', 'time', 1] from=heater command=i_choose_you data=0 time_stamp=0.001128      ##AT_TIME:0.001541
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 3] from=motdet command=we_won data=1 time_stamp=0.001552      ##AT_TIME:0.001575
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 4] from=motdet command=search data=1 time_stamp=0.001584      ##AT_TIME:0.0016
+RECIEVED: to=['to', 'motdet', 'from', 'enviro', 'time', 4] from=motdet command=my_min_is data=1.0001881427515058 time_stamp=0.002339      ##AT_TIME:0.001659
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 4] from=motdet command=you_are_not_min data=1 time_stamp=0.001671      ##AT_TIME:0.001695
+SENT:     to=['to', 'gate', 'from', 'motdet', 'time', 4] from=motdet command=i_choose_you data=1 time_stamp=0.001703      ##AT_TIME:0.001719
+RECIEVED: to=['to', 'motdet', 'from', 'gate', 'time', 3] from=user command=i_choose_you data=2 time_stamp=0.002352      ##AT_TIME:0.001737
+RECIEVED: to=['to', 'motdet', 'from', 'gate', 'time', 4] from=user command=search data=2 time_stamp=0.002564      ##AT_TIME:0.001793
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 5] from=user command=search data=2 time_stamp=0.001804      ##AT_TIME:0.001828
+RECIEVED: to=['to', 'motdet', 'from', 'enviro', 'time', 5] from=user command=my_min_is data=1.0001881427515058 time_stamp=0.002604      ##AT_TIME:0.001888
+SENT:     to=['to', 'gate', 'from', 'motdet', 'time', 5] from=user command=my_min_is data=1.0001881427515058 time_stamp=0.001901      ##AT_TIME:0.001937
+RECIEVED: to=['to', 'motdet', 'from', 'gate', 'time', 4] from=user command=you_are_not_min data=2 time_stamp=0.002651      ##AT_TIME:0.002003
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 5] from=user command=you_are_not_min data=2 time_stamp=0.002013      ##AT_TIME:0.002065
+RECIEVED: to=['to', 'motdet', 'from', 'gate', 'time', 5] from=user command=search data=2 time_stamp=0.003075      ##AT_TIME:0.002111
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 6] from=user command=search data=2 time_stamp=0.002119      ##AT_TIME:0.00215
+RECIEVED: to=['to', 'motdet', 'from', 'enviro', 'time', 6] from=user command=my_min_is data=1.0001881427515058 time_stamp=0.003048      ##AT_TIME:0.002189
+SENT:     to=['to', 'gate', 'from', 'motdet', 'time', 6] from=user command=my_min_is data=1.0001881427515058 time_stamp=0.002197      ##AT_TIME:0.002228
+RECIEVED: to=['to', 'motdet', 'from', 'gate', 'time', 5] from=user command=cycle data=2 time_stamp=0.003207      ##AT_TIME:0.002287
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 6] from=user command=cycle data=2 time_stamp=0.002294      ##AT_TIME:0.002341
+RECIEVED: to=['to', 'motdet', 'from', 'gate', 'time', 6] from=user command=search data=2 time_stamp=0.003463      ##AT_TIME:0.002393
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 7] from=user command=search data=2 time_stamp=0.002405      ##AT_TIME:0.002428
+RECIEVED: to=['to', 'motdet', 'from', 'enviro', 'time', 7] from=user command=my_min_is data=1.0001928562802647 time_stamp=0.003448      ##AT_TIME:0.00249
+SENT:     to=['to', 'gate', 'from', 'motdet', 'time', 7] from=user command=my_min_is data=1.0001928562802647 time_stamp=0.002503      ##AT_TIME:0.002526
+RECIEVED: to=['to', 'motdet', 'from', 'gate', 'time', 6] from=user command=cycle data=2 time_stamp=0.003523      ##AT_TIME:0.002589
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 7] from=user command=cycle data=2 time_stamp=0.0026      ##AT_TIME:0.002624
+RECIEVED: to=['to', 'motdet', 'from', 'gate', 'time', 7] from=user command=search data=2 time_stamp=0.003589      ##AT_TIME:0.002647
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 8] from=user command=search data=2 time_stamp=0.002654      ##AT_TIME:0.002671
+RECIEVED: to=['to', 'motdet', 'from', 'enviro', 'time', 8] from=user command=my_min_is data=1.0001987522523161 time_stamp=0.003707      ##AT_TIME:0.002706
+SENT:     to=['to', 'gate', 'from', 'motdet', 'time', 8] from=user command=my_min_is data=1.0001987522523161 time_stamp=0.002721      ##AT_TIME:0.002749
+RECIEVED: to=['to', 'motdet', 'from', 'gate', 'time', 7] from=user command=cycle data=2 time_stamp=0.003631      ##AT_TIME:0.002784
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 8] from=user command=cycle data=2 time_stamp=0.002795      ##AT_TIME:0.002823
+RECIEVED: to=['to', 'motdet', 'from', 'gate', 'time', 8] from=user command=search data=2 time_stamp=0.003737      ##AT_TIME:0.002858
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 9] from=user command=search data=2 time_stamp=0.002871      ##AT_TIME:0.002899
+RECIEVED: to=['to', 'motdet', 'from', 'enviro', 'time', 9] from=user command=i_am_finished data=2 time_stamp=0.00382      ##AT_TIME:0.002937
+SENT:     to=['to', 'gate', 'from', 'motdet', 'time', 9] from=user command=i_am_finished data=2 time_stamp=0.00295      ##AT_TIME:0.002978
+I AM FINISHED [1.0001537467441732, <postalservice.clockbox object at 0x7f73b14d8208>, 'gate'] [[1.0000809245478701, <postalservice.clockbox object at 0x7f73b14d8240>, 'enviro']] follower
+RECIEVED: to=motdet from=gate command=lets_see_how_fast_you_are data= time_stamp=0.004254      ##AT_TIME:0.003063
+SENT:     to=gate from=motdet command=this_is_how_fast_i_am data= time_stamp=0.003075      ##AT_TIME:0.0031
+SENT:     to=enviro from=motdet command=lets_see_how_fast_you_are data= time_stamp=0.003107      ##AT_TIME:0.003124
+RECIEVED: to=motdet from=enviro command=this_is_how_fast_i_am data= time_stamp=0.003913      ##AT_TIME:0.003202
+SENT:     to=enviro from=motdet command=give_me_your_time data= time_stamp=0.003211      ##AT_TIME:0.003227
+RECIEVED: to=motdet from=enviro command=my_time_is data=[0.00299, 3] time_stamp=0.004255      ##AT_TIME:0.003317
+RECIEVED: to=motdet from=gate command=give_me_your_time data= time_stamp=0.004363      ##AT_TIME:0.00334
+SENT:     to=gate from=motdet command=my_time_is data=[0.00307425, 4] time_stamp=0.003346      ##AT_TIME:0.003368
+RECIEVED: to=motdet from=gate command=your_time_is data=0.009876666666666664 time_stamp=0.004508      ##AT_TIME:0.003416
+SENT:     to=enviro from=motdet command=your_time_is data=0.016529333333333326 time_stamp=0.003423      ##AT_TIME:0.003441
+RECIEVED: to=motdet from=gate command=lets_see_how_fast_you_are data= time_stamp=0.020002      ##AT_TIME:0.018332
+SENT:     to=gate from=motdet command=this_is_how_fast_i_am data= time_stamp=0.018342      ##AT_TIME:0.018371SENT:     to=doorboy from=user command=lets_see_how_fast_you_are data= time_stamp=0.057445      ##AT_TIME:0.057512
+RECIEVED: to=user from=doorboy command=this_is_how_fast_i_am data= time_stamp=0.016452      ##AT_TIME:0.057552
+SENT:     to=gate from=user command=lets_see_how_fast_you_are data= time_stamp=0.057559      ##AT_TIME:0.057579
+RECIEVED: to=user from=gate command=this_is_how_fast_i_am data= time_stamp=0.01992      ##AT_TIME:0.057604
+SENT:     to=doorboy from=user command=give_me_your_time data= time_stamp=0.057613      ##AT_TIME:0.057633
+RECIEVED: to=user from=doorboy command=my_time_is data=[0.016504, 1] time_stamp=0.016526      ##AT_TIME:0.057655
+SENT:     to=gate from=user command=give_me_your_time data= time_stamp=0.057663      ##AT_TIME:0.057682
+RECIEVED: to=user from=gate command=my_time_is data=[0.017111714285714286, 7] time_stamp=0.020239      ##AT_TIME:0.05771
+SENT:     to=doorboy from=user command=your_time_is data=0.021672111111111107 time_stamp=0.057721      ##AT_TIME:0.057738
+SENT:     to=gate from=user command=your_time_is data=0.021610111111111108 time_stamp=0.057744      ##AT_TIME:0.057757
+SENT:     to=doorboy from=user command=lets_see_how_fast_you_are data= time_stamp=0.057821      ##AT_TIME:0.057877
+RECIEVED: to=user from=doorboy command=this_is_how_fast_i_am data= time_stamp=0.016709      ##AT_TIME:0.057952
+SENT:     to=gate from=user command=lets_see_how_fast_you_are data= time_stamp=0.057959      ##AT_TIME:0.057975
+RECIEVED: to=user from=gate command=this_is_how_fast_i_am data= time_stamp=0.021116      ##AT_TIME:0.057993
+SENT:     to=doorboy from=user command=give_me_your_time data= time_stamp=0.057998      ##AT_TIME:0.058013
+RECIEVED: to=user from=doorboy command=my_time_is data=[0.016748, 1] time_stamp=0.016767      ##AT_TIME:0.05803
+SENT:     to=gate from=user command=give_me_your_time data= time_stamp=0.058036      ##AT_TIME:0.058049
+RECIEVED: to=user from=gate command=my_time_is data=[0.017526, 7] time_stamp=0.021497      ##AT_TIME:0.058072
+SENT:     to=doorboy from=user command=your_time_is data=0.02208255555555556 time_stamp=0.058081      ##AT_TIME:0.058098
+SENT:     to=gate from=user command=your_time_is data=0.021983555555555558 time_stamp=0.058103      ##AT_TIME:0.058116
+
+RECIEVED: to=['to', 'gate', 'from', 'backend', 'time', 1] from=backend command=i_choose_you data=0 time_stamp=0.000996      ##AT_TIME:0.00398
+SENT:     to=['to', 'gate', 'from', 'backend', 'time', 1] from=backend command=i_choose_you data=0 time_stamp=0.000996      ##AT_TIME:0.00401
+RECIEVED: to=['to', 'gate', 'from', 'user', 'time', 8] from=user command=we_won data=2 time_stamp=0.041811      ##AT_TIME:0.004042
+RECIEVED: to=['to', 'gate', 'from', 'user', 'time', 9] from=user command=search data=2 time_stamp=0.041835      ##AT_TIME:0.004064
+SENT:     to=['to', 'backend', 'from', 'gate', 'time', 9] from=user command=search data=2 time_stamp=0.004072      ##AT_TIME:0.004096
+RECIEVED: to=['to', 'gate', 'from', 'backend', 'time', 1] from=user command=i_am_finished data=2 time_stamp=0.001088      ##AT_TIME:0.004114
+SENT:     to=['to', 'user', 'from', 'gate', 'time', 9] from=user command=i_am_finished data=2 time_stamp=0.00412      ##AT_TIME:0.004137
+I AM FINISHED [1.0000837000590292, <postalservice.clockbox object at 0x7f73b14d3d30>, 'user'] [[1.0000621972992707, <postalservice.clockbox object at 0x7f73b14d3cf8>, 'litbub'], [1.0001537467441732, <postalservice.clockbox object at 0x7f73b14d3cc0>, 'motdet'], [1.0004022085285662, <postalservice.clockbox object at 0x7f73b14d3da0>, 'backend']] follower
+RECIEVED: to=gate from=user command=lets_see_how_fast_you_are data= time_stamp=0.041985      ##AT_TIME:0.004179
+SENT:     to=user from=gate command=this_is_how_fast_i_am data= time_stamp=0.004187      ##AT_TIME:0.004205
+SENT:     to=litbub from=gate command=lets_see_how_fast_you_are data= time_stamp=0.004212      ##AT_TIME:0.004229
+RECIEVED: to=gate from=litbub command=this_is_how_fast_i_am data= time_stamp=0.001778      ##AT_TIME:0.004248
+SENT:     to=motdet from=gate command=lets_see_how_fast_you_are data= time_stamp=0.004254      ##AT_TIME:0.004268
+RECIEVED: to=gate from=motdet command=this_is_how_fast_i_am data= time_stamp=0.003075      ##AT_TIME:0.004286
+SENT:     to=backend from=gate command=lets_see_how_fast_you_are data= time_stamp=0.004291      ##AT_TIME:0.004304
+RECIEVED: to=gate from=backend command=this_is_how_fast_i_am data= time_stamp=0.00125      ##AT_TIME:0.004321
+SENT:     to=litbub from=gate command=give_me_your_time data= time_stamp=0.004327      ##AT_TIME:0.00434
+RECIEVED: to=gate from=litbub command=my_time_is data=[0.00181, 1] time_stamp=0.001868      ##AT_TIME:0.004357
+SENT:     to=motdet from=gate command=give_me_your_time data= time_stamp=0.004363      ##AT_TIME:0.004375
+RECIEVED: to=gate from=motdet command=my_time_is data=[0.00307425, 4] time_stamp=0.003346      ##AT_TIME:0.004395
+SENT:     to=backend from=gate command=give_me_your_time data= time_stamp=0.004401      ##AT_TIME:0.004414
+RECIEVED: to=gate from=backend command=my_time_is data=[0.001274, 1] time_stamp=0.001323      ##AT_TIME:0.004431
+RECIEVED: to=gate from=user command=give_me_your_time data= time_stamp=0.04206      ##AT_TIME:0.004446
+SENT:     to=user from=gate command=my_time_is data=[0.0028311428571428576, 7] time_stamp=0.004451      ##AT_TIME:0.004466
+RECIEVED: to=gate from=user command=your_time_is data=0.007138333333333332 time_stamp=0.042115      ##AT_TIME:0.004483
+SENT:     to=litbub from=gate command=your_time_is data=0.009879666666666663 time_stamp=0.004489      ##AT_TIME:0.004502
+SENT:     to=motdet from=gate command=your_time_is data=0.009876666666666664 time_stamp=0.004508      ##AT_TIME:0.004519
+SENT:     to=backend from=gate command=your_time_is data=0.009874666666666664 time_stamp=0.004524      ##AT_TIME:0.004536
+RECIEVED: to=gate from=user command=lets_see_how_fast_you_are data= time_stamp=0.057559      ##AT_TIME:0.019913
+SENT:     to=user from=gate command=this_is_how_fast_i_am data= time_stamp=0.01992      ##AT_TIME:0.019942
+SENT:     to=litbub from=gate command=lets_see_how_fast_you_are data= time_stamp=0.019951      ##AT_TIME:0.019971
+RECIEVED: to=gate from=heater command=this_is_how_fast_i_am data= time_stamp=0.017157      ##AT_TIME:0.019994
+SENT:     to=motdet from=gate command=lets_see_how_fast_you_are data= time_stamp=0.020002      ##AT_TIME:0.020022
+RECIEVED: to=gate from=motdet command=this_is_how_fast_i_am data= time_stamp=0.018342      ##AT_TIME:0.020042
+SENT:     to=backend from=gate command=lets_see_how_fast_you_are data= time_stamp=0.020047      ##AT_TIME:0.020061
+RECIEVED: to=gate from=backend command=this_is_how_fast_i_am data= time_stamp=0.01641      ##AT_TIME:0.020084
+SENT:     to=litbub from=gate command=give_me_your_time data= time_stamp=0.020094      ##AT_TIME:0.020114
+RECIEVED: to=gate from=heater command=my_time_is data=[0.017186, 1] time_stamp=0.01721      ##AT_TIME:0.020134
+SENT:     to=motdet from=gate command=give_me_your_time data= time_stamp=0.020141      ##AT_TIME:0.020155
+RECIEVED: to=gate from=motdet command=my_time_is data=[0.016482749999999997, 4] time_stamp=0.018548      ##AT_TIME:0.020175
+SENT:     to=backend from=gate command=give_me_your_time data= time_stamp=0.020182      ##AT_TIME:0.020196
+RECIEVED: to=gate from=backend command=my_time_is data=[0.016441, 1] time_stamp=0.016497      ##AT_TIME:0.020217
+RECIEVED: to=gate from=user command=give_me_your_time data= time_stamp=0.057663      ##AT_TIME:0.020234
+SENT:     to=user from=gate command=my_time_is data=[0.017111714285714286, 7] time_stamp=0.020239      ##AT_TIME:0.020254
+RECIEVED: to=gate from=user command=your_time_is data=0.021610111111111108 time_stamp=0.057744      ##AT_TIME:0.020273
+SENT:     to=litbub from=gate command=your_time_is data=0.023046222222222218 time_stamp=0.020279      ##AT_TIME:0.020293
+SENT:     to=motdet from=gate command=your_time_is data=0.023041222222222216 time_stamp=0.020299      ##AT_TIME:0.020311
+SENT:     to=backend from=gate command=your_time_is data=0.023042222222222217 time_stamp=0.020317      ##AT_TIME:0.020328
+RECIEVED: to=gate from=user command=lets_see_how_fast_you_are data= time_stamp=0.057959      ##AT_TIME:0.021105
+SENT:     to=user from=gate command=this_is_how_fast_i_am data= time_stamp=0.021116      ##AT_TIME:0.021147
+SENT:     to=litbub from=gate command=lets_see_how_fast_you_are data= time_stamp=0.021157      ##AT_TIME:0.021183
+RECIEVED: to=gate from=heater command=this_is_how_fast_i_am data= time_stamp=0.01736      ##AT_TIME:0.021214
+SENT:     to=motdet from=gate command=lets_see_how_fast_you_are data= time_stamp=0.021225      ##AT_TIME:0.021251
+RECIEVED: to=gate from=motdet command=this_is_how_fast_i_am data= time_stamp=0.018687      ##AT_TIME:0.02128
+SENT:     to=backend from=gate command=lets_see_how_fast_you_are data= time_stamp=0.021291      ##AT_TIME:0.021316
+RECIEVED: to=gate from=backend command=this_is_how_fast_i_am data= time_stamp=0.016711      ##AT_TIME:0.021344
+SENT:     to=litbub from=gate command=give_me_your_time data= time_stamp=0.021352      ##AT_TIME:0.02137
+RECIEVED: to=gate from=heater command=my_time_is data=[0.017385, 1] time_stamp=0.017405      ##AT_TIME:0.021389
+SENT:     to=motdet from=gate command=give_me_your_time data= time_stamp=0.021395      ##AT_TIME:0.02141
+RECIEVED: to=gate from=motdet command=my_time_is data=[0.01677, 4] time_stamp=0.018802      ##AT_TIME:0.021431
+SENT:     to=backend from=gate command=give_me_your_time data= time_stamp=0.021437      ##AT_TIME:0.021452
+RECIEVED: to=gate from=backend command=my_time_is data=[0.016735, 1] time_stamp=0.016756      ##AT_TIME:0.021472
+RECIEVED: to=gate from=user command=give_me_your_time data= time_stamp=0.058036      ##AT_TIME:0.021493
+SENT:     to=user from=gate command=my_time_is data=[0.017526, 7] time_stamp=0.021497      ##AT_TIME:0.021513
+RECIEVED: to=gate from=user command=your_time_is data=0.021983555555555558 time_stamp=0.058103      ##AT_TIME:0.021532
+SENT:     to=litbub from=gate command=your_time_is data=0.022551111111111116 time_stamp=0.021539      ##AT_TIME:0.021555
+SENT:     to=motdet from=gate command=your_time_is data=0.022550111111111115 time_stamp=0.02156      ##AT_TIME:0.021573
+SENT:     to=backend from=gate command=your_time_is data=0.022546111111111114 time_stamp=0.021578      ##AT_TIME:0.02159
+RECIEVED: to=gate from=user command=lets_see_how_fast_you_are data= time_stamp=0.058313      ##AT_TIME:0.022016
+SENT:     to=user from=gate command=this_is_how_fast_i_am data= time_stamp=0.022022      ##AT_TIME:0.022038
+SENT:     to=['to', 'heater', 'from', 'enviro', 'time', 7] from=user command=cycle data=2 time_stamp=0.003568      ##AT_TIME:0.003595
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 8] from=user command=search data=2 time_stamp=0.002654      ##AT_TIME:0.003617
+SENT:     to=['to', 'thermo', 'from', 'enviro', 'time', 8] from=user command=search data=2 time_stamp=0.003624      ##AT_TIME:0.003642
+RECIEVED: to=['to', 'enviro', 'from', 'thermo', 'time', 7] from=user command=my_min_is data=1.0001987522523161 time_stamp=0.002318      ##AT_TIME:0.003661
+SENT:     to=['to', 'heater', 'from', 'enviro', 'time', 8] from=user command=search data=2 time_stamp=0.003669      ##AT_TIME:0.003685
+RECIEVED: to=['to', 'enviro', 'from', 'heater', 'time', 5] from=user command=i_am_finished data=2 time_stamp=0.002017      ##AT_TIME:0.003701
+SENT:     to=['to', 'motdet', 'from', 'enviro', 'time', 8] from=user command=my_min_is data=1.0001987522523161 time_stamp=0.003707      ##AT_TIME:0.003722
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 8] from=user command=cycle data=2 time_stamp=0.002795      ##AT_TIME:0.003741
+SENT:     to=['to', 'thermo', 'from', 'enviro', 'time', 8] from=user command=cycle data=2 time_stamp=0.003747      ##AT_TIME:0.003762
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 9] from=user command=search data=2 time_stamp=0.002871      ##AT_TIME:0.00378
+SENT:     to=['to', 'thermo', 'from', 'enviro', 'time', 9] from=user command=search data=2 time_stamp=0.003785      ##AT_TIME:0.0038
+RECIEVED: to=['to', 'enviro', 'from', 'thermo', 'time', 7] from=user command=i_am_finished data=2 time_stamp=0.002369      ##AT_TIME:0.003814
+SENT:     to=['to', 'motdet', 'from', 'enviro', 'time', 9] from=user command=i_am_finished data=2 time_stamp=0.00382      ##AT_TIME:0.003833
+I AM FINISHED [1.0000809245478701, <postalservice.clockbox object at 0x7f73b14d80b8>, 'motdet'] [[1.000132027817691, <postalservice.clockbox object at 0x7f73b14d8048>, 'heater'], [1.0001266900470909, <postalservice.clockbox object at 0x7f73b14d8080>, 'thermo']] follower
+RECIEVED: to=enviro from=motdet command=lets_see_how_fast_you_are data= time_stamp=0.003107      ##AT_TIME:0.003903
+SENT:     to=motdet from=enviro command=this_is_how_fast_i_am data= time_stamp=0.003913      ##AT_TIME:0.003939
+SENT:     to=heater from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.003946      ##AT_TIME:0.003961
+RECIEVED: to=enviro from=heater command=this_is_how_fast_i_am data= time_stamp=0.002179      ##AT_TIME:0.004038
+SENT:     to=thermo from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.004047      ##AT_TIME:0.004063
+RECIEVED: to=enviro from=thermo command=this_is_how_fast_i_am data= time_stamp=0.002505      ##AT_TIME:0.00411
+SENT:     to=heater from=enviro command=give_me_your_time data= time_stamp=0.004116      ##AT_TIME:0.004132
+RECIEVED: to=enviro from=heater command=my_time_is data=[0.002209, 1] time_stamp=0.002302      ##AT_TIME:0.004151
+SENT:     to=thermo from=enviro command=give_me_your_time data= time_stamp=0.004157      ##AT_TIME:0.004171
+RECIEVED: to=enviro from=thermo command=my_time_is data=[0.002525, 1] time_stamp=0.002576      ##AT_TIME:0.004226
+RECIEVED: to=enviro from=motdet command=give_me_your_time data= time_stamp=0.003211      ##AT_TIME:0.00425
+SENT:     to=motdet from=enviro command=my_time_is data=[0.00299, 3] time_stamp=0.004255      ##AT_TIME:0.004277
+RECIEVED: to=enviro from=motdet command=your_time_is data=0.016529333333333326 time_stamp=0.003423      ##AT_TIME:0.004304
+SENT:     to=heater from=enviro command=your_time_is data=0.028922666666666652 time_stamp=0.004314      ##AT_TIME:0.004339
+SENT:     to=thermo from=enviro command=your_time_is data=0.028891666666666652 time_stamp=0.004348      ##AT_TIME:0.004369
+RECIEVED: to=enviro from=motdet command=lets_see_how_fast_you_are data= time_stamp=0.018401      ##AT_TIME:0.015573
+SENT:     to=motdet from=enviro command=this_is_how_fast_i_am data= time_stamp=0.015582      ##AT_TIME:0.015599
+SENT:     to=heater from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.015604      ##AT_TIME:0.015617
+RECIEVED: to=enviro from=heater command=this_is_how_fast_i_am data= time_stamp=0.015742      ##AT_TIME:0.015636
+SENT:     to=thermo from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.015645      ##AT_TIME:0.015659
+RECIEVED: to=enviro from=thermo command=this_is_how_fast_i_am data= time_stamp=0.015818      ##AT_TIME:0.015677
+SENT:     to=heater from=enviro command=give_me_your_time data= time_stamp=0.015682      ##AT_TIME:0.015695
+RECIEVED: to=enviro from=heater command=my_time_is data=[0.015775, 1] time_stamp=0.015799      ##AT_TIME:0.015716
+SENT:     to=thermo from=enviro command=give_me_your_time data= time_stamp=0.015725      ##AT_TIME:0.015747
+RECIEVED: to=enviro from=thermo command=my_time_is data=[0.015847, 1] time_stamp=0.015868      ##AT_TIME:0.01577
+RECIEVED: to=enviro from=motdet command=give_me_your_time data= time_stamp=0.018465      ##AT_TIME:0.015788
+SENT:     to=motdet from=enviro command=my_time_is data=[0.015799666666666667, 3] time_stamp=0.015792      ##AT_TIME:0.015808
+RECIEVED: to=enviro from=motdet command=your_time_is data=0.027613444444444434 time_stamp=0.018588      ##AT_TIME:0.015834
+SENT:     to=heater from=enviro command=your_time_is data=0.039488888888888865 time_stamp=0.015842      ##AT_TIME:0.015859
+SENT:     to=thermo from=enviro command=your_time_is data=0.03948688888888886 time_stamp=0.015864      ##AT_TIME:0.015876
+RECIEVED: to=enviro from=motdet command=lets_see_how_fast_you_are data= time_stamp=0.018708      ##AT_TIME:0.016069
+SENT:     to=motdet from=enviro command=this_is_how_fast_i_am data= time_stamp=0.016075      ##AT_TIME:0.016091
+SENT:     to=heater from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.016096      ##AT_TIME:0.016108
+RECIEVED: to=enviro from=heater command=this_is_how_fast_i_am data= time_stamp=0.015944      ##AT_TIME:0.016128
+SENT:     to=thermo from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.016134      ##AT_TIME:0.016148
+RECIEVED: to=enviro from=thermo command=this_is_how_fast_i_am data= time_stamp=0.01604      ##AT_TIME:0.016168
+SENT:     to=heater from=enviro command=give_me_your_time data= time_stamp=0.016174      ##AT_TIME:0.016188
+RECIEVED: to=enviro from=heater command=my_time_is data=[0.015978, 1] time_stamp=0.016006      ##AT_TIME:0.016207
+SENT:     to=thermo from=enviro command=give_me_your_time data= time_stamp=0.016213      ##AT_TIME:0.016227
+RECIEVED: to=enviro from=thermo command=my_time_is data=[0.016062, 1] time_stamp=0.01608      ##AT_TIME:0.016246
+RECIEVED: to=enviro from=motdet command=give_me_your_time data= time_stamp=0.018745      ##AT_TIME:0.016262
+SENT:     to=motdet from=enviro command=my_time_is data=[0.016097333333333335, 3] time_stamp=0.016266      ##AT_TIME:0.016281
+RECIEVED: to=enviro from=motdet command=your_time_is data=0.02634922222222223 time_stamp=0.018849      ##AT_TIME:0.016309
+SENT:     to=heater from=enviro command=your_time_is data=0.03648444444444446 time_stamp=0.016317      ##AT_TIME:0.016335
+SENT:     to=thermo from=enviro command=your_time_is data=0.03648644444444446 time_stamp=0.016343      ##AT_TIME:0.01636
+RECIEVED: to=enviro from=motdet command=lets_see_how_fast_you_are data= time_stamp=0.018999      ##AT_TIME:0.016596
+SENT:     to=motdet from=enviro command=this_is_how_fast_i_am data= time_stamp=0.016606      ##AT_TIME:0.016624
+SENT:     to=heater from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.016629      ##AT_TIME:0.016645
+RECIEVED: to=enviro from=heater command=this_is_how_fast_i_am data= time_stamp=0.016145      ##AT_TIME:0.016668
+SENT:     to=thermo from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.016677      ##AT_TIME:0.016698
+RECIEVED: to=enviro from=thermo command=this_is_how_fast_i_am data= time_stamp=0.016226      ##AT_TIME:0.01672
+SENT:     to=heater from=enviro command=give_me_your_time data= time_stamp=0.016726      ##AT_TIME:0.01674
+RECIEVED: to=enviro from=heater command=my_time_is data=[0.016168, 1] time_stamp=0.016192      ##AT_TIME:0.016758
+SENT:     to=thermo from=enviro command=give_me_your_time data= time_stamp=0.016763      ##AT_TIME:0.016777SENT:     to=doorboy from=user command=lets_see_how_fast_you_are data= time_stamp=0.05818      ##AT_TIME:0.058233
+RECIEVED: to=user from=doorboy command=this_is_how_fast_i_am data= time_stamp=0.016909      ##AT_TIME:0.058306
+SENT:     to=gate from=user command=lets_see_how_fast_you_are data= time_stamp=0.058313      ##AT_TIME:0.058329
+RECIEVED: to=user from=gate command=this_is_how_fast_i_am data= time_stamp=0.022022      ##AT_TIME:0.058346
+SENT:     to=doorboy from=user command=give_me_your_time data= time_stamp=0.058352      ##AT_TIME:0.058366
+RECIEVED: to=user from=doorboy command=my_time_is data=[0.016933, 1] time_stamp=0.016959      ##AT_TIME:0.058383
+SENT:     to=gate from=user command=give_me_your_time data= time_stamp=0.058389      ##AT_TIME:0.058402
+RECIEVED: to=user from=gate command=my_time_is data=[0.017868714285714286, 7] time_stamp=0.022347      ##AT_TIME:0.058422
+SENT:     to=doorboy from=user command=your_time_is data=0.02240455555555556 time_stamp=0.058431      ##AT_TIME:0.058446
+SENT:     to=gate from=user command=your_time_is data=0.022310555555555556 time_stamp=0.058452      ##AT_TIME:0.058464
+SENT:     to=['to', 'user', 'from', 'doorboy', 'time', 1] from=doorboy command=i_choose_you data=0 time_stamp=0.001104      ##AT_TIME:0.001139
+RECIEVED: to=['to', 'doorboy', 'from', 'user', 'time', 1] from=user command=i_choose_you data=0 time_stamp=0.040369      ##AT_TIME:0.001172
+NEW NODE AWOKEN!!! follower names is    doorboy city is         user             parent is  [1.0000586174300212, <postalservice.clockbox object at 0x7f73b14d8400>, 'user'] children are [] edges are    [[1.0001700934503817, <postalservice.clockbox object at 0x7f73b14d83c8>, 'gate']]
+RECIEVED: to=['to', 'doorboy', 'from', 'user', 'time', 2] from=user command=search data=1 time_stamp=0.040505      ##AT_TIME:0.001264
+SENT:     to=['to', 'user', 'from', 'doorboy', 'time', 2] from=user command=my_min_is data=1.0001700934503817 time_stamp=0.001279      ##AT_TIME:0.001303
+RECIEVED: to=['to', 'doorboy', 'from', 'user', 'time', 2] from=user command=you_are_not_min data=1 time_stamp=0.040663      ##AT_TIME:0.001383
+RECIEVED: to=['to', 'doorboy', 'from', 'user', 'time', 3] from=user command=search data=2 time_stamp=0.040741      ##AT_TIME:0.001459
+SENT:     to=['to', 'user', 'from', 'doorboy', 'time', 3] from=user command=my_min_is data=1.0001700934503817 time_stamp=0.001488      ##AT_TIME:0.001527
+RECIEVED: to=['to', 'doorboy', 'from', 'user', 'time', 3] from=user command=you_are_not_min data=2 time_stamp=0.040851      ##AT_TIME:0.001597
+RECIEVED: to=['to', 'doorboy', 'from', 'user', 'time', 4] from=user command=search data=2 time_stamp=0.040969      ##AT_TIME:0.001658
+SENT:     to=['to', 'user', 'from', 'doorboy', 'time', 4] from=user command=my_min_is data=1.0001700934503817 time_stamp=0.001671      ##AT_TIME:0.001695
+RECIEVED: to=['to', 'doorboy', 'from', 'user', 'time', 4] from=user command=cycle data=2 time_stamp=0.041072      ##AT_TIME:0.00177
+SENT:     to=['to', 'user', 'from', 'doorboy', 'time', 4] from=user command=i_am_finished data=2 time_stamp=0.001782      ##AT_TIME:0.001819
+I AM FINISHED [1.0000586174300212, <postalservice.clockbox object at 0x7f73b14d8400>, 'user'] [] follower
+RECIEVED: to=['to', 'doorboy', 'from', 'user', 'time', 5] from=user command=search data=2 time_stamp=0.041138      ##AT_TIME:0.001864
+RECIEVED: to=doorboy from=user command=lets_see_how_fast_you_are data= time_stamp=0.041913      ##AT_TIME:0.001941
+SENT:     to=user from=doorboy command=this_is_how_fast_i_am data= time_stamp=0.00195      ##AT_TIME:0.001974
+RECIEVED: to=doorboy from=user command=give_me_your_time data= time_stamp=0.042024      ##AT_TIME:0.002044
+SENT:     to=user from=doorboy command=my_time_is data=[0.001981, 1] time_stamp=0.002055      ##AT_TIME:0.002079
+RECIEVED: to=doorboy from=user command=your_time_is data=0.007171333333333337 time_stamp=0.042097      ##AT_TIME:0.002131
+RECIEVED: to=doorboy from=user command=lets_see_how_fast_you_are data= time_stamp=0.057445      ##AT_TIME:0.016443
+SENT:     to=user from=doorboy command=this_is_how_fast_i_am data= time_stamp=0.016452      ##AT_TIME:0.016495
+RECIEVED: to=doorboy from=user command=give_me_your_time data= time_stamp=0.057613      ##AT_TIME:0.01652
+SENT:     to=user from=doorboy command=my_time_is data=[0.016504, 1] time_stamp=0.016526      ##AT_TIME:0.016545
+RECIEVED: to=doorboy from=user command=your_time_is data=0.021672111111111107 time_stamp=0.057721      ##AT_TIME:0.016602
+RECIEVED: to=doorboy from=user command=lets_see_how_fast_you_are data= time_stamp=0.057821      ##AT_TIME:0.016701
+SENT:     to=user from=doorboy command=this_is_how_fast_i_am data= time_stamp=0.016709      ##AT_TIME:0.016742
+RECIEVED: to=doorboy from=user command=give_me_your_time data= time_stamp=0.057998      ##AT_TIME:0.016762
+SENT:     to=user from=doorboy command=my_time_is data=[0.016748, 1] time_stamp=0.016767      ##AT_TIME:0.016784
+RECIEVED: to=doorboy from=user command=your_time_is data=0.02208255555555556 time_stamp=0.058081      ##AT_TIME:0.01681
+RECIEVED: to=doorboy from=user command=lets_see_how_fast_you_are data= time_stamp=0.05818      ##AT_TIME:0.016902
+SENT:     to=user from=doorboy command=this_is_how_fast_i_am data= time_stamp=0.016909      ##AT_TIME:0.016928
+RECIEVED: to=doorboy from=user command=give_me_your_time data= time_stamp=0.058352      ##AT_TIME:0.01695
+SENT:     to=user from=doorboy command=my_time_is data=[0.016933, 1] time_stamp=0.016959      ##AT_TIME:0.016976
+RECIEVED: to=doorboy from=user command=your_time_is data=0.02240455555555556 time_stamp=0.058431      ##AT_TIME:0.016997
+RECIEVED: to=doorboy from=user command=lets_see_how_fast_you_are data= time_stamp=0.058528      ##AT_TIME:0.017087
+SENT:     to=user from=doorboy command=this_is_how_fast_i_am data= time_stamp=0.017094      ##AT_TIME:0.017111
+RECIEVED: to=doorboy from=user command=give_me_your_time data= time_stamp=0.058694      ##AT_TIME:0.017131
+SENT:     to=user from=doorboy command=my_time_is data=[0.017116, 1] time_stamp=0.017136      ##AT_TIME:0.01715
+RECIEVED: to=doorboy from=user command=your_time_is data=0.022728222222222223 time_stamp=0.058788      ##AT_TIME:0.017171
+SENT:     to=['to', 'gate', 'from', 'litbub', 'time', 1] from=litbub command=i_choose_you data=0 time_stamp=0.001041      ##AT_TIME:0.001076
+RECIEVED: to=['to', 'litbub', 'from', 'gate', 'time', 1] from=gate command=i_choose_you data=0 time_stamp=0.001727      ##AT_TIME:0.001129
+NEW NODE AWOKEN!!! leader names is    litbub city is         litbub             parent is   children are [[1.0000621972992707, <postalservice.clockbox object at 0x7f73b14d8278>, 'gate']] edges are    [[1.0001881427515058, <postalservice.clockbox object at 0x7f73b14d82b0>, 'enviro']]
+SENT:     to=['to', 'gate', 'from', 'litbub', 'time', 2] from=litbub command=search data=1 time_stamp=0.001167      ##AT_TIME:0.001189
+RECIEVED: to=['to', 'litbub', 'from', 'gate', 'time', 2] from=litbub command=my_min_is data=1.0000837000590292 time_stamp=0.001893      ##AT_TIME:0.001234
+SENT:     to=['to', 'gate', 'from', 'litbub', 'time', 2] from=litbub command=you_are_min data=1 time_stamp=0.001246      ##AT_TIME:0.001264
+RECIEVED: to=['to', 'gate', 'from', 'user', 'time', 2] from=user command=i_choose_you data=1 time_stamp=0.040696      ##AT_TIME:0.00129
+SENT:     to=['to', 'gate', 'from', 'litbub', 'time', 2] from=user command=we_lost data=2 time_stamp=0.0013      ##AT_TIME:0.001317
+RECIEVED: to=['to', 'litbub', 'from', 'gate', 'time', 3] from=user command=search data=2 time_stamp=0.002156      ##AT_TIME:0.001365
+SENT:     to=['to', 'gate', 'from', 'litbub', 'time', 3] from=user command=my_min_is data=1.0001881427515058 time_stamp=0.001374      ##AT_TIME:0.001395
+RECIEVED: to=['to', 'litbub', 'from', 'gate', 'time', 3] from=user command=you_are_not_min data=2 time_stamp=0.00226      ##AT_TIME:0.001425
+RECIEVED: to=['to', 'litbub', 'from', 'gate', 'time', 4] from=user command=search data=2 time_stamp=0.002472      ##AT_TIME:0.001451
+SENT:     to=['to', 'gate', 'from', 'litbub', 'time', 4] from=user command=my_min_is data=1.0001881427515058 time_stamp=0.001459      ##AT_TIME:0.001475
+RECIEVED: to=['to', 'litbub', 'from', 'gate', 'time', 4] from=user command=you_are_not_min data=2 time_stamp=0.002534      ##AT_TIME:0.001493
+RECIEVED: to=['to', 'litbub', 'from', 'gate', 'time', 5] from=user command=search data=2 time_stamp=0.00293      ##AT_TIME:0.00151
+SENT:     to=['to', 'gate', 'from', 'litbub', 'time', 5] from=user command=my_min_is data=1.0001881427515058 time_stamp=0.001516      ##AT_TIME:0.00153
+RECIEVED: to=['to', 'litbub', 'from', 'gate', 'time', 5] from=user command=cycle data=2 time_stamp=0.003178      ##AT_TIME:0.001591
+SENT:     to=['to', 'gate', 'from', 'litbub', 'time', 5] from=user command=i_am_finished data=2 time_stamp=0.001622      ##AT_TIME:0.001639
+I AM FINISHED [1.0000621972992707, <postalservice.clockbox object at 0x7f73b14d8278>, 'gate'] [] follower
+RECIEVED: to=['to', 'litbub', 'from', 'gate', 'time', 6] from=user command=search data=2 time_stamp=0.003415      ##AT_TIME:0.001703
+RECIEVED: to=litbub from=gate command=lets_see_how_fast_you_are data= time_stamp=0.004212      ##AT_TIME:0.001768
+SENT:     to=gate from=litbub command=this_is_how_fast_i_am data= time_stamp=0.001778      ##AT_TIME:0.001804
+RECIEVED: to=litbub from=gate command=give_me_your_time data= time_stamp=0.004327      ##AT_TIME:0.001859
+SENT:     to=gate from=litbub command=my_time_is data=[0.00181, 1] time_stamp=0.001868      ##AT_TIME:0.001884
+RECIEVED: to=litbub from=gate command=your_time_is data=0.009879666666666663 time_stamp=0.004489      ##AT_TIME:0.001929
+RECIEVED: to=litbub from=gate command=lets_see_how_fast_you_are data= time_stamp=0.019951      ##AT_TIME:0.017148
+SENT:     to=gate from=heater command=this_is_how_fast_i_am data= time_stamp=0.017157      ##AT_TIME:0.01718
+RECIEVED: to=litbub from=gate command=give_me_your_time data= time_stamp=0.020094      ##AT_TIME:0.017203
+SENT:     to=gate from=heater command=my_time_is data=[0.017186, 1] time_stamp=0.01721      ##AT_TIME:0.017227
+RECIEVED: to=litbub from=gate command=your_time_is data=0.023046222222222218 time_stamp=0.020279      ##AT_TIME:0.017254
+RECIEVED: to=litbub from=gate command=lets_see_how_fast_you_are data= time_stamp=0.021157      ##AT_TIME:0.017351
+SENT:     to=gate from=heater command=this_is_how_fast_i_am data= time_stamp=0.01736      ##AT_TIME:0.017379
+RECIEVED: to=litbub from=gate command=give_me_your_time data= time_stamp=0.021352      ##AT_TIME:0.0174
+SENT:     to=gate from=heater command=my_time_is data=[0.017385, 1] time_stamp=0.017405      ##AT_TIME:0.017421
+RECIEVED: to=litbub from=gate command=your_time_is data=0.022551111111111116 time_stamp=0.021539      ##AT_TIME:0.017445
+RECIEVED: to=litbub from=gate command=lets_see_how_fast_you_are data= time_stamp=0.022064      ##AT_TIME:0.017532
+SENT:     to=gate from=heater command=this_is_how_fast_i_am data= time_stamp=0.017538      ##AT_TIME:0.017555
+RECIEVED: to=litbub from=gate command=give_me_your_time data= time_stamp=0.022204      ##AT_TIME:0.017575
+SENT:     to=gate from=heater command=my_time_is data=[0.01756, 1] time_stamp=0.01758      ##AT_TIME:0.017595
+RECIEVED: to=litbub from=gate command=your_time_is data=0.022329111111111112 time_stamp=0.022385      ##AT_TIME:0.017617
+RECIEVED: to=litbub from=gate command=lets_see_how_fast_you_are data= time_stamp=0.023028      ##AT_TIME:0.017707
+SENT:     to=gate from=heater command=this_is_how_fast_i_am data= time_stamp=0.017714      ##AT_TIME:0.017731
+RECIEVED: to=litbub from=gate command=give_me_your_time data= time_stamp=0.023146      ##AT_TIME:0.017752
+SENT:     to=gate from=heater command=my_time_is data=[0.017736, 1] time_stamp=0.017758      ##AT_TIME:0.017774
+RECIEVED: to=litbub from=gate command=your_time_is data=0.02205344444444445 time_stamp=0.023326      ##AT_TIME:0.017821
+
+SENT:     to=enviro from=motdet command=lets_see_how_fast_you_are data= time_stamp=0.018401      ##AT_TIME:0.018423
+RECIEVED: to=motdet from=enviro command=this_is_how_fast_i_am data= time_stamp=0.015582      ##AT_TIME:0.018454
+SENT:     to=enviro from=motdet command=give_me_your_time data= time_stamp=0.018465      ##AT_TIME:0.018491
+RECIEVED: to=motdet from=enviro command=my_time_is data=[0.015799666666666667, 3] time_stamp=0.015792      ##AT_TIME:0.018519
+RECIEVED: to=motdet from=gate command=give_me_your_time data= time_stamp=0.020141      ##AT_TIME:0.018544
+SENT:     to=gate from=motdet command=my_time_is data=[0.016482749999999997, 4] time_stamp=0.018548      ##AT_TIME:0.018564
+RECIEVED: to=motdet from=gate command=your_time_is data=0.023041222222222216 time_stamp=0.020299      ##AT_TIME:0.018582
+SENT:     to=enviro from=motdet command=your_time_is data=0.027613444444444434 time_stamp=0.018588      ##AT_TIME:0.018602
+RECIEVED: to=motdet from=gate command=lets_see_how_fast_you_are data= time_stamp=0.021225      ##AT_TIME:0.018682
+SENT:     to=gate from=motdet command=this_is_how_fast_i_am data= time_stamp=0.018687      ##AT_TIME:0.018703
+SENT:     to=enviro from=motdet command=lets_see_how_fast_you_are data= time_stamp=0.018708      ##AT_TIME:0.018721
+RECIEVED: to=motdet from=enviro command=this_is_how_fast_i_am data= time_stamp=0.016075      ##AT_TIME:0.018739
+SENT:     to=enviro from=motdet command=give_me_your_time data= time_stamp=0.018745      ##AT_TIME:0.018759
+RECIEVED: to=motdet from=enviro command=my_time_is data=[0.016097333333333335, 3] time_stamp=0.016266      ##AT_TIME:0.01878
+RECIEVED: to=motdet from=gate command=give_me_your_time data= time_stamp=0.021395      ##AT_TIME:0.018798
+SENT:     to=gate from=motdet command=my_time_is data=[0.01677, 4] time_stamp=0.018802      ##AT_TIME:0.018818
+RECIEVED: to=motdet from=gate command=your_time_is data=0.022550111111111115 time_stamp=0.02156      ##AT_TIME:0.018842
+SENT:     to=enviro from=motdet command=your_time_is data=0.02634922222222223 time_stamp=0.018849      ##AT_TIME:0.018866
+RECIEVED: to=motdet from=gate command=lets_see_how_fast_you_are data= time_stamp=0.022107      ##AT_TIME:0.018973
+SENT:     to=gate from=motdet command=this_is_how_fast_i_am data= time_stamp=0.018978      ##AT_TIME:0.018994
+SENT:     to=enviro from=motdet command=lets_see_how_fast_you_are data= time_stamp=0.018999      ##AT_TIME:0.019012
+RECIEVED: to=motdet from=enviro command=this_is_how_fast_i_am data= time_stamp=0.016606      ##AT_TIME:0.01903
+SENT:     to=enviro from=motdet command=give_me_your_time data= time_stamp=0.019035      ##AT_TIME:0.019052
+RECIEVED: to=motdet from=enviro command=my_time_is data=[0.016411333333333333, 3] time_stamp=0.016834      ##AT_TIME:0.019077
+RECIEVED: to=motdet from=gate command=give_me_your_time data= time_stamp=0.022248      ##AT_TIME:0.019094
+SENT:     to=gate from=motdet command=my_time_is data=[0.0170795, 4] time_stamp=0.019099      ##AT_TIME:0.019114
+RECIEVED: to=motdet from=gate command=your_time_is data=0.022330111111111113 time_stamp=0.022405      ##AT_TIME:0.019132
+SENT:     to=enviro from=motdet command=your_time_is data=0.025611222222222226 time_stamp=0.019138      ##AT_TIME:0.019153
+RECIEVED: to=motdet from=gate command=lets_see_how_fast_you_are data= time_stamp=0.023065      ##AT_TIME:0.019235
+SENT:     to=gate from=motdet command=this_is_how_fast_i_am data= time_stamp=0.019244      ##AT_TIME:0.019261
+SENT:     to=enviro from=motdet command=lets_see_how_fast_you_are data= time_stamp=0.019266      ##AT_TIME:0.019279
+RECIEVED: to=motdet from=enviro command=this_is_how_fast_i_am data= time_stamp=0.01707      ##AT_TIME:0.019297
+SENT:     to=enviro from=motdet command=give_me_your_time data= time_stamp=0.019302      ##AT_TIME:0.019315
+RECIEVED: to=motdet from=enviro command=my_time_is data=[0.016722666666666667, 3] time_stamp=0.017339      ##AT_TIME:0.019364
+RECIEVED: to=motdet from=gate command=give_me_your_time data= time_stamp=0.023196      ##AT_TIME:0.019381
+SENT:     to=gate from=motdet command=my_time_is data=[0.01738475, 4] time_stamp=0.019385      ##AT_TIME:0.0194
+RECIEVED: to=motdet from=gate command=your_time_is data=0.022054444444444446 time_stamp=0.023347      ##AT_TIME:0.019422
+SENT:     to=enviro from=motdet command=your_time_is data=0.02477388888888889 time_stamp=0.019431      ##AT_TIME:0.019454
+
+RECIEVED: to=enviro from=thermo command=my_time_is data=[0.016247, 1] time_stamp=0.01627      ##AT_TIME:0.016812
+RECIEVED: to=enviro from=motdet command=give_me_your_time data= time_stamp=0.019035      ##AT_TIME:0.016829
+SENT:     to=motdet from=enviro command=my_time_is data=[0.016411333333333333, 3] time_stamp=0.016834      ##AT_TIME:0.016848
+RECIEVED: to=enviro from=motdet command=your_time_is data=0.025611222222222226 time_stamp=0.019138      ##AT_TIME:0.016873
+SENT:     to=heater from=enviro command=your_time_is data=0.03444944444444445 time_stamp=0.016881      ##AT_TIME:0.016897
+SENT:     to=thermo from=enviro command=your_time_is data=0.03445244444444445 time_stamp=0.016902      ##AT_TIME:0.016917
+RECIEVED: to=enviro from=motdet command=lets_see_how_fast_you_are data= time_stamp=0.019266      ##AT_TIME:0.017064
+SENT:     to=motdet from=enviro command=this_is_how_fast_i_am data= time_stamp=0.01707      ##AT_TIME:0.017085
+SENT:     to=heater from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.01709      ##AT_TIME:0.017102
+RECIEVED: to=enviro from=heater command=this_is_how_fast_i_am data= time_stamp=0.016339      ##AT_TIME:0.017153
+SENT:     to=thermo from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.017163      ##AT_TIME:0.017185
+RECIEVED: to=enviro from=thermo command=this_is_how_fast_i_am data= time_stamp=0.016458      ##AT_TIME:0.017236
+SENT:     to=heater from=enviro command=give_me_your_time data= time_stamp=0.017243      ##AT_TIME:0.01726
+RECIEVED: to=enviro from=heater command=my_time_is data=[0.016365, 1] time_stamp=0.016392      ##AT_TIME:0.017279
+SENT:     to=thermo from=enviro command=give_me_your_time data= time_stamp=0.017285      ##AT_TIME:0.017301
+RECIEVED: to=enviro from=thermo command=my_time_is data=[0.016478, 1] time_stamp=0.016499      ##AT_TIME:0.017318
+RECIEVED: to=enviro from=motdet command=give_me_your_time data= time_stamp=0.019302      ##AT_TIME:0.017334
+SENT:     to=motdet from=enviro command=my_time_is data=[0.016722666666666667, 3] time_stamp=0.017339      ##AT_TIME:0.017353
+RECIEVED: to=enviro from=motdet command=your_time_is data=0.02477388888888889 time_stamp=0.019431      ##AT_TIME:0.01738
+SENT:     to=heater from=enviro command=your_time_is data=0.03229477777777778 time_stamp=0.017392      ##AT_TIME:0.017418
+SENT:     to=thermo from=enviro command=your_time_is data=0.03230277777777778 time_stamp=0.017427      ##AT_TIME:0.017451
+
+SENT:     to=litbub from=gate command=lets_see_how_fast_you_are data= time_stamp=0.022064      ##AT_TIME:0.022079
+RECIEVED: to=gate from=heater command=this_is_how_fast_i_am data= time_stamp=0.017538      ##AT_TIME:0.0221
+SENT:     to=motdet from=gate command=lets_see_how_fast_you_are data= time_stamp=0.022107      ##AT_TIME:0.022122
+RECIEVED: to=gate from=motdet command=this_is_how_fast_i_am data= time_stamp=0.018978      ##AT_TIME:0.022143
+SENT:     to=backend from=gate command=lets_see_how_fast_you_are data= time_stamp=0.022149      ##AT_TIME:0.022169
+RECIEVED: to=gate from=backend command=this_is_how_fast_i_am data= time_stamp=0.016849      ##AT_TIME:0.022195
+SENT:     to=litbub from=gate command=give_me_your_time data= time_stamp=0.022204      ##AT_TIME:0.022219
+RECIEVED: to=gate from=heater command=my_time_is data=[0.01756, 1] time_stamp=0.01758      ##AT_TIME:0.022239
+SENT:     to=motdet from=gate command=give_me_your_time data= time_stamp=0.022248      ##AT_TIME:0.022267
+RECIEVED: to=gate from=motdet command=my_time_is data=[0.0170795, 4] time_stamp=0.019099      ##AT_TIME:0.022288
+SENT:     to=backend from=gate command=give_me_your_time data= time_stamp=0.022295      ##AT_TIME:0.02231
+RECIEVED: to=gate from=backend command=my_time_is data=[0.01687, 1] time_stamp=0.016894      ##AT_TIME:0.022327
+RECIEVED: to=gate from=user command=give_me_your_time data= time_stamp=0.058389      ##AT_TIME:0.022343
+SENT:     to=user from=gate command=my_time_is data=[0.017868714285714286, 7] time_stamp=0.022347      ##AT_TIME:0.022361
+RECIEVED: to=gate from=user command=your_time_is data=0.022310555555555556 time_stamp=0.058452      ##AT_TIME:0.022379
+SENT:     to=litbub from=gate command=your_time_is data=0.022329111111111112 time_stamp=0.022385      ##AT_TIME:0.022399
+SENT:     to=motdet from=gate command=your_time_is data=0.022330111111111113 time_stamp=0.022405      ##AT_TIME:0.022417
+SENT:     to=backend from=gate command=your_time_is data=0.02234211111111111 time_stamp=0.022422      ##AT_TIME:0.022433
+RECIEVED: to=gate from=user command=lets_see_how_fast_you_are data= time_stamp=0.058653      ##AT_TIME:0.022999
+SENT:     to=user from=gate command=this_is_how_fast_i_am data= time_stamp=0.023004      ##AT_TIME:0.023022
+SENT:     to=litbub from=gate command=lets_see_how_fast_you_are data= time_stamp=0.023028      ##AT_TIME:0.023042
+RECIEVED: to=gate from=heater command=this_is_how_fast_i_am data= time_stamp=0.017714      ##AT_TIME:0.023059
+SENT:     to=motdet from=gate command=lets_see_how_fast_you_are data= time_stamp=0.023065      ##AT_TIME:0.02308
+RECIEVED: to=gate from=motdet command=this_is_how_fast_i_am data= time_stamp=0.019244      ##AT_TIME:0.023098
+SENT:     to=backend from=gate command=lets_see_how_fast_you_are data= time_stamp=0.023104      ##AT_TIME:0.023118
+RECIEVED: to=gate from=backend command=this_is_how_fast_i_am data= time_stamp=0.016964      ##AT_TIME:0.023138
+SENT:     to=litbub from=gate command=give_me_your_time data= time_stamp=0.023146      ##AT_TIME:0.023167
+RECIEVED: to=gate from=heater command=my_time_is data=[0.017736, 1] time_stamp=0.017758      ##AT_TIME:0.02319
+SENT:     to=motdet from=gate command=give_me_your_time data= time_stamp=0.023196      ##AT_TIME:0.023209
+RECIEVED: to=gate from=motdet command=my_time_is data=[0.01738475, 4] time_stamp=0.019385      ##AT_TIME:0.02323
+SENT:     to=backend from=gate command=give_me_your_time data= time_stamp=0.023236      ##AT_TIME:0.02325
+RECIEVED: to=gate from=backend command=my_time_is data=[0.016986, 1] time_stamp=0.017006      ##AT_TIME:0.023268
+RECIEVED: to=gate from=user command=give_me_your_time data= time_stamp=0.058735      ##AT_TIME:0.023284
+SENT:     to=user from=gate command=my_time_is data=[0.018219285714285716, 7] time_stamp=0.023288      ##AT_TIME:0.023302
+RECIEVED: to=gate from=user command=your_time_is data=0.022645222222222223 time_stamp=0.058811      ##AT_TIME:0.02332
+SENT:     to=litbub from=gate command=your_time_is data=0.02205344444444445 time_stamp=0.023326      ##AT_TIME:0.023341
+SENT:     to=motdet from=gate command=your_time_is data=0.022054444444444446 time_stamp=0.023347      ##AT_TIME:0.02336
+SENT:     to=backend from=gate command=your_time_is data=0.022058444444444446 time_stamp=0.023365      ##AT_TIME:0.023377
+SENT:     to=['to', 'enviro', 'from', 'heater', 'time', 1] from=heater command=i_choose_you data=0 time_stamp=0.001128      ##AT_TIME:0.001168
+RECIEVED: to=['to', 'heater', 'from', 'enviro', 'time', 3] from=motdet command=i_choose_you data=1 time_stamp=0.00202      ##AT_TIME:0.001216
+NEW NODE AWOKEN!!! follower names is    heater city is         motdet             parent is  [1.000132027817691, <postalservice.clockbox object at 0x7f73b14d8160>, 'enviro'] children are [] edges are    [[1.0001928562802647, <postalservice.clockbox object at 0x7f73b14d8128>, 'gate']]
+RECIEVED: to=['to', 'heater', 'from', 'enviro', 'time', 4] from=motdet command=search data=1 time_stamp=0.002238      ##AT_TIME:0.001309
+SENT:     to=['to', 'enviro', 'from', 'heater', 'time', 2] from=motdet command=my_min_is data=1.0001928562802647 time_stamp=0.001323      ##AT_TIME:0.001348
+RECIEVED: to=['to', 'heater', 'from', 'enviro', 'time', 4] from=motdet command=you_are_not_min data=1 time_stamp=0.002306      ##AT_TIME:0.001427
+RECIEVED: to=['to', 'heater', 'from', 'enviro', 'time', 5] from=user command=search data=2 time_stamp=0.002517      ##AT_TIME:0.001488
+SENT:     to=['to', 'enviro', 'from', 'heater', 'time', 3] from=user command=my_min_is data=1.0001928562802647 time_stamp=0.001504      ##AT_TIME:0.001541
+RECIEVED: to=['to', 'heater', 'from', 'enviro', 'time', 5] from=user command=you_are_not_min data=2 time_stamp=0.002585      ##AT_TIME:0.001634
+RECIEVED: to=['to', 'heater', 'from', 'enviro', 'time', 6] from=user command=search data=2 time_stamp=0.002892      ##AT_TIME:0.001691
+SENT:     to=['to', 'enviro', 'from', 'heater', 'time', 4] from=user command=my_min_is data=1.0001928562802647 time_stamp=0.001716      ##AT_TIME:0.001752
+RECIEVED: to=['to', 'heater', 'from', 'enviro', 'time', 6] from=user command=you_are_not_min data=2 time_stamp=0.00299      ##AT_TIME:0.001838
+RECIEVED: to=['to', 'heater', 'from', 'enviro', 'time', 7] from=user command=search data=2 time_stamp=0.003282      ##AT_TIME:0.001875
+SENT:     to=['to', 'enviro', 'from', 'heater', 'time', 5] from=user command=my_min_is data=1.0001928562802647 time_stamp=0.001888      ##AT_TIME:0.001911
+RECIEVED: to=['to', 'heater', 'from', 'enviro', 'time', 7] from=user command=cycle data=2 time_stamp=0.003568      ##AT_TIME:0.002005
+SENT:     to=['to', 'enviro', 'from', 'heater', 'time', 5] from=user command=i_am_finished data=2 time_stamp=0.002017      ##AT_TIME:0.00204
+I AM FINISHED [1.000132027817691, <postalservice.clockbox object at 0x7f73b14d8160>, 'enviro'] [] follower
+RECIEVED: to=['to', 'heater', 'from', 'enviro', 'time', 8] from=user command=search data=2 time_stamp=0.003669      ##AT_TIME:0.002114
+RECIEVED: to=heater from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.003946      ##AT_TIME:0.002169
+SENT:     to=enviro from=heater command=this_is_how_fast_i_am data= time_stamp=0.002179      ##AT_TIME:0.002202
+RECIEVED: to=heater from=enviro command=give_me_your_time data= time_stamp=0.004116      ##AT_TIME:0.002291
+SENT:     to=enviro from=heater command=my_time_is data=[0.002209, 1] time_stamp=0.002302      ##AT_TIME:0.002325
+RECIEVED: to=heater from=enviro command=your_time_is data=0.028922666666666652 time_stamp=0.004314      ##AT_TIME:0.002354
+RECIEVED: to=heater from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.015604      ##AT_TIME:0.015732
+SENT:     to=enviro from=heater command=this_is_how_fast_i_am data= time_stamp=0.015742      ##AT_TIME:0.015767
+RECIEVED: to=heater from=enviro command=give_me_your_time data= time_stamp=0.015682      ##AT_TIME:0.015793
+SENT:     to=enviro from=heater command=my_time_is data=[0.015775, 1] time_stamp=0.015799      ##AT_TIME:0.015816
+RECIEVED: to=heater from=enviro command=your_time_is data=0.039488888888888865 time_stamp=0.015842      ##AT_TIME:0.015839
+RECIEVED: to=heater from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.016096      ##AT_TIME:0.015935
+SENT:     to=enviro from=heater command=this_is_how_fast_i_am data= time_stamp=0.015944      ##AT_TIME:0.01597
+RECIEVED: to=heater from=enviro command=give_me_your_time data= time_stamp=0.016174      ##AT_TIME:0.015998
+SENT:     to=enviro from=heater command=my_time_is data=[0.015978, 1] time_stamp=0.016006      ##AT_TIME:0.016027
+RECIEVED: to=heater from=enviro command=your_time_is data=0.03648444444444446 time_stamp=0.016317      ##AT_TIME:0.016053
+RECIEVED: to=heater from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.016629      ##AT_TIME:0.016137
+SENT:     to=enviro from=heater command=this_is_how_fast_i_am data= time_stamp=0.016145      ##AT_TIME:0.016163
+RECIEVED: to=heater from=enviro command=give_me_your_time data= time_stamp=0.016726      ##AT_TIME:0.016184
+SENT:     to=enviro from=heater command=my_time_is data=[0.016168, 1] time_stamp=0.016192      ##AT_TIME:0.016207
+RECIEVED: to=heater from=enviro command=your_time_is data=0.03444944444444445 time_stamp=0.016881      ##AT_TIME:0.016229
+RECIEVED: to=heater from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.01709      ##AT_TIME:0.016331
+SENT:     to=enviro from=heater command=this_is_how_fast_i_am data= time_stamp=0.016339      ##AT_TIME:0.016357
+RECIEVED: to=heater from=enviro command=give_me_your_time data= time_stamp=0.017243      ##AT_TIME:0.016386
+SENT:     to=enviro from=heater command=my_time_is data=[0.016365, 1] time_stamp=0.016392      ##AT_TIME:0.016407
+RECIEVED: to=heater from=enviro command=your_time_is data=0.03229477777777778 time_stamp=0.017392      ##AT_TIME:0.016433
+SENT:     to=['to', 'gate', 'from', 'backend', 'time', 1] from=backend command=i_choose_you data=0 time_stamp=0.000996      ##AT_TIME:0.001032
+RECIEVED: to=['to', 'backend', 'from', 'gate', 'time', 8] from=user command=i_choose_you data=2 time_stamp=0.003911      ##AT_TIME:0.001067
+NEW NODE AWOKEN!!! follower names is    backend city is         user             parent is  [1.0004022085285662, <postalservice.clockbox object at 0x7f73b14d3e10>, 'gate'] children are [] edges are    []
+SENT:     to=['to', 'gate', 'from', 'backend', 'time', 1] from=user command=i_am_finished data=2 time_stamp=0.001088      ##AT_TIME:0.001107
+I AM FINISHED [1.0004022085285662, <postalservice.clockbox object at 0x7f73b14d3e10>, 'gate'] [] follower
+RECIEVED: to=['to', 'backend', 'from', 'gate', 'time', 9] from=user command=search data=2 time_stamp=0.004072      ##AT_TIME:0.001181
+RECIEVED: to=backend from=gate command=lets_see_how_fast_you_are data= time_stamp=0.004291      ##AT_TIME:0.001242
+SENT:     to=gate from=backend command=this_is_how_fast_i_am data= time_stamp=0.00125      ##AT_TIME:0.001268
+RECIEVED: to=backend from=gate command=give_me_your_time data= time_stamp=0.004401      ##AT_TIME:0.001317
+SENT:     to=gate from=backend command=my_time_is data=[0.001274, 1] time_stamp=0.001323      ##AT_TIME:0.001337
+RECIEVED: to=backend from=gate command=your_time_is data=0.009874666666666664 time_stamp=0.004524      ##AT_TIME:0.001362
+RECIEVED: to=backend from=gate command=lets_see_how_fast_you_are data= time_stamp=0.020047      ##AT_TIME:0.016399
+SENT:     to=gate from=backend command=this_is_how_fast_i_am data= time_stamp=0.01641      ##AT_TIME:0.016436
+RECIEVED: to=backend from=gate command=give_me_your_time data= time_stamp=0.020182      ##AT_TIME:0.016488
+SENT:     to=gate from=backend command=my_time_is data=[0.016441, 1] time_stamp=0.016497      ##AT_TIME:0.016521
+RECIEVED: to=backend from=gate command=your_time_is data=0.023042222222222217 time_stamp=0.020317      ##AT_TIME:0.016582
+RECIEVED: to=backend from=gate command=lets_see_how_fast_you_are data= time_stamp=0.021291      ##AT_TIME:0.016703
+SENT:     to=gate from=backend command=this_is_how_fast_i_am data= time_stamp=0.016711      ##AT_TIME:0.01673
+RECIEVED: to=backend from=gate command=give_me_your_time data= time_stamp=0.021437      ##AT_TIME:0.016751
+SENT:     to=gate from=backend command=my_time_is data=[0.016735, 1] time_stamp=0.016756      ##AT_TIME:0.016772
+RECIEVED: to=backend from=gate command=your_time_is data=0.022546111111111114 time_stamp=0.021578      ##AT_TIME:0.016818
+RECIEVED: to=backend from=gate command=lets_see_how_fast_you_are data= time_stamp=0.022149      ##AT_TIME:0.016843
+SENT:     to=gate from=backend command=this_is_how_fast_i_am data= time_stamp=0.016849      ##AT_TIME:0.016865
+RECIEVED: to=backend from=gate command=give_me_your_time data= time_stamp=0.022295      ##AT_TIME:0.016886
+SENT:     to=gate from=backend command=my_time_is data=[0.01687, 1] time_stamp=0.016894      ##AT_TIME:0.016909
+RECIEVED: to=backend from=gate command=your_time_is data=0.02234211111111111 time_stamp=0.022422      ##AT_TIME:0.016932
+RECIEVED: to=backend from=gate command=lets_see_how_fast_you_are data= time_stamp=0.023104      ##AT_TIME:0.016957
+SENT:     to=gate from=backend command=this_is_how_fast_i_am data= time_stamp=0.016964      ##AT_TIME:0.016981
+RECIEVED: to=backend from=gate command=give_me_your_time data= time_stamp=0.023236      ##AT_TIME:0.017001
+SENT:     to=gate from=backend command=my_time_is data=[0.016986, 1] time_stamp=0.017006      ##AT_TIME:0.017021
+RECIEVED: to=backend from=gate command=your_time_is data=0.022058444444444446 time_stamp=0.023365      ##AT_TIME:0.017042
+[0, 'sensor', 'temperature']
+['on', 'device', 'temperature']
+['off', 'device', 'motion']
+['away', 'sensor', 'door']
+['on', 'sensor', 'motion']
+['away', 'sensor', 'security']
+RECIEVED: to=backend from=gate command=heater_change data=on time_stamp=0.019138      ##AT_TIME:0.01717
+RECIEVED: to=backend from=gate command=temp_change data=0 time_stamp=0.020634      ##AT_TIME:0.017178
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=0.020938      ##AT_TIME:0.017182
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=0.021041      ##AT_TIME:0.017187
+RECIEVED: to=backend from=gate command=bulb_change data=off time_stamp=0.021765      ##AT_TIME:0.017191
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=0.02192      ##AT_TIME:0.017194
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=0.021974      ##AT_TIME:0.017198
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=0.022862      ##AT_TIME:0.017202
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=0.022956      ##AT_TIME:0.017205
+SENT:     to=['to', 'enviro', 'from', 'thermo', 'time', 1] from=thermo command=i_choose_you data=0 time_stamp=0.001118      ##AT_TIME:0.001149
+RECIEVED: to=['to', 'thermo', 'from', 'enviro', 'time', 2] from=motdet command=i_choose_you data=1 time_stamp=0.001525      ##AT_TIME:0.00123
+NEW NODE AWOKEN!!! follower names is    thermo city is         motdet             parent is  [1.0001266900470909, <postalservice.clockbox object at 0x7f73b14d81d0>, 'enviro'] children are [] edges are    [[1.0001987522523161, <postalservice.clockbox object at 0x7f73b14d8198>, 'gate']]
+RECIEVED: to=['to', 'thermo', 'from', 'enviro', 'time', 3] from=motdet command=search data=1 time_stamp=0.001686      ##AT_TIME:0.00134
+SENT:     to=['to', 'enviro', 'from', 'thermo', 'time', 2] from=motdet command=my_min_is data=1.0001987522523161 time_stamp=0.001356      ##AT_TIME:0.001392
+RECIEVED: to=['to', 'thermo', 'from', 'enviro', 'time', 3] from=motdet command=you_are_not_min data=1 time_stamp=0.001852      ##AT_TIME:0.001531
+RECIEVED: to=['to', 'thermo', 'from', 'enviro', 'time', 4] from=motdet command=search data=1 time_stamp=0.002162      ##AT_TIME:0.001617
+SENT:     to=['to', 'enviro', 'from', 'thermo', 'time', 3] from=motdet command=my_min_is data=1.0001987522523161 time_stamp=0.001632      ##AT_TIME:0.001656
+RECIEVED: to=['to', 'thermo', 'from', 'enviro', 'time', 4] from=motdet command=you_are_not_min data=1 time_stamp=0.002217      ##AT_TIME:0.001738
+RECIEVED: to=['to', 'thermo', 'from', 'enviro', 'time', 5] from=user command=search data=2 time_stamp=0.002418      ##AT_TIME:0.001816
+SENT:     to=['to', 'enviro', 'from', 'thermo', 'time', 4] from=user command=my_min_is data=1.0001987522523161 time_stamp=0.001828      ##AT_TIME:0.001852
+RECIEVED: to=['to', 'thermo', 'from', 'enviro', 'time', 5] from=user command=you_are_not_min data=2 time_stamp=0.002472      ##AT_TIME:0.00194
+RECIEVED: to=['to', 'thermo', 'from', 'enviro', 'time', 6] from=user command=search data=2 time_stamp=0.002731      ##AT_TIME:0.001996
+SENT:     to=['to', 'enviro', 'from', 'thermo', 'time', 5] from=user command=my_min_is data=1.0001987522523161 time_stamp=0.002008      ##AT_TIME:0.002042
+RECIEVED: to=['to', 'thermo', 'from', 'enviro', 'time', 6] from=user command=you_are_not_min data=2 time_stamp=0.002836      ##AT_TIME:0.002129
+RECIEVED: to=['to', 'thermo', 'from', 'enviro', 'time', 7] from=user command=search data=2 time_stamp=0.003217      ##AT_TIME:0.002163
+SENT:     to=['to', 'enviro', 'from', 'thermo', 'time', 6] from=user command=my_min_is data=1.0001987522523161 time_stamp=0.002173      ##AT_TIME:0.002194
+RECIEVED: to=['to', 'thermo', 'from', 'enviro', 'time', 7] from=user command=you_are_not_min data=2 time_stamp=0.003395      ##AT_TIME:0.00228
+RECIEVED: to=['to', 'thermo', 'from', 'enviro', 'time', 8] from=user command=search data=2 time_stamp=0.003624      ##AT_TIME:0.002309
+SENT:     to=['to', 'enviro', 'from', 'thermo', 'time', 7] from=user command=my_min_is data=1.0001987522523161 time_stamp=0.002318      ##AT_TIME:0.002337
+RECIEVED: to=['to', 'thermo', 'from', 'enviro', 'time', 8] from=user command=cycle data=2 time_stamp=0.003747      ##AT_TIME:0.002361
+SENT:     to=['to', 'enviro', 'from', 'thermo', 'time', 7] from=user command=i_am_finished data=2 time_stamp=0.002369      ##AT_TIME:0.002387
+I AM FINISHED [1.0001266900470909, <postalservice.clockbox object at 0x7f73b14d81d0>, 'enviro'] [] follower
+RECIEVED: to=['to', 'thermo', 'from', 'enviro', 'time', 9] from=user command=search data=2 time_stamp=0.003785      ##AT_TIME:0.002455
+RECIEVED: to=thermo from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.004047      ##AT_TIME:0.002499
+SENT:     to=enviro from=thermo command=this_is_how_fast_i_am data= time_stamp=0.002505      ##AT_TIME:0.002519
+RECIEVED: to=thermo from=enviro command=give_me_your_time data= time_stamp=0.004157      ##AT_TIME:0.002569
+SENT:     to=enviro from=thermo command=my_time_is data=[0.002525, 1] time_stamp=0.002576      ##AT_TIME:0.00259
+RECIEVED: to=thermo from=enviro command=your_time_is data=0.028891666666666652 time_stamp=0.004348      ##AT_TIME:0.002616
+RECIEVED: to=thermo from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.015645      ##AT_TIME:0.01581
+SENT:     to=enviro from=thermo command=this_is_how_fast_i_am data= time_stamp=0.015818      ##AT_TIME:0.015841
+RECIEVED: to=thermo from=enviro command=give_me_your_time data= time_stamp=0.015725      ##AT_TIME:0.015863
+SENT:     to=enviro from=thermo command=my_time_is data=[0.015847, 1] time_stamp=0.015868      ##AT_TIME:0.015885
+RECIEVED: to=thermo from=enviro command=your_time_is data=0.03948688888888886 time_stamp=0.015864      ##AT_TIME:0.015909
+RECIEVED: to=thermo from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.016134      ##AT_TIME:0.016033
+SENT:     to=enviro from=thermo command=this_is_how_fast_i_am data= time_stamp=0.01604      ##AT_TIME:0.016057
+RECIEVED: to=thermo from=enviro command=give_me_your_time data= time_stamp=0.016213      ##AT_TIME:0.016076
+SENT:     to=enviro from=thermo command=my_time_is data=[0.016062, 1] time_stamp=0.01608      ##AT_TIME:0.016095
+RECIEVED: to=thermo from=enviro command=your_time_is data=0.03648644444444446 time_stamp=0.016343      ##AT_TIME:0.01612
+RECIEVED: to=thermo from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.016677      ##AT_TIME:0.016221
+SENT:     to=enviro from=thermo command=this_is_how_fast_i_am data= time_stamp=0.016226      ##AT_TIME:0.016242
+RECIEVED: to=thermo from=enviro command=give_me_your_time data= time_stamp=0.016763      ##AT_TIME:0.016261
+SENT:     to=enviro from=thermo command=my_time_is data=[0.016247, 1] time_stamp=0.01627      ##AT_TIME:0.016285
+RECIEVED: to=thermo from=enviro command=your_time_is data=0.03445244444444445 time_stamp=0.016902      ##AT_TIME:0.016305
+RECIEVED: to=thermo from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.017163      ##AT_TIME:0.016453
+SENT:     to=enviro from=thermo command=this_is_how_fast_i_am data= time_stamp=0.016458      ##AT_TIME:0.016473
+RECIEVED: to=thermo from=enviro command=give_me_your_time data= time_stamp=0.017285      ##AT_TIME:0.016494
+SENT:     to=enviro from=thermo command=my_time_is data=[0.016478, 1] time_stamp=0.016499      ##AT_TIME:0.016514
+RECIEVED: to=thermo from=enviro command=your_time_is data=0.03230277777777778 time_stamp=0.017427      ##AT_TIME:0.016538
+SENT:     to=doorboy from=user command=lets_see_how_fast_you_are data= time_stamp=0.058528      ##AT_TIME:0.058612
+RECIEVED: to=user from=doorboy command=this_is_how_fast_i_am data= time_stamp=0.017094      ##AT_TIME:0.058645
+SENT:     to=gate from=user command=lets_see_how_fast_you_are data= time_stamp=0.058653      ##AT_TIME:0.058669
+RECIEVED: to=user from=gate command=this_is_how_fast_i_am data= time_stamp=0.023004      ##AT_TIME:0.058688
+SENT:     to=doorboy from=user command=give_me_your_time data= time_stamp=0.058694      ##AT_TIME:0.058709
+RECIEVED: to=user from=doorboy command=my_time_is data=[0.017116, 1] time_stamp=0.017136      ##AT_TIME:0.058729
+SENT:     to=gate from=user command=give_me_your_time data= time_stamp=0.058735      ##AT_TIME:0.058749
+RECIEVED: to=user from=gate command=my_time_is data=[0.018219285714285716, 7] time_stamp=0.023288      ##AT_TIME:0.058778
+SENT:     to=doorboy from=user command=your_time_is data=0.022728222222222223 time_stamp=0.058788      ##AT_TIME:0.058806
+SENT:     to=gate from=user command=your_time_is data=0.022645222222222223 time_stamp=0.058811      ##AT_TIME:0.058824
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+Hello! Welcome to Haibin and Pedro's Smart Home Simulation
+There is only two possible commands inside the simulation:
+You can type in the string "home" or the string "away",
+to respectively perform the action of staying home or going away.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+You can also hold down the enter key if you wish to stay at your
+current location for a long time (it is a great way to test the program
+for a large number of loops.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+Just a few questions before we start:
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+Would you like to see all the communications between the gateway and
+the devices?
+(Please enter "yes" or "no")
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+Would you like to see all the interactions between the enviroment and
+the devices?
+(Please enter "yes" or "no")
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+Would you like to use the Berkeley or Lamport algorithm to perform 
+clock synchronization?
+(Please enter "berkeley" or "lamport")
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+For how many "hours" would you like to run the simulation
+(1 virtual hour is one gateway while loop,
+i.e. 100000 virtual hours = approx. 1 real minute)
+(Please enter a positive integer 3<x<10^7 )
+4
+SENT:     to=['to', 'motdet', 'from', 'enviro', 'time', 1] from=enviro command=i_choose_you data=0 time_stamp=0.001273      ##AT_TIME:0.001321
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 1] from=motdet command=i_choose_you data=0 time_stamp=0.000973      ##AT_TIME:0.001415
+NEW NODE AWOKEN!!! follower names is    enviro city is         motdet             parent is  [1.0000868051335525, <postalservice.clockbox object at 0x7f5caa31d080>, 'motdet'] children are [] edges are    [[1.00012614887456, <postalservice.clockbox object at 0x7f5caa318fd0>, 'heater'], [1.0001249424890046, <postalservice.clockbox object at 0x7f5caa31d048>, 'thermo'], [1.0002079157399235, <postalservice.clockbox object at 0x7f5caa31d0b8>, 'litbub']]
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 2] from=motdet command=search data=1 time_stamp=0.001073      ##AT_TIME:0.001479
+SENT:     to=['to', 'motdet', 'from', 'enviro', 'time', 2] from=motdet command=my_min_is data=1.0001249424890046 time_stamp=0.001494      ##AT_TIME:0.001518
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 2] from=motdet command=you_are_min data=1 time_stamp=0.001222      ##AT_TIME:0.001556
+SENT:     to=['to', 'thermo', 'from', 'enviro', 'time', 2] from=motdet command=i_choose_you data=1 time_stamp=0.001563      ##AT_TIME:0.001594
+RECIEVED: to=['to', 'enviro', 'from', 'thermo', 'time', 1] from=thermo command=i_choose_you data=0 time_stamp=0.001135      ##AT_TIME:0.001627
+SENT:     to=['to', 'enviro', 'from', 'thermo', 'time', 1] from=thermo command=i_choose_you data=0 time_stamp=0.001135      ##AT_TIME:0.001647
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 2] from=motdet command=we_won data=1 time_stamp=0.001345      ##AT_TIME:0.001668
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 3] from=motdet command=search data=1 time_stamp=0.001377      ##AT_TIME:0.001688
+SENT:     to=['to', 'thermo', 'from', 'enviro', 'time', 3] from=motdet command=search data=1 time_stamp=0.001695      ##AT_TIME:0.001732
+RECIEVED: to=['to', 'enviro', 'from', 'thermo', 'time', 2] from=motdet command=my_min_is data=1.0001870215144186 time_stamp=0.001384      ##AT_TIME:0.00175
+SENT:     to=['to', 'thermo', 'from', 'enviro', 'time', 3] from=motdet command=you_are_not_min data=1 time_stamp=0.001756      ##AT_TIME:0.001786
+SENT:     to=['to', 'motdet', 'from', 'enviro', 'time', 3] from=motdet command=my_min_is data=1.00012614887456 time_stamp=0.001795      ##AT_TIME:0.001809
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 3] from=motdet command=you_are_min data=1 time_stamp=0.001464      ##AT_TIME:0.001828
+SENT:     to=['to', 'heater', 'from', 'enviro', 'time', 3] from=motdet command=i_choose_you data=1 time_stamp=0.001834      ##AT_TIME:0.00185
+RECIEVED: to=['to', 'enviro', 'from', 'heater', 'time', 1] from=heater command=i_choose_you data=0 time_stamp=0.001112      ##AT_TIME:0.001865
+SENT:     to=['to', 'enviro', 'from', 'heater', 'time', 1] from=heater command=i_choose_you data=0 time_stamp=0.001112      ##AT_TIME:0.001882
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 3] from=motdet command=we_won data=1 time_stamp=0.001564      ##AT_TIME:0.001901
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 4] from=motdet command=search data=1 time_stamp=0.001596      ##AT_TIME:0.001918
+SENT:     to=['to', 'thermo', 'from', 'enviro', 'time', 4] from=motdet command=search data=1 time_stamp=0.001924      ##AT_TIME:0.001939
+RECIEVED: to=['to', 'enviro', 'from', 'thermo', 'time', 3] from=motdet command=my_min_is data=1.0001870215144186 time_stamp=0.001466      ##AT_TIME:0.001956
+SENT:     to=['to', 'heater', 'from', 'enviro', 'time', 4] from=motdet command=search data=1 time_stamp=0.001962      ##AT_TIME:0.001976
+RECIEVED: to=['to', 'enviro', 'from', 'heater', 'time', 2] from=motdet command=my_min_is data=1.0001875538922347 time_stamp=0.00134      ##AT_TIME:0.001995
+SENT:     to=['to', 'heater', 'from', 'enviro', 'time', 4] from=motdet command=you_are_not_min data=1 time_stamp=0.002001      ##AT_TIME:0.002015
+SENT:     to=['to', 'motdet', 'from', 'enviro', 'time', 4] from=motdet command=my_min_is data=1.0001870215144186 time_stamp=0.002021      ##AT_TIME:0.002033
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 4] from=motdet command=you_are_not_min data=1 time_stamp=0.001681      ##AT_TIME:0.002054
+SENT:     to=['to', 'thermo', 'from', 'enviro', 'time', 4] from=motdet command=you_are_not_min data=1 time_stamp=0.00206      ##AT_TIME:0.002074
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 5] from=user command=search data=2 time_stamp=0.001813      ##AT_TIME:0.002093
+SENT:     to=['to', 'thermo', 'from', 'enviro', 'time', 5] from=user command=search data=2 time_stamp=0.0021      ##AT_TIME:0.002113
+RECIEVED: to=['to', 'enviro', 'from', 'thermo', 'time', 4] from=user command=my_min_is data=1.0001870215144186 time_stamp=0.001592      ##AT_TIME:0.002146
+SENT:     to=['to', 'heater', 'from', 'enviro', 'time', 5] from=user command=search data=2 time_stamp=0.002152      ##AT_TIME:0.002166
+RECIEVED: to=['to', 'enviro', 'from', 'heater', 'time', 3] from=user command=my_min_is data=1.0001875538922347 time_stamp=0.001532      ##AT_TIME:0.002184
+SENT:     to=['to', 'heater', 'from', 'enviro', 'time', 5] from=user command=you_are_not_min data=2 time_stamp=0.00219      ##AT_TIME:0.002204
+SENT:     to=['to', 'motdet', 'from', 'enviro', 'time', 5] from=user command=my_min_is data=1.0001870215144186 time_stamp=0.00221      ##AT_TIME:0.00225
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 5] from=user command=you_are_not_min data=2 time_stamp=0.002021      ##AT_TIME:0.002269
+SENT:     to=['to', 'thermo', 'from', 'enviro', 'time', 5] from=user command=you_are_not_min data=2 time_stamp=0.002274      ##AT_TIME:0.002288
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 6] from=user command=search data=2 time_stamp=0.002115      ##AT_TIME:0.002305
+SENT:     to=['to', 'thermo', 'from', 'enviro', 'time', 6] from=user command=search data=2 time_stamp=0.002311      ##AT_TIME:0.002324
+RECIEVED: to=['to', 'enviro', 'from', 'thermo', 'time', 5] from=user command=my_min_is data=1.0001870215144186 time_stamp=0.001737      ##AT_TIME:0.002344
+SENT:     to=['to', 'heater', 'from', 'enviro', 'time', 6] from=user command=search data=2 time_stamp=0.00235      ##AT_TIME:0.002365
+RECIEVED: to=['to', 'enviro', 'from', 'heater', 'time', 4] from=user command=my_min_is data=1.0001875538922347 time_stamp=0.001709      ##AT_TIME:0.002382
+SENT:     to=['to', 'heater', 'from', 'enviro', 'time', 6] from=user command=you_are_not_min data=2 time_stamp=0.002388      ##AT_TIME:0.002401
+SENT:     to=['to', 'motdet', 'from', 'enviro', 'time', 6] from=user command=my_min_is data=1.0001870215144186 time_stamp=0.002407      ##AT_TIME:0.002418
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 6] from=user command=cycle data=2 time_stamp=0.002368      ##AT_TIME:0.002451
+SENT:     to=['to', 'thermo', 'from', 'enviro', 'time', 6] from=user command=cycle data=2 time_stamp=0.002456      ##AT_TIME:0.002469
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 7] from=user command=search data=2 time_stamp=0.002491      ##AT_TIME:0.002501
+SENT:     to=['to', 'thermo', 'from', 'enviro', 'time', 7] from=user command=search data=2 time_stamp=0.002508      ##AT_TIME:0.002522
+RECIEVED: to=['to', 'enviro', 'from', 'thermo', 'time', 5] from=user command=i_am_finished data=2 time_stamp=0.001836      ##AT_TIME:0.002535
+SENT:     to=['to', 'heater', 'from', 'enviro', 'time', 7] from=user command=search data=2 time_stamp=0.002541      ##AT_TIME:0.002554
+RECIEVED: to=['to', 'enviro', 'from', 'heater', 'time', 5] from=user command=my_min_is data=1.0001875538922347 time_stamp=0.001878      ##AT_TIME:0.002589
+SENT:     to=['to', 'motdet', 'from', 'enviro', 'time', 7] from=user command=my_min_is data=1.0001875538922347 time_stamp=0.002595      ##AT_TIME:0.002609
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 7] from=user command=cycle data=2 time_stamp=0.002731      ##AT_TIME:0.002644
+SENT:     to=['to', 'heater', 'from', 'enviro', 'time', 7] from=user command=cycle data=2 time_stamp=0.00265      ##AT_TIME:0.002664SENT:     to=['to', 'litbub', 'from', 'gate', 'time', 1] from=gate command=i_choose_you data=0 time_stamp=0.001714      ##AT_TIME:0.001741
+RECIEVED: to=['to', 'gate', 'from', 'litbub', 'time', 1] from=litbub command=i_choose_you data=0 time_stamp=0.001006      ##AT_TIME:0.001778
+NEW NODE AWOKEN!!! follower names is    gate city is         litbub             parent is  [1.0000639161051275, <postalservice.clockbox object at 0x7f5caa318cc0>, 'litbub'] children are [] edges are    [[1.0001875538922347, <postalservice.clockbox object at 0x7f5caa318c18>, 'heater'], [1.0001870215144186, <postalservice.clockbox object at 0x7f5caa318c50>, 'thermo'], [1.0001540213130726, <postalservice.clockbox object at 0x7f5caa318c88>, 'motdet'], [1.0000884616502264, <postalservice.clockbox object at 0x7f5caa318cf8>, 'user'], [1.000171485496485, <postalservice.clockbox object at 0x7f5caa318d30>, 'doorboy'], [1.0004009354616434, <postalservice.clockbox object at 0x7f5caa318d68>, 'backend']]
+RECIEVED: to=['to', 'gate', 'from', 'litbub', 'time', 2] from=litbub command=search data=1 time_stamp=0.001126      ##AT_TIME:0.001865
+SENT:     to=['to', 'litbub', 'from', 'gate', 'time', 2] from=litbub command=my_min_is data=1.0000884616502264 time_stamp=0.001876      ##AT_TIME:0.001893
+RECIEVED: to=['to', 'gate', 'from', 'litbub', 'time', 2] from=litbub command=you_are_min data=1 time_stamp=0.00122      ##AT_TIME:0.001937
+SENT:     to=['to', 'user', 'from', 'gate', 'time', 2] from=litbub command=i_choose_you data=1 time_stamp=0.001943      ##AT_TIME:0.001959
+RECIEVED: to=['to', 'gate', 'from', 'user', 'time', 2] from=user command=i_choose_you data=1 time_stamp=0.040067      ##AT_TIME:0.002009
+SENT:     to=['to', 'gate', 'from', 'user', 'time', 2] from=user command=i_choose_you data=1 time_stamp=0.040067      ##AT_TIME:0.002028
+RECIEVED: to=['to', 'gate', 'from', 'litbub', 'time', 2] from=user command=we_lost data=2 time_stamp=0.001304      ##AT_TIME:0.002054
+RECIEVED: to=['to', 'gate', 'from', 'user', 'time', 3] from=user command=search data=2 time_stamp=0.040283      ##AT_TIME:0.002112
+SENT:     to=['to', 'litbub', 'from', 'gate', 'time', 3] from=user command=search data=2 time_stamp=0.002124      ##AT_TIME:0.002147
+RECIEVED: to=['to', 'gate', 'from', 'litbub', 'time', 3] from=user command=my_min_is data=1.0002079157399235 time_stamp=0.001363      ##AT_TIME:0.002178
+SENT:     to=['to', 'litbub', 'from', 'gate', 'time', 3] from=user command=you_are_not_min data=2 time_stamp=0.002186      ##AT_TIME:0.002204
+SENT:     to=['to', 'user', 'from', 'gate', 'time', 3] from=user command=my_min_is data=1.0001540213130726 time_stamp=0.002215      ##AT_TIME:0.002235
+RECIEVED: to=['to', 'gate', 'from', 'user', 'time', 3] from=user command=you_are_min data=2 time_stamp=0.040372      ##AT_TIME:0.002256
+SENT:     to=['to', 'motdet', 'from', 'gate', 'time', 3] from=user command=i_choose_you data=2 time_stamp=0.002262      ##AT_TIME:0.002277
+RECIEVED: to=['to', 'gate', 'from', 'motdet', 'time', 4] from=motdet command=i_choose_you data=1 time_stamp=0.001713      ##AT_TIME:0.002296
+SENT:     to=['to', 'gate', 'from', 'motdet', 'time', 4] from=motdet command=i_choose_you data=1 time_stamp=0.001713      ##AT_TIME:0.002316
+RECIEVED: to=['to', 'gate', 'from', 'user', 'time', 3] from=user command=we_won data=2 time_stamp=0.04041      ##AT_TIME:0.002334
+RECIEVED: to=['to', 'gate', 'from', 'user', 'time', 4] from=user command=search data=2 time_stamp=0.040467      ##AT_TIME:0.002367
+SENT:     to=['to', 'litbub', 'from', 'gate', 'time', 4] from=user command=search data=2 time_stamp=0.002374      ##AT_TIME:0.002389
+RECIEVED: to=['to', 'gate', 'from', 'litbub', 'time', 4] from=user command=my_min_is data=1.0002079157399235 time_stamp=0.001451      ##AT_TIME:0.002414
+SENT:     to=['to', 'litbub', 'from', 'gate', 'time', 4] from=user command=you_are_not_min data=2 time_stamp=0.002421      ##AT_TIME:0.002436
+SENT:     to=['to', 'motdet', 'from', 'gate', 'time', 4] from=user command=search data=2 time_stamp=0.002445      ##AT_TIME:0.002463
+RECIEVED: to=['to', 'gate', 'from', 'motdet', 'time', 5] from=user command=my_min_is data=1.0001870215144186 time_stamp=0.001911      ##AT_TIME:0.002497
+SENT:     to=['to', 'motdet', 'from', 'gate', 'time', 4] from=user command=you_are_not_min data=2 time_stamp=0.002503      ##AT_TIME:0.002517
+SENT:     to=['to', 'user', 'from', 'gate', 'time', 4] from=user command=my_min_is data=1.000171485496485 time_stamp=0.002536      ##AT_TIME:0.002563
+RECIEVED: to=['to', 'gate', 'from', 'user', 'time', 4] from=user command=cycle data=2 time_stamp=0.040538      ##AT_TIME:0.002583
+RECIEVED: to=['to', 'gate', 'from', 'user', 'time', 5] from=user command=search data=2 time_stamp=0.040626      ##AT_TIME:0.002614
+SENT:     to=['to', 'litbub', 'from', 'gate', 'time', 5] from=user command=search data=2 time_stamp=0.00262      ##AT_TIME:0.002635
+RECIEVED: to=['to', 'gate', 'from', 'litbub', 'time', 5] from=user command=my_min_is data=1.0002079157399235 time_stamp=0.001526      ##AT_TIME:0.002661
+SENT:     to=['to', 'litbub', 'from', 'gate', 'time', 5] from=user command=you_are_not_min data=2 time_stamp=0.002668      ##AT_TIME:0.002683
+SENT:     to=['to', 'motdet', 'from', 'gate', 'time', 5] from=user command=search data=2 time_stamp=0.002691      ##AT_TIME:0.002709
+RECIEVED: to=['to', 'gate', 'from', 'motdet', 'time', 6] from=user command=my_min_is data=1.0001870215144186 time_stamp=0.002218      ##AT_TIME:0.002729
+SENT:     to=['to', 'motdet', 'from', 'gate', 'time', 5] from=user command=cycle data=2 time_stamp=0.002735      ##AT_TIME:0.002748
+SENT:     to=['to', 'user', 'from', 'gate', 'time', 5] from=user command=cycle data=1.0001875538922347 time_stamp=0.002755      ##AT_TIME:0.002767
+RECIEVED: to=['to', 'gate', 'from', 'user', 'time', 6] from=user command=search data=2 time_stamp=0.040764      ##AT_TIME:0.002873
+SENT:     to=['to', 'litbub', 'from', 'gate', 'time', 6] from=user command=search data=2 time_stamp=0.002881      ##AT_TIME:0.002909
+RECIEVED: to=['to', 'gate', 'from', 'litbub', 'time', 6] from=user command=my_min_is data=1.0002079157399235 time_stamp=0.001604      ##AT_TIME:0.002935
+SENT:     to=['to', 'litbub', 'from', 'gate', 'time', 6] from=user command=you_are_not_min data=2 time_stamp=0.002942      ##AT_TIME:0.002957
+SENT:     to=['to', 'motdet', 'from', 'gate', 'time', 6] from=user command=search data=2 time_stamp=0.002965      ##AT_TIME:0.002983
+RECIEVED: to=['to', 'gate', 'from', 'motdet', 'time', 7] from=user command=my_min_is data=1.0001875538922347 time_stamp=0.002605      ##AT_TIME:0.003004
+SENT:     to=['to', 'motdet', 'from', 'gate', 'time', 6] from=user command=cycle data=2 time_stamp=0.003011      ##AT_TIME:0.003026
+SENT:     to=['to', 'user', 'from', 'gate', 'time', 6] from=user command=cycle data=1.0004009354616434 time_stamp=0.003034      ##AT_TIME:0.003059
+RECIEVED: to=['to', 'gate', 'from', 'user', 'time', 7] from=user command=search data=2 time_stamp=0.040888      ##AT_TIME:0.003094
+SENT:     to=['to', 'litbub', 'from', 'gate', 'time', 7] from=user command=search data=2 time_stamp=0.0031      ##AT_TIME:0.003117
+RECIEVED: to=['to', 'gate', 'from', 'litbub', 'time', 7] from=user command=my_min_is data=1.0002079157399235 time_stamp=0.001712      ##AT_TIME:0.003169
+SENT:     to=['to', 'motdet', 'from', 'gate', 'time', 7] from=user command=search data=2 time_stamp=0.003178      ##AT_TIME:0.003192
+RECIEVED: to=['to', 'gate', 'from', 'motdet', 'time', 8] from=user command=my_min_is data=1.0002079157399235 time_stamp=0.002923      ##AT_TIME:0.003211
+SENT:     to=['to', 'litbub', 'from', 'gate', 'time', 7] from=user command=cycle data=2 time_stamp=0.003216      ##AT_TIME:0.00323
+SENT:     to=['to', 'motdet', 'from', 'gate', 'time', 7] from=user command=cycle data=2 time_stamp=0.003251      ##AT_TIME:0.003269
+SENT:     to=['to', 'user', 'from', 'gate', 'time', 7] from=user command=cycle data=1.0004009354616434 time_stamp=0.00329      ##AT_TIME:0.003307
+RECIEVED: to=['to', 'gate', 'from', 'user', 'time', 8] from=user command=search data=2 time_stamp=0.04098      ##AT_TIME:0.003334
+SENT:     to=['to', 'litbub', 'from', 'gate', 'time', 8] from=user command=search data=2 time_stamp=0.00334      ##AT_TIME:0.003368SENT:     to=['to', 'doorboy', 'from', 'user', 'time', 1] from=user command=i_choose_you data=0 time_stamp=0.039813      ##AT_TIME:0.039842
+RECIEVED: to=['to', 'user', 'from', 'doorboy', 'time', 1] from=doorboy command=i_choose_you data=0 time_stamp=0.001054      ##AT_TIME:0.039886
+NEW NODE AWOKEN!!! leader names is    user city is         user             parent is   children are [[1.0000652787190232, <postalservice.clockbox object at 0x7f5caa31d358>, 'doorboy']] edges are    [[1.0000884616502264, <postalservice.clockbox object at 0x7f5caa31d320>, 'gate']]
+SENT:     to=['to', 'doorboy', 'from', 'user', 'time', 2] from=user command=search data=1 time_stamp=0.039912      ##AT_TIME:0.039932
+RECIEVED: to=['to', 'user', 'from', 'doorboy', 'time', 2] from=user command=my_min_is data=1.000171485496485 time_stamp=0.001172      ##AT_TIME:0.04001
+SENT:     to=['to', 'doorboy', 'from', 'user', 'time', 2] from=user command=you_are_not_min data=1 time_stamp=0.040021      ##AT_TIME:0.040045
+SENT:     to=['to', 'gate', 'from', 'user', 'time', 2] from=user command=i_choose_you data=1 time_stamp=0.040067      ##AT_TIME:0.040098
+RECIEVED: to=['to', 'user', 'from', 'gate', 'time', 2] from=litbub command=i_choose_you data=1 time_stamp=0.001943      ##AT_TIME:0.040177
+SENT:     to=['to', 'doorboy', 'from', 'user', 'time', 3] from=user command=search data=2 time_stamp=0.04019      ##AT_TIME:0.040213
+RECIEVED: to=['to', 'user', 'from', 'doorboy', 'time', 3] from=user command=my_min_is data=1.000171485496485 time_stamp=0.001455      ##AT_TIME:0.040271
+SENT:     to=['to', 'gate', 'from', 'user', 'time', 3] from=user command=search data=2 time_stamp=0.040283      ##AT_TIME:0.040305
+RECIEVED: to=['to', 'user', 'from', 'gate', 'time', 3] from=user command=my_min_is data=1.0001540213130726 time_stamp=0.002215      ##AT_TIME:0.040342
+SENT:     to=['to', 'doorboy', 'from', 'user', 'time', 3] from=user command=you_are_not_min data=2 time_stamp=0.040349      ##AT_TIME:0.040365
+SENT:     to=['to', 'gate', 'from', 'user', 'time', 3] from=user command=you_are_min data=2 time_stamp=0.040372      ##AT_TIME:0.040386
+RECIEVED: to=['to', 'gate', 'from', 'motdet', 'time', 4] from=motdet command=i_choose_you data=1 time_stamp=0.001713      ##AT_TIME:0.040404
+SENT:     to=['to', 'gate', 'from', 'user', 'time', 3] from=user command=we_won data=2 time_stamp=0.04041      ##AT_TIME:0.040424
+SENT:     to=['to', 'doorboy', 'from', 'user', 'time', 4] from=user command=search data=2 time_stamp=0.04043      ##AT_TIME:0.040443
+RECIEVED: to=['to', 'user', 'from', 'doorboy', 'time', 4] from=user command=my_min_is data=1.000171485496485 time_stamp=0.001535      ##AT_TIME:0.04046
+SENT:     to=['to', 'gate', 'from', 'user', 'time', 4] from=user command=search data=2 time_stamp=0.040467      ##AT_TIME:0.040481
+RECIEVED: to=['to', 'user', 'from', 'gate', 'time', 4] from=user command=my_min_is data=1.000171485496485 time_stamp=0.002536      ##AT_TIME:0.040513
+SENT:     to=['to', 'doorboy', 'from', 'user', 'time', 4] from=user command=cycle data=2 time_stamp=0.040519      ##AT_TIME:0.040533
+SENT:     to=['to', 'gate', 'from', 'user', 'time', 4] from=user command=cycle data=2 time_stamp=0.040538      ##AT_TIME:0.040549
+SENT:     to=['to', 'doorboy', 'from', 'user', 'time', 5] from=user command=search data=2 time_stamp=0.040556      ##AT_TIME:0.040566
+RECIEVED: to=['to', 'user', 'from', 'doorboy', 'time', 4] from=user command=i_am_finished data=2 time_stamp=0.001623      ##AT_TIME:0.040614
+SENT:     to=['to', 'gate', 'from', 'user', 'time', 5] from=user command=search data=2 time_stamp=0.040626      ##AT_TIME:0.040649
+RECIEVED: to=['to', 'user', 'from', 'gate', 'time', 5] from=user command=cycle data=1.0001875538922347 time_stamp=0.002755      ##AT_TIME:0.040738
+SENT:     to=['to', 'gate', 'from', 'user', 'time', 6] from=user command=search data=2 time_stamp=0.040764      ##AT_TIME:0.0408
+RECIEVED: to=['to', 'user', 'from', 'gate', 'time', 6] from=user command=cycle data=1.0004009354616434 time_stamp=0.003034      ##AT_TIME:0.040875
+SENT:     to=['to', 'gate', 'from', 'user', 'time', 7] from=user command=search data=2 time_stamp=0.040888      ##AT_TIME:0.04091
+RECIEVED: to=['to', 'user', 'from', 'gate', 'time', 7] from=user command=cycle data=1.0004009354616434 time_stamp=0.00329      ##AT_TIME:0.040968
+SENT:     to=['to', 'gate', 'from', 'user', 'time', 8] from=user command=search data=2 time_stamp=0.04098      ##AT_TIME:0.041003
+RECIEVED: to=['to', 'user', 'from', 'gate', 'time', 8] from=user command=my_min_is data=1.0004009354616434 time_stamp=0.003506      ##AT_TIME:0.041096
+SENT:     to=['to', 'gate', 'from', 'user', 'time', 8] from=user command=you_are_min data=2 time_stamp=0.041108      ##AT_TIME:0.041131
+RECIEVED: to=['to', 'gate', 'from', 'backend', 'time', 1] from=backend command=i_choose_you data=0 time_stamp=0.001095      ##AT_TIME:0.041182
+SENT:     to=['to', 'gate', 'from', 'user', 'time', 8] from=user command=we_won data=2 time_stamp=0.041193      ##AT_TIME:0.041216
+SENT:     to=['to', 'gate', 'from', 'user', 'time', 9] from=user command=search data=2 time_stamp=0.041224      ##AT_TIME:0.041239
+RECIEVED: to=['to', 'user', 'from', 'gate', 'time', 9] from=user command=i_am_finished data=2 time_stamp=0.003701      ##AT_TIME:0.041291
+I AM FINISHED  [[1.0000652787190232, <postalservice.clockbox object at 0x7f5caa31d358>, 'doorboy'], [1.0000884616502264, <postalservice.clockbox object at 0x7f5caa31d320>, 'gate']] leader
+SENT:     to=doorboy from=user command=lets_see_how_fast_you_are data= time_stamp=0.041316      ##AT_TIME:0.041339
+RECIEVED: to=user from=doorboy command=this_is_how_fast_i_am data= time_stamp=0.001739      ##AT_TIME:0.041395
+SENT:     to=gate from=user command=lets_see_how_fast_you_are data= time_stamp=0.041407      ##AT_TIME:0.041429
+RECIEVED: to=user from=gate command=this_is_how_fast_i_am data= time_stamp=0.003769      ##AT_TIME:0.041485
+SENT:     to=doorboy from=user command=give_me_your_time data= time_stamp=0.041495      ##AT_TIME:0.041517
+RECIEVED: to=user from=doorboy command=my_time_is data=[0.00179, 1] time_stamp=0.001856      ##AT_TIME:0.041554
+SENT:     to=gate from=user command=give_me_your_time data= time_stamp=0.04156      ##AT_TIME:0.041576
+RECIEVED: to=user from=gate command=my_time_is data=[0.0026355714285714285, 7] time_stamp=0.004066      ##AT_TIME:0.041597
+SENT:     to=doorboy from=user command=your_time_is data=0.006964555555555552 time_stamp=0.041606      ##AT_TIME:0.041622
+SENT:     to=gate from=user command=your_time_is data=0.006959555555555561 time_stamp=0.041642      ##AT_TIME:0.041655
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 1] from=motdet command=i_choose_you data=0 time_stamp=0.000973      ##AT_TIME:0.001009
+RECIEVED: to=['to', 'motdet', 'from', 'enviro', 'time', 1] from=enviro command=i_choose_you data=0 time_stamp=0.001273      ##AT_TIME:0.001044
+NEW NODE AWOKEN!!! leader names is    motdet city is         motdet             parent is   children are [[1.0000868051335525, <postalservice.clockbox object at 0x7f5caa31d208>, 'enviro']] edges are    [[1.0001540213130726, <postalservice.clockbox object at 0x7f5caa31d1d0>, 'gate']]
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 2] from=motdet command=search data=1 time_stamp=0.001073      ##AT_TIME:0.00109
+RECIEVED: to=['to', 'motdet', 'from', 'enviro', 'time', 2] from=motdet command=my_min_is data=1.0001249424890046 time_stamp=0.001494      ##AT_TIME:0.001206
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 2] from=motdet command=you_are_min data=1 time_stamp=0.001222      ##AT_TIME:0.001245
+RECIEVED: to=['to', 'enviro', 'from', 'thermo', 'time', 1] from=thermo command=i_choose_you data=0 time_stamp=0.001135      ##AT_TIME:0.00133
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 2] from=motdet command=we_won data=1 time_stamp=0.001345      ##AT_TIME:0.001368
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 3] from=motdet command=search data=1 time_stamp=0.001377      ##AT_TIME:0.001392
+RECIEVED: to=['to', 'motdet', 'from', 'enviro', 'time', 3] from=motdet command=my_min_is data=1.00012614887456 time_stamp=0.001795      ##AT_TIME:0.001451
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 3] from=motdet command=you_are_min data=1 time_stamp=0.001464      ##AT_TIME:0.001487
+RECIEVED: to=['to', 'enviro', 'from', 'heater', 'time', 1] from=heater command=i_choose_you data=0 time_stamp=0.001112      ##AT_TIME:0.001554
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 3] from=motdet command=we_won data=1 time_stamp=0.001564      ##AT_TIME:0.001587
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 4] from=motdet command=search data=1 time_stamp=0.001596      ##AT_TIME:0.001611
+RECIEVED: to=['to', 'motdet', 'from', 'enviro', 'time', 4] from=motdet command=my_min_is data=1.0001870215144186 time_stamp=0.002021      ##AT_TIME:0.00167
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 4] from=motdet command=you_are_not_min data=1 time_stamp=0.001681      ##AT_TIME:0.001705
+SENT:     to=['to', 'gate', 'from', 'motdet', 'time', 4] from=motdet command=i_choose_you data=1 time_stamp=0.001713      ##AT_TIME:0.001729
+RECIEVED: to=['to', 'motdet', 'from', 'gate', 'time', 3] from=user command=i_choose_you data=2 time_stamp=0.002262      ##AT_TIME:0.001747
+RECIEVED: to=['to', 'motdet', 'from', 'gate', 'time', 4] from=user command=search data=2 time_stamp=0.002445      ##AT_TIME:0.001802
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 5] from=user command=search data=2 time_stamp=0.001813      ##AT_TIME:0.001836
+RECIEVED: to=['to', 'motdet', 'from', 'enviro', 'time', 5] from=user command=my_min_is data=1.0001870215144186 time_stamp=0.00221      ##AT_TIME:0.001898
+SENT:     to=['to', 'gate', 'from', 'motdet', 'time', 5] from=user command=my_min_is data=1.0001870215144186 time_stamp=0.001911      ##AT_TIME:0.001934
+RECIEVED: to=['to', 'motdet', 'from', 'gate', 'time', 4] from=user command=you_are_not_min data=2 time_stamp=0.002503      ##AT_TIME:0.00201
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 5] from=user command=you_are_not_min data=2 time_stamp=0.002021      ##AT_TIME:0.002044
+RECIEVED: to=['to', 'motdet', 'from', 'gate', 'time', 5] from=user command=search data=2 time_stamp=0.002691      ##AT_TIME:0.002104
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 6] from=user command=search data=2 time_stamp=0.002115      ##AT_TIME:0.002138
+RECIEVED: to=['to', 'motdet', 'from', 'enviro', 'time', 6] from=user command=my_min_is data=1.0001870215144186 time_stamp=0.002407      ##AT_TIME:0.002205
+SENT:     to=['to', 'gate', 'from', 'motdet', 'time', 6] from=user command=my_min_is data=1.0001870215144186 time_stamp=0.002218      ##AT_TIME:0.002254
+RECIEVED: to=['to', 'motdet', 'from', 'gate', 'time', 5] from=user command=cycle data=2 time_stamp=0.002735      ##AT_TIME:0.002344
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 6] from=user command=cycle data=2 time_stamp=0.002368      ##AT_TIME:0.002405
+RECIEVED: to=['to', 'motdet', 'from', 'gate', 'time', 6] from=user command=search data=2 time_stamp=0.002965      ##AT_TIME:0.00248
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 7] from=user command=search data=2 time_stamp=0.002491      ##AT_TIME:0.002514
+RECIEVED: to=['to', 'motdet', 'from', 'enviro', 'time', 7] from=user command=my_min_is data=1.0001875538922347 time_stamp=0.002595      ##AT_TIME:0.002592
+SENT:     to=['to', 'gate', 'from', 'motdet', 'time', 7] from=user command=my_min_is data=1.0001875538922347 time_stamp=0.002605      ##AT_TIME:0.002635
+RECIEVED: to=['to', 'motdet', 'from', 'gate', 'time', 6] from=user command=cycle data=2 time_stamp=0.003011      ##AT_TIME:0.00272
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 7] from=user command=cycle data=2 time_stamp=0.002731      ##AT_TIME:0.002755
+RECIEVED: to=['to', 'motdet', 'from', 'gate', 'time', 7] from=user command=search data=2 time_stamp=0.003178      ##AT_TIME:0.002816
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 8] from=user command=search data=2 time_stamp=0.002828      ##AT_TIME:0.002851
+RECIEVED: to=['to', 'motdet', 'from', 'enviro', 'time', 8] from=user command=my_min_is data=1.0002079157399235 time_stamp=0.002827      ##AT_TIME:0.00291
+SENT:     to=['to', 'gate', 'from', 'motdet', 'time', 8] from=user command=my_min_is data=1.0002079157399235 time_stamp=0.002923      ##AT_TIME:0.002946
+RECIEVED: to=['to', 'motdet', 'from', 'gate', 'time', 7] from=user command=cycle data=2 time_stamp=0.003251      ##AT_TIME:0.002988
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 8] from=user command=cycle data=2 time_stamp=0.002995      ##AT_TIME:0.003013
+RECIEVED: to=['to', 'motdet', 'from', 'gate', 'time', 8] from=user command=search data=2 time_stamp=0.00344      ##AT_TIME:0.003054
+SENT:     to=['to', 'enviro', 'from', 'motdet', 'time', 9] from=user command=search data=2 time_stamp=0.003061      ##AT_TIME:0.003078
+RECIEVED: to=['to', 'motdet', 'from', 'enviro', 'time', 8] from=user command=i_am_finished data=2 time_stamp=0.002866      ##AT_TIME:0.003095
+SENT:     to=['to', 'gate', 'from', 'motdet', 'time', 9] from=user command=i_am_finished data=2 time_stamp=0.003102      ##AT_TIME:0.003117
+I AM FINISHED [1.0001540213130726, <postalservice.clockbox object at 0x7f5caa31d1d0>, 'gate'] [[1.0000868051335525, <postalservice.clockbox object at 0x7f5caa31d208>, 'enviro']] follower
+RECIEVED: to=motdet from=gate command=lets_see_how_fast_you_are data= time_stamp=0.003846      ##AT_TIME:0.003183
+SENT:     to=gate from=motdet command=this_is_how_fast_i_am data= time_stamp=0.00319      ##AT_TIME:0.003208
+SENT:     to=enviro from=motdet command=lets_see_how_fast_you_are data= time_stamp=0.003214      ##AT_TIME:0.003227
+RECIEVED: to=motdet from=enviro command=this_is_how_fast_i_am data= time_stamp=0.002953      ##AT_TIME:0.003288
+SENT:     to=enviro from=motdet command=give_me_your_time data= time_stamp=0.003301      ##AT_TIME:0.003323
+RECIEVED: to=motdet from=enviro command=my_time_is data=[0.0025726666666666662, 3] time_stamp=0.003571      ##AT_TIME:0.003404
+RECIEVED: to=motdet from=gate command=give_me_your_time data= time_stamp=0.003978      ##AT_TIME:0.003422
+SENT:     to=gate from=motdet command=my_time_is data=[0.0027825, 4] time_stamp=0.003427      ##AT_TIME:0.003445
+RECIEVED: to=motdet from=gate command=your_time_is data=0.009921111111111122 time_stamp=0.004137      ##AT_TIME:0.003489
+SENT:     to=enviro from=motdet command=your_time_is data=0.01651622222222224 time_stamp=0.003496      ##AT_TIME:0.003513
+RECIEVED: to=motdet from=gate command=lets_see_how_fast_you_are data= time_stamp=0.011678      ##AT_TIME:0.009848
+SENT:     to=gate from=motdet command=this_is_how_fast_i_am data= time_stamp=0.009858      ##AT_TIME:0.009882SENT:     to=doorboy from=user command=lets_see_how_fast_you_are data= time_stamp=0.048101      ##AT_TIME:0.048193
+RECIEVED: to=user from=doorboy command=this_is_how_fast_i_am data= time_stamp=0.003623      ##AT_TIME:0.048236
+SENT:     to=gate from=user command=lets_see_how_fast_you_are data= time_stamp=0.048247      ##AT_TIME:0.048265
+RECIEVED: to=user from=gate command=this_is_how_fast_i_am data= time_stamp=0.011544      ##AT_TIME:0.048283
+SENT:     to=doorboy from=user command=give_me_your_time data= time_stamp=0.048288      ##AT_TIME:0.048303
+RECIEVED: to=user from=doorboy command=my_time_is data=[0.003673, 1] time_stamp=0.0037      ##AT_TIME:0.048328
+SENT:     to=gate from=user command=give_me_your_time data= time_stamp=0.048336      ##AT_TIME:0.048349
+RECIEVED: to=user from=gate command=my_time_is data=[0.009178285714285717, 7] time_stamp=0.011953      ##AT_TIME:0.048378
+SENT:     to=doorboy from=user command=your_time_is data=0.013069444444444446 time_stamp=0.048393      ##AT_TIME:0.048432
+SENT:     to=gate from=user command=your_time_is data=0.012964444444444445 time_stamp=0.04844      ##AT_TIME:0.04846
+
+RECIEVED: to=['to', 'gate', 'from', 'litbub', 'time', 7] from=user command=i_am_finished data=2 time_stamp=0.001782      ##AT_TIME:0.003433
+SENT:     to=['to', 'motdet', 'from', 'gate', 'time', 8] from=user command=search data=2 time_stamp=0.00344      ##AT_TIME:0.003469
+RECIEVED: to=['to', 'gate', 'from', 'motdet', 'time', 9] from=user command=i_am_finished data=2 time_stamp=0.003102      ##AT_TIME:0.0035
+SENT:     to=['to', 'user', 'from', 'gate', 'time', 8] from=user command=my_min_is data=1.0004009354616434 time_stamp=0.003506      ##AT_TIME:0.00352
+RECIEVED: to=['to', 'gate', 'from', 'user', 'time', 8] from=user command=you_are_min data=2 time_stamp=0.041108      ##AT_TIME:0.003538
+SENT:     to=['to', 'backend', 'from', 'gate', 'time', 8] from=user command=i_choose_you data=2 time_stamp=0.003543      ##AT_TIME:0.003557
+RECIEVED: to=['to', 'gate', 'from', 'backend', 'time', 1] from=backend command=i_choose_you data=0 time_stamp=0.001095      ##AT_TIME:0.003583
+SENT:     to=['to', 'gate', 'from', 'backend', 'time', 1] from=backend command=i_choose_you data=0 time_stamp=0.001095      ##AT_TIME:0.0036
+RECIEVED: to=['to', 'gate', 'from', 'user', 'time', 8] from=user command=we_won data=2 time_stamp=0.041193      ##AT_TIME:0.003634
+RECIEVED: to=['to', 'gate', 'from', 'user', 'time', 9] from=user command=search data=2 time_stamp=0.041224      ##AT_TIME:0.003649
+SENT:     to=['to', 'backend', 'from', 'gate', 'time', 9] from=user command=search data=2 time_stamp=0.003655      ##AT_TIME:0.003669
+RECIEVED: to=['to', 'gate', 'from', 'backend', 'time', 1] from=user command=i_am_finished data=2 time_stamp=0.001227      ##AT_TIME:0.003695
+SENT:     to=['to', 'user', 'from', 'gate', 'time', 9] from=user command=i_am_finished data=2 time_stamp=0.003701      ##AT_TIME:0.003713
+I AM FINISHED [1.0000884616502264, <postalservice.clockbox object at 0x7f5caa318cf8>, 'user'] [[1.0000639161051275, <postalservice.clockbox object at 0x7f5caa318cc0>, 'litbub'], [1.0001540213130726, <postalservice.clockbox object at 0x7f5caa318c88>, 'motdet'], [1.0004009354616434, <postalservice.clockbox object at 0x7f5caa318d68>, 'backend']] follower
+RECIEVED: to=gate from=user command=lets_see_how_fast_you_are data= time_stamp=0.041407      ##AT_TIME:0.003761
+SENT:     to=user from=gate command=this_is_how_fast_i_am data= time_stamp=0.003769      ##AT_TIME:0.003797
+SENT:     to=litbub from=gate command=lets_see_how_fast_you_are data= time_stamp=0.003803      ##AT_TIME:0.003816
+RECIEVED: to=gate from=litbub command=this_is_how_fast_i_am data= time_stamp=0.001892      ##AT_TIME:0.003838
+SENT:     to=motdet from=gate command=lets_see_how_fast_you_are data= time_stamp=0.003846      ##AT_TIME:0.003876
+RECIEVED: to=gate from=motdet command=this_is_how_fast_i_am data= time_stamp=0.00319      ##AT_TIME:0.003896
+SENT:     to=backend from=gate command=lets_see_how_fast_you_are data= time_stamp=0.003901      ##AT_TIME:0.003914
+RECIEVED: to=gate from=backend command=this_is_how_fast_i_am data= time_stamp=0.001318      ##AT_TIME:0.00393
+SENT:     to=litbub from=gate command=give_me_your_time data= time_stamp=0.003934      ##AT_TIME:0.003948
+RECIEVED: to=gate from=litbub command=my_time_is data=[0.001918, 1] time_stamp=0.001945      ##AT_TIME:0.003971
+SENT:     to=motdet from=gate command=give_me_your_time data= time_stamp=0.003978      ##AT_TIME:0.003991
+RECIEVED: to=gate from=motdet command=my_time_is data=[0.0027825, 4] time_stamp=0.003427      ##AT_TIME:0.004011
+SENT:     to=backend from=gate command=give_me_your_time data= time_stamp=0.004017      ##AT_TIME:0.00403
+RECIEVED: to=gate from=backend command=my_time_is data=[0.001349, 1] time_stamp=0.001435      ##AT_TIME:0.004047
+RECIEVED: to=gate from=user command=give_me_your_time data= time_stamp=0.04156      ##AT_TIME:0.004061
+SENT:     to=user from=gate command=my_time_is data=[0.0026355714285714285, 7] time_stamp=0.004066      ##AT_TIME:0.004093
+RECIEVED: to=gate from=user command=your_time_is data=0.006959555555555561 time_stamp=0.041642      ##AT_TIME:0.004109
+SENT:     to=litbub from=gate command=your_time_is data=0.009909111111111122 time_stamp=0.004115      ##AT_TIME:0.004129
+SENT:     to=motdet from=gate command=your_time_is data=0.009921111111111122 time_stamp=0.004137      ##AT_TIME:0.004155
+SENT:     to=backend from=gate command=your_time_is data=0.009899111111111122 time_stamp=0.004163      ##AT_TIME:0.00418
+RECIEVED: to=gate from=user command=lets_see_how_fast_you_are data= time_stamp=0.048247      ##AT_TIME:0.011535
+SENT:     to=user from=gate command=this_is_how_fast_i_am data= time_stamp=0.011544      ##AT_TIME:0.011569
+SENT:     to=litbub from=gate command=lets_see_how_fast_you_are data= time_stamp=0.011575      ##AT_TIME:0.011592
+RECIEVED: to=gate from=heater command=this_is_how_fast_i_am data= time_stamp=0.007255      ##AT_TIME:0.011671
+SENT:     to=motdet from=gate command=lets_see_how_fast_you_are data= time_stamp=0.011678      ##AT_TIME:0.011694
+RECIEVED: to=gate from=motdet command=this_is_how_fast_i_am data= time_stamp=0.009858      ##AT_TIME:0.01174
+SENT:     to=backend from=gate command=lets_see_how_fast_you_are data= time_stamp=0.011747      ##AT_TIME:0.011762
+RECIEVED: to=gate from=backend command=this_is_how_fast_i_am data= time_stamp=0.008172      ##AT_TIME:0.01178
+SENT:     to=litbub from=gate command=give_me_your_time data= time_stamp=0.011785      ##AT_TIME:0.011799
+RECIEVED: to=gate from=heater command=my_time_is data=[0.007287, 1] time_stamp=0.007335      ##AT_TIME:0.011819
+SENT:     to=motdet from=gate command=give_me_your_time data= time_stamp=0.011828      ##AT_TIME:0.011848
+RECIEVED: to=gate from=motdet command=my_time_is data=[0.009205250000000002, 4] time_stamp=0.010027      ##AT_TIME:0.011876
+SENT:     to=backend from=gate command=give_me_your_time data= time_stamp=0.011883      ##AT_TIME:0.011899
+RECIEVED: to=gate from=backend command=my_time_is data=[0.008201, 1] time_stamp=0.008256      ##AT_TIME:0.011933
+RECIEVED: to=gate from=user command=give_me_your_time data= time_stamp=0.048336      ##AT_TIME:0.011949
+SENT:     to=user from=gate command=my_time_is data=[0.009178285714285717, 7] time_stamp=0.011953      ##AT_TIME:0.011982
+RECIEVED: to=gate from=user command=your_time_is data=0.012964444444444445 time_stamp=0.04844      ##AT_TIME:0.011999
+SENT:     to=litbub from=gate command=your_time_is data=0.01409088888888889 time_stamp=0.012005      ##AT_TIME:0.012019
+SENT:     to=motdet from=gate command=your_time_is data=0.01405788888888889 time_stamp=0.012025      ##AT_TIME:0.012037
+SENT:     to=backend from=gate command=your_time_is data=0.01402788888888889 time_stamp=0.012042      ##AT_TIME:0.012054
+RECIEVED: to=gate from=user command=lets_see_how_fast_you_are data= time_stamp=0.048771      ##AT_TIME:0.012882
+SENT:     to=user from=gate command=this_is_how_fast_i_am data= time_stamp=0.01289      ##AT_TIME:0.012923
+SENT:     to=litbub from=gate command=lets_see_how_fast_you_are data= time_stamp=0.01293      ##AT_TIME:0.012945
+RECIEVED: to=gate from=heater command=this_is_how_fast_i_am data= time_stamp=0.007512      ##AT_TIME:0.012964
+SENT:     to=motdet from=gate command=lets_see_how_fast_you_are data= time_stamp=0.01297      ##AT_TIME:0.012985
+RECIEVED: to=gate from=motdet command=this_is_how_fast_i_am data= time_stamp=0.010218      ##AT_TIME:0.013002
+SENT:     to=backend from=gate command=lets_see_how_fast_you_are data= time_stamp=0.013008      ##AT_TIME:0.013022
+RECIEVED: to=gate from=backend command=this_is_how_fast_i_am data= time_stamp=0.008476      ##AT_TIME:0.013038
+SENT:     to=litbub from=gate command=give_me_your_time data= time_stamp=0.013043      ##AT_TIME:0.013056
+RECIEVED: to=gate from=heater command=my_time_is data=[0.007546, 1] time_stamp=0.00757      ##AT_TIME:0.013074
+SENT:     to=motdet from=gate command=give_me_your_time data= time_stamp=0.01308      ##AT_TIME:0.013092
+RECIEVED: to=gate from=motdet command=my_time_is data=[0.00957975, 4] time_stamp=0.010393      ##AT_TIME:0.01311
+SENT:     to=backend from=gate command=give_me_your_time data= time_stamp=0.013116      ##AT_TIME:0.013129
+RECIEVED: to=gate from=backend command=my_time_is data=[0.008498, 1] time_stamp=0.008519      ##AT_TIME:0.013145SENT:     to=doorboy from=user command=lets_see_how_fast_you_are data= time_stamp=0.04854      ##AT_TIME:0.048714
+RECIEVED: to=user from=doorboy command=this_is_how_fast_i_am data= time_stamp=0.003827      ##AT_TIME:0.048759
+SENT:     to=gate from=user command=lets_see_how_fast_you_are data= time_stamp=0.048771      ##AT_TIME:0.048799
+RECIEVED: to=user from=gate command=this_is_how_fast_i_am data= time_stamp=0.01289      ##AT_TIME:0.04883
+SENT:     to=doorboy from=user command=give_me_your_time data= time_stamp=0.04884      ##AT_TIME:0.048865
+RECIEVED: to=user from=doorboy command=my_time_is data=[0.003903, 1] time_stamp=0.003938      ##AT_TIME:0.048896
+SENT:     to=gate from=user command=give_me_your_time data= time_stamp=0.048907      ##AT_TIME:0.04893
+RECIEVED: to=user from=gate command=my_time_is data=[0.009648142857142857, 7] time_stamp=0.013192      ##AT_TIME:0.048957
+SENT:     to=doorboy from=user command=your_time_is data=0.013608333333333335 time_stamp=0.048966      ##AT_TIME:0.048982
+SENT:     to=gate from=user command=your_time_is data=0.013446333333333333 time_stamp=0.048988      ##AT_TIME:0.049
+SENT:     to=doorboy from=user command=lets_see_how_fast_you_are data= time_stamp=0.049074      ##AT_TIME:0.049126
+RECIEVED: to=user from=doorboy command=this_is_how_fast_i_am data= time_stamp=0.004146      ##AT_TIME:0.049198
+SENT:     to=gate from=user command=lets_see_how_fast_you_are data= time_stamp=0.049207      ##AT_TIME:0.049226
+RECIEVED: to=user from=gate command=this_is_how_fast_i_am data= time_stamp=0.013684      ##AT_TIME:0.049272
+SENT:     to=doorboy from=user command=give_me_your_time data= time_stamp=0.049278      ##AT_TIME:0.049294
+RECIEVED: to=user from=doorboy command=my_time_is data=[0.004176, 1] time_stamp=0.004202      ##AT_TIME:0.049319
+SENT:     to=gate from=user command=give_me_your_time data= time_stamp=0.049325      ##AT_TIME:0.04934
+RECIEVED: to=user from=gate command=my_time_is data=[0.009971285714285714, 7] time_stamp=0.013945      ##AT_TIME:0.0494
+SENT:     to=doorboy from=user command=your_time_is data=0.013841555555555555 time_stamp=0.049412      ##AT_TIME:0.049435
+SENT:     to=gate from=user command=your_time_is data=0.013780555555555556 time_stamp=0.049444      ##AT_TIME:0.049466
+
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 8] from=user command=search data=2 time_stamp=0.002828      ##AT_TIME:0.002754
+SENT:     to=['to', 'heater', 'from', 'enviro', 'time', 8] from=user command=search data=2 time_stamp=0.002763      ##AT_TIME:0.002792
+RECIEVED: to=['to', 'enviro', 'from', 'heater', 'time', 5] from=user command=i_am_finished data=2 time_stamp=0.001968      ##AT_TIME:0.002822
+SENT:     to=['to', 'motdet', 'from', 'enviro', 'time', 8] from=user command=my_min_is data=1.0002079157399235 time_stamp=0.002827      ##AT_TIME:0.002841
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 8] from=user command=cycle data=2 time_stamp=0.002995      ##AT_TIME:0.00286
+SENT:     to=['to', 'motdet', 'from', 'enviro', 'time', 8] from=user command=i_am_finished data=2 time_stamp=0.002866      ##AT_TIME:0.00288
+I AM FINISHED [1.0000868051335525, <postalservice.clockbox object at 0x7f5caa31d080>, 'motdet'] [[1.0001249424890046, <postalservice.clockbox object at 0x7f5caa31d048>, 'thermo'], [1.00012614887456, <postalservice.clockbox object at 0x7f5caa318fd0>, 'heater']] follower
+RECIEVED: to=['to', 'enviro', 'from', 'motdet', 'time', 9] from=user command=search data=2 time_stamp=0.003061      ##AT_TIME:0.002913
+RECIEVED: to=enviro from=motdet command=lets_see_how_fast_you_are data= time_stamp=0.003214      ##AT_TIME:0.002943
+SENT:     to=motdet from=enviro command=this_is_how_fast_i_am data= time_stamp=0.002953      ##AT_TIME:0.002975
+SENT:     to=thermo from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.002985      ##AT_TIME:0.003002
+RECIEVED: to=enviro from=thermo command=this_is_how_fast_i_am data= time_stamp=0.002022      ##AT_TIME:0.003147
+SENT:     to=heater from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.003162      ##AT_TIME:0.003197
+RECIEVED: to=enviro from=heater command=this_is_how_fast_i_am data= time_stamp=0.002098      ##AT_TIME:0.003254
+SENT:     to=thermo from=enviro command=give_me_your_time data= time_stamp=0.003263      ##AT_TIME:0.003284
+RECIEVED: to=enviro from=thermo command=my_time_is data=[0.002051, 1] time_stamp=0.002149      ##AT_TIME:0.003471
+SENT:     to=heater from=enviro command=give_me_your_time data= time_stamp=0.003481      ##AT_TIME:0.003517
+RECIEVED: to=enviro from=heater command=my_time_is data=[0.002123, 1] time_stamp=0.00215      ##AT_TIME:0.003537
+RECIEVED: to=enviro from=motdet command=give_me_your_time data= time_stamp=0.003301      ##AT_TIME:0.003567
+SENT:     to=motdet from=enviro command=my_time_is data=[0.0025726666666666662, 3] time_stamp=0.003571      ##AT_TIME:0.003601
+RECIEVED: to=enviro from=motdet command=your_time_is data=0.01651622222222224 time_stamp=0.003496      ##AT_TIME:0.003621
+SENT:     to=thermo from=enviro command=your_time_is data=0.029664444444444483 time_stamp=0.003627      ##AT_TIME:0.003644
+SENT:     to=heater from=enviro command=your_time_is data=0.029589444444444484 time_stamp=0.003649      ##AT_TIME:0.003662
+RECIEVED: to=enviro from=motdet command=lets_see_how_fast_you_are data= time_stamp=0.009913      ##AT_TIME:0.010136
+SENT:     to=motdet from=enviro command=this_is_how_fast_i_am data= time_stamp=0.010146      ##AT_TIME:0.01017
+SENT:     to=thermo from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.010177      ##AT_TIME:0.010193
+RECIEVED: to=enviro from=thermo command=this_is_how_fast_i_am data= time_stamp=0.008128      ##AT_TIME:0.010223
+SENT:     to=heater from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.010237      ##AT_TIME:0.010259
+RECIEVED: to=enviro from=heater command=this_is_how_fast_i_am data= time_stamp=0.008087      ##AT_TIME:0.010311
+SENT:     to=thermo from=enviro command=give_me_your_time data= time_stamp=0.010321      ##AT_TIME:0.010344
+RECIEVED: to=enviro from=thermo command=my_time_is data=[0.008168, 1] time_stamp=0.008193      ##AT_TIME:0.010414
+SENT:     to=heater from=enviro command=give_me_your_time data= time_stamp=0.010425      ##AT_TIME:0.010447
+RECIEVED: to=enviro from=heater command=my_time_is data=[0.008146, 1] time_stamp=0.008181      ##AT_TIME:0.010497
+RECIEVED: to=enviro from=motdet command=give_me_your_time data= time_stamp=0.009958      ##AT_TIME:0.010522
+SENT:     to=motdet from=enviro command=my_time_is data=[0.008940666666666668, 3] time_stamp=0.010527      ##AT_TIME:0.010549
+RECIEVED: to=enviro from=motdet command=your_time_is data=0.01816177777777778 time_stamp=0.010065      ##AT_TIME:0.010613
+SENT:     to=thermo from=enviro command=your_time_is data=0.02587455555555556 time_stamp=0.010626      ##AT_TIME:0.010652
+SENT:     to=heater from=enviro command=your_time_is data=0.025899555555555558 time_stamp=0.010662      ##AT_TIME:0.01068
+RECIEVED: to=enviro from=motdet command=lets_see_how_fast_you_are data= time_stamp=0.010241      ##AT_TIME:0.010887
+SENT:     to=motdet from=enviro command=this_is_how_fast_i_am data= time_stamp=0.010894      ##AT_TIME:0.010911
+SENT:     to=thermo from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.010917      ##AT_TIME:0.010929
+RECIEVED: to=enviro from=thermo command=this_is_how_fast_i_am data= time_stamp=0.008427      ##AT_TIME:0.010947
+SENT:     to=heater from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.010953      ##AT_TIME:0.010967
+RECIEVED: to=enviro from=heater command=this_is_how_fast_i_am data= time_stamp=0.008404      ##AT_TIME:0.010985
+SENT:     to=thermo from=enviro command=give_me_your_time data= time_stamp=0.01099      ##AT_TIME:0.011004
+RECIEVED: to=enviro from=thermo command=my_time_is data=[0.008448, 1] time_stamp=0.00847      ##AT_TIME:0.011021
+SENT:     to=heater from=enviro command=give_me_your_time data= time_stamp=0.011027      ##AT_TIME:0.011041
+RECIEVED: to=enviro from=heater command=my_time_is data=[0.008429, 1] time_stamp=0.00845      ##AT_TIME:0.011058
+RECIEVED: to=enviro from=motdet command=give_me_your_time data= time_stamp=0.010311      ##AT_TIME:0.011073
+SENT:     to=motdet from=enviro command=my_time_is data=[0.009313666666666666, 3] time_stamp=0.011078      ##AT_TIME:0.011092
+RECIEVED: to=enviro from=motdet command=your_time_is data=0.017202333333333333 time_stamp=0.010435      ##AT_TIME:0.011109
+SENT:     to=thermo from=enviro command=your_time_is data=0.02337666666666667 time_stamp=0.011117      ##AT_TIME:0.011132
+SENT:     to=heater from=enviro command=your_time_is data=0.02337766666666667 time_stamp=0.01114      ##AT_TIME:0.011157
+RECIEVED: to=enviro from=motdet command=lets_see_how_fast_you_are data= time_stamp=0.010586      ##AT_TIME:0.011356
+SENT:     to=motdet from=enviro command=this_is_how_fast_i_am data= time_stamp=0.011363      ##AT_TIME:0.011379
+SENT:     to=thermo from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.011385      ##AT_TIME:0.011397
+RECIEVED: to=enviro from=thermo command=this_is_how_fast_i_am data= time_stamp=0.008665      ##AT_TIME:0.011417
+SENT:     to=heater from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.011423      ##AT_TIME:0.011438
+RECIEVED: to=enviro from=heater command=this_is_how_fast_i_am data= time_stamp=0.008617      ##AT_TIME:0.011458
+SENT:     to=thermo from=enviro command=give_me_your_time data= time_stamp=0.011464      ##AT_TIME:0.011478
+RECIEVED: to=enviro from=thermo command=my_time_is data=[0.008685, 1] time_stamp=0.008734      ##AT_TIME:0.011496
+SENT:     to=heater from=enviro command=give_me_your_time data= time_stamp=0.011502      ##AT_TIME:0.011515
+RECIEVED: to=enviro from=heater command=my_time_is data=[0.008644, 1] time_stamp=0.008672      ##AT_TIME:0.011531
+RECIEVED: to=enviro from=motdet command=give_me_your_time data= time_stamp=0.010623      ##AT_TIME:0.011546
+SENT:     to=motdet from=enviro command=my_time_is data=[0.009622, 3] time_stamp=0.011551      ##AT_TIME:0.011564
+RECIEVED: to=enviro from=motdet command=your_time_is data=0.016715222222222225 time_stamp=0.010718      ##AT_TIME:0.011617
+SENT:     to=thermo from=enviro command=your_time_is data=0.02193144444444445 time_stamp=0.011628      ##AT_TIME:0.011651
+SENT:     to=heater from=enviro command=your_time_is data=0.02193444444444445 time_stamp=0.011658      ##AT_TIME:0.011674
+RECIEVED: to=enviro from=motdet command=lets_see_how_fast_you_are data= time_stamp=0.01084      ##AT_TIME:0.011908SENT:     to=['to', 'user', 'from', 'doorboy', 'time', 1] from=doorboy command=i_choose_you data=0 time_stamp=0.001054      ##AT_TIME:0.001088
+RECIEVED: to=['to', 'doorboy', 'from', 'user', 'time', 1] from=user command=i_choose_you data=0 time_stamp=0.039813      ##AT_TIME:0.001118
+NEW NODE AWOKEN!!! follower names is    doorboy city is         user             parent is  [1.0000652787190232, <postalservice.clockbox object at 0x7f5caa31d3c8>, 'user'] children are [] edges are    [[1.000171485496485, <postalservice.clockbox object at 0x7f5caa31d390>, 'gate']]
+RECIEVED: to=['to', 'doorboy', 'from', 'user', 'time', 2] from=user command=search data=1 time_stamp=0.039912      ##AT_TIME:0.001162
+SENT:     to=['to', 'user', 'from', 'doorboy', 'time', 2] from=user command=my_min_is data=1.000171485496485 time_stamp=0.001172      ##AT_TIME:0.001219
+RECIEVED: to=['to', 'doorboy', 'from', 'user', 'time', 2] from=user command=you_are_not_min data=1 time_stamp=0.040021      ##AT_TIME:0.001335
+RECIEVED: to=['to', 'doorboy', 'from', 'user', 'time', 3] from=user command=search data=2 time_stamp=0.04019      ##AT_TIME:0.001419
+SENT:     to=['to', 'user', 'from', 'doorboy', 'time', 3] from=user command=my_min_is data=1.000171485496485 time_stamp=0.001455      ##AT_TIME:0.001484
+RECIEVED: to=['to', 'doorboy', 'from', 'user', 'time', 3] from=user command=you_are_not_min data=2 time_stamp=0.040349      ##AT_TIME:0.001509
+RECIEVED: to=['to', 'doorboy', 'from', 'user', 'time', 4] from=user command=search data=2 time_stamp=0.04043      ##AT_TIME:0.001528
+SENT:     to=['to', 'user', 'from', 'doorboy', 'time', 4] from=user command=my_min_is data=1.000171485496485 time_stamp=0.001535      ##AT_TIME:0.001552
+RECIEVED: to=['to', 'doorboy', 'from', 'user', 'time', 4] from=user command=cycle data=2 time_stamp=0.040519      ##AT_TIME:0.001607
+SENT:     to=['to', 'user', 'from', 'doorboy', 'time', 4] from=user command=i_am_finished data=2 time_stamp=0.001623      ##AT_TIME:0.001664
+I AM FINISHED [1.0000652787190232, <postalservice.clockbox object at 0x7f5caa31d3c8>, 'user'] [] follower
+RECIEVED: to=['to', 'doorboy', 'from', 'user', 'time', 5] from=user command=search data=2 time_stamp=0.040556      ##AT_TIME:0.001709
+RECIEVED: to=doorboy from=user command=lets_see_how_fast_you_are data= time_stamp=0.041316      ##AT_TIME:0.001733
+SENT:     to=user from=doorboy command=this_is_how_fast_i_am data= time_stamp=0.001739      ##AT_TIME:0.001769
+RECIEVED: to=doorboy from=user command=give_me_your_time data= time_stamp=0.041495      ##AT_TIME:0.001842
+SENT:     to=user from=doorboy command=my_time_is data=[0.00179, 1] time_stamp=0.001856      ##AT_TIME:0.001879
+RECIEVED: to=doorboy from=user command=your_time_is data=0.006964555555555552 time_stamp=0.041606      ##AT_TIME:0.00193
+RECIEVED: to=doorboy from=user command=lets_see_how_fast_you_are data= time_stamp=0.048101      ##AT_TIME:0.003614
+SENT:     to=user from=doorboy command=this_is_how_fast_i_am data= time_stamp=0.003623      ##AT_TIME:0.003664
+RECIEVED: to=doorboy from=user command=give_me_your_time data= time_stamp=0.048288      ##AT_TIME:0.003694
+SENT:     to=user from=doorboy command=my_time_is data=[0.003673, 1] time_stamp=0.0037      ##AT_TIME:0.003718
+RECIEVED: to=doorboy from=user command=your_time_is data=0.013069444444444446 time_stamp=0.048393      ##AT_TIME:0.003753
+RECIEVED: to=doorboy from=user command=lets_see_how_fast_you_are data= time_stamp=0.04854      ##AT_TIME:0.003819
+SENT:     to=user from=doorboy command=this_is_how_fast_i_am data= time_stamp=0.003827      ##AT_TIME:0.003894
+RECIEVED: to=doorboy from=user command=give_me_your_time data= time_stamp=0.04884      ##AT_TIME:0.003926
+SENT:     to=user from=doorboy command=my_time_is data=[0.003903, 1] time_stamp=0.003938      ##AT_TIME:0.003959
+RECIEVED: to=doorboy from=user command=your_time_is data=0.013608333333333335 time_stamp=0.048966      ##AT_TIME:0.003981
+RECIEVED: to=doorboy from=user command=lets_see_how_fast_you_are data= time_stamp=0.049074      ##AT_TIME:0.004137
+SENT:     to=user from=doorboy command=this_is_how_fast_i_am data= time_stamp=0.004146      ##AT_TIME:0.004168
+RECIEVED: to=doorboy from=user command=give_me_your_time data= time_stamp=0.049278      ##AT_TIME:0.004196
+SENT:     to=user from=doorboy command=my_time_is data=[0.004176, 1] time_stamp=0.004202      ##AT_TIME:0.004218
+RECIEVED: to=doorboy from=user command=your_time_is data=0.013841555555555555 time_stamp=0.049412      ##AT_TIME:0.004249
+RECIEVED: to=doorboy from=user command=lets_see_how_fast_you_are data= time_stamp=0.049533      ##AT_TIME:0.004329
+SENT:     to=user from=doorboy command=this_is_how_fast_i_am data= time_stamp=0.004335      ##AT_TIME:0.004414
+RECIEVED: to=doorboy from=user command=give_me_your_time data= time_stamp=0.049772      ##AT_TIME:0.004452
+SENT:     to=user from=doorboy command=my_time_is data=[0.004422, 1] time_stamp=0.004458      ##AT_TIME:0.004473
+RECIEVED: to=doorboy from=user command=your_time_is data=0.014215888888888886 time_stamp=0.049857      ##AT_TIME:0.004501
+SENT:     to=['to', 'enviro', 'from', 'thermo', 'time', 1] from=thermo command=i_choose_you data=0 time_stamp=0.001135      ##AT_TIME:0.001173
+RECIEVED: to=['to', 'thermo', 'from', 'enviro', 'time', 2] from=motdet command=i_choose_you data=1 time_stamp=0.001563      ##AT_TIME:0.001255
+NEW NODE AWOKEN!!! follower names is    thermo city is         motdet             parent is  [1.0001249424890046, <postalservice.clockbox object at 0x7f5caa31d198>, 'enviro'] children are [] edges are    [[1.0001870215144186, <postalservice.clockbox object at 0x7f5caa31d160>, 'gate']]
+RECIEVED: to=['to', 'thermo', 'from', 'enviro', 'time', 3] from=motdet command=search data=1 time_stamp=0.001695      ##AT_TIME:0.001367
+SENT:     to=['to', 'enviro', 'from', 'thermo', 'time', 2] from=motdet command=my_min_is data=1.0001870215144186 time_stamp=0.001384      ##AT_TIME:0.001406
+RECIEVED: to=['to', 'thermo', 'from', 'enviro', 'time', 3] from=motdet command=you_are_not_min data=1 time_stamp=0.001756      ##AT_TIME:0.001431
+RECIEVED: to=['to', 'thermo', 'from', 'enviro', 'time', 4] from=motdet command=search data=1 time_stamp=0.001924      ##AT_TIME:0.001456
+SENT:     to=['to', 'enviro', 'from', 'thermo', 'time', 3] from=motdet command=my_min_is data=1.0001870215144186 time_stamp=0.001466      ##AT_TIME:0.001484
+RECIEVED: to=['to', 'thermo', 'from', 'enviro', 'time', 4] from=motdet command=you_are_not_min data=1 time_stamp=0.00206      ##AT_TIME:0.001505
+RECIEVED: to=['to', 'thermo', 'from', 'enviro', 'time', 5] from=user command=search data=2 time_stamp=0.0021      ##AT_TIME:0.00158
+SENT:     to=['to', 'enviro', 'from', 'thermo', 'time', 4] from=user command=my_min_is data=1.0001870215144186 time_stamp=0.001592      ##AT_TIME:0.001615
+RECIEVED: to=['to', 'thermo', 'from', 'enviro', 'time', 5] from=user command=you_are_not_min data=2 time_stamp=0.002274      ##AT_TIME:0.00166
+RECIEVED: to=['to', 'thermo', 'from', 'enviro', 'time', 6] from=user command=search data=2 time_stamp=0.002311      ##AT_TIME:0.001725
+SENT:     to=['to', 'enviro', 'from', 'thermo', 'time', 5] from=user command=my_min_is data=1.0001870215144186 time_stamp=0.001737      ##AT_TIME:0.001759
+RECIEVED: to=['to', 'thermo', 'from', 'enviro', 'time', 6] from=user command=cycle data=2 time_stamp=0.002456      ##AT_TIME:0.001825
+SENT:     to=['to', 'enviro', 'from', 'thermo', 'time', 5] from=user command=i_am_finished data=2 time_stamp=0.001836      ##AT_TIME:0.001858
+I AM FINISHED [1.0001249424890046, <postalservice.clockbox object at 0x7f5caa31d198>, 'enviro'] [] follower
+RECIEVED: to=['to', 'thermo', 'from', 'enviro', 'time', 7] from=user command=search data=2 time_stamp=0.002508      ##AT_TIME:0.001946
+RECIEVED: to=thermo from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.002985      ##AT_TIME:0.002013
+SENT:     to=enviro from=thermo command=this_is_how_fast_i_am data= time_stamp=0.002022      ##AT_TIME:0.002044
+RECIEVED: to=thermo from=enviro command=give_me_your_time data= time_stamp=0.003263      ##AT_TIME:0.002124
+SENT:     to=enviro from=thermo command=my_time_is data=[0.002051, 1] time_stamp=0.002149      ##AT_TIME:0.002186
+RECIEVED: to=thermo from=enviro command=your_time_is data=0.029664444444444483 time_stamp=0.003627      ##AT_TIME:0.002255
+RECIEVED: to=thermo from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.010177      ##AT_TIME:0.008117
+SENT:     to=enviro from=thermo command=this_is_how_fast_i_am data= time_stamp=0.008128      ##AT_TIME:0.008162
+RECIEVED: to=thermo from=enviro command=give_me_your_time data= time_stamp=0.010321      ##AT_TIME:0.008187
+SENT:     to=enviro from=thermo command=my_time_is data=[0.008168, 1] time_stamp=0.008193      ##AT_TIME:0.008223
+RECIEVED: to=thermo from=enviro command=your_time_is data=0.02587455555555556 time_stamp=0.010626      ##AT_TIME:0.008265
+RECIEVED: to=thermo from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.010917      ##AT_TIME:0.00842
+SENT:     to=enviro from=thermo command=this_is_how_fast_i_am data= time_stamp=0.008427      ##AT_TIME:0.008443
+RECIEVED: to=thermo from=enviro command=give_me_your_time data= time_stamp=0.01099      ##AT_TIME:0.008464
+SENT:     to=enviro from=thermo command=my_time_is data=[0.008448, 1] time_stamp=0.00847      ##AT_TIME:0.008489
+RECIEVED: to=thermo from=enviro command=your_time_is data=0.02337666666666667 time_stamp=0.011117      ##AT_TIME:0.00851
+RECIEVED: to=thermo from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.011385      ##AT_TIME:0.008658
+SENT:     to=enviro from=thermo command=this_is_how_fast_i_am data= time_stamp=0.008665      ##AT_TIME:0.008681
+RECIEVED: to=thermo from=enviro command=give_me_your_time data= time_stamp=0.011464      ##AT_TIME:0.008725
+SENT:     to=enviro from=thermo command=my_time_is data=[0.008685, 1] time_stamp=0.008734      ##AT_TIME:0.008749
+RECIEVED: to=thermo from=enviro command=your_time_is data=0.02193144444444445 time_stamp=0.011628      ##AT_TIME:0.00877
+RECIEVED: to=thermo from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.011958      ##AT_TIME:0.008889
+SENT:     to=enviro from=thermo command=this_is_how_fast_i_am data= time_stamp=0.008894      ##AT_TIME:0.008909
+RECIEVED: to=thermo from=enviro command=give_me_your_time data= time_stamp=0.012031      ##AT_TIME:0.008926
+SENT:     to=enviro from=thermo command=my_time_is data=[0.008914, 1] time_stamp=0.00893      ##AT_TIME:0.008944
+RECIEVED: to=thermo from=enviro command=your_time_is data=0.020491111111111106 time_stamp=0.01216      ##AT_TIME:0.00897
+SENT:     to=['to', 'gate', 'from', 'litbub', 'time', 1] from=litbub command=i_choose_you data=0 time_stamp=0.001006      ##AT_TIME:0.001041
+RECIEVED: to=['to', 'litbub', 'from', 'gate', 'time', 1] from=gate command=i_choose_you data=0 time_stamp=0.001714      ##AT_TIME:0.00109
+NEW NODE AWOKEN!!! leader names is    litbub city is         litbub             parent is   children are [[1.0000639161051275, <postalservice.clockbox object at 0x7f5caa31d240>, 'gate']] edges are    [[1.0002079157399235, <postalservice.clockbox object at 0x7f5caa31d278>, 'enviro']]
+SENT:     to=['to', 'gate', 'from', 'litbub', 'time', 2] from=litbub command=search data=1 time_stamp=0.001126      ##AT_TIME:0.001176
+RECIEVED: to=['to', 'litbub', 'from', 'gate', 'time', 2] from=litbub command=my_min_is data=1.0000884616502264 time_stamp=0.001876      ##AT_TIME:0.001209
+SENT:     to=['to', 'gate', 'from', 'litbub', 'time', 2] from=litbub command=you_are_min data=1 time_stamp=0.00122      ##AT_TIME:0.00125
+RECIEVED: to=['to', 'gate', 'from', 'user', 'time', 2] from=user command=i_choose_you data=1 time_stamp=0.040067      ##AT_TIME:0.001293
+SENT:     to=['to', 'gate', 'from', 'litbub', 'time', 2] from=user command=we_lost data=2 time_stamp=0.001304      ##AT_TIME:0.00132
+RECIEVED: to=['to', 'litbub', 'from', 'gate', 'time', 3] from=user command=search data=2 time_stamp=0.002124      ##AT_TIME:0.001354
+SENT:     to=['to', 'gate', 'from', 'litbub', 'time', 3] from=user command=my_min_is data=1.0002079157399235 time_stamp=0.001363      ##AT_TIME:0.001384
+RECIEVED: to=['to', 'litbub', 'from', 'gate', 'time', 3] from=user command=you_are_not_min data=2 time_stamp=0.002186      ##AT_TIME:0.001414
+RECIEVED: to=['to', 'litbub', 'from', 'gate', 'time', 4] from=user command=search data=2 time_stamp=0.002374      ##AT_TIME:0.001443
+SENT:     to=['to', 'gate', 'from', 'litbub', 'time', 4] from=user command=my_min_is data=1.0002079157399235 time_stamp=0.001451      ##AT_TIME:0.001467
+RECIEVED: to=['to', 'litbub', 'from', 'gate', 'time', 4] from=user command=you_are_not_min data=2 time_stamp=0.002421      ##AT_TIME:0.001493
+RECIEVED: to=['to', 'litbub', 'from', 'gate', 'time', 5] from=user command=search data=2 time_stamp=0.00262      ##AT_TIME:0.001519
+SENT:     to=['to', 'gate', 'from', 'litbub', 'time', 5] from=user command=my_min_is data=1.0002079157399235 time_stamp=0.001526      ##AT_TIME:0.001542
+RECIEVED: to=['to', 'litbub', 'from', 'gate', 'time', 5] from=user command=you_are_not_min data=2 time_stamp=0.002668      ##AT_TIME:0.001568
+RECIEVED: to=['to', 'litbub', 'from', 'gate', 'time', 6] from=user command=search data=2 time_stamp=0.002881      ##AT_TIME:0.001596
+SENT:     to=['to', 'gate', 'from', 'litbub', 'time', 6] from=user command=my_min_is data=1.0002079157399235 time_stamp=0.001604      ##AT_TIME:0.00162
+RECIEVED: to=['to', 'litbub', 'from', 'gate', 'time', 6] from=user command=you_are_not_min data=2 time_stamp=0.002942      ##AT_TIME:0.001647
+RECIEVED: to=['to', 'litbub', 'from', 'gate', 'time', 7] from=user command=search data=2 time_stamp=0.0031      ##AT_TIME:0.001704
+SENT:     to=['to', 'gate', 'from', 'litbub', 'time', 7] from=user command=my_min_is data=1.0002079157399235 time_stamp=0.001712      ##AT_TIME:0.00173
+RECIEVED: to=['to', 'litbub', 'from', 'gate', 'time', 7] from=user command=cycle data=2 time_stamp=0.003216      ##AT_TIME:0.001771
+SENT:     to=['to', 'gate', 'from', 'litbub', 'time', 7] from=user command=i_am_finished data=2 time_stamp=0.001782      ##AT_TIME:0.001814
+I AM FINISHED [1.0000639161051275, <postalservice.clockbox object at 0x7f5caa31d240>, 'gate'] [] follower
+RECIEVED: to=['to', 'litbub', 'from', 'gate', 'time', 8] from=user command=search data=2 time_stamp=0.00334      ##AT_TIME:0.001854
+RECIEVED: to=litbub from=gate command=lets_see_how_fast_you_are data= time_stamp=0.003803      ##AT_TIME:0.001886
+SENT:     to=gate from=litbub command=this_is_how_fast_i_am data= time_stamp=0.001892      ##AT_TIME:0.00191
+RECIEVED: to=litbub from=gate command=give_me_your_time data= time_stamp=0.003934      ##AT_TIME:0.001938
+SENT:     to=gate from=litbub command=my_time_is data=[0.001918, 1] time_stamp=0.001945      ##AT_TIME:0.001961
+RECIEVED: to=litbub from=gate command=your_time_is data=0.009909111111111122 time_stamp=0.004115      ##AT_TIME:0.001988
+RECIEVED: to=litbub from=gate command=lets_see_how_fast_you_are data= time_stamp=0.011575      ##AT_TIME:0.007245
+SENT:     to=gate from=heater command=this_is_how_fast_i_am data= time_stamp=0.007255      ##AT_TIME:0.007281
+RECIEVED: to=litbub from=gate command=give_me_your_time data= time_stamp=0.011785      ##AT_TIME:0.007329
+SENT:     to=gate from=heater command=my_time_is data=[0.007287, 1] time_stamp=0.007335      ##AT_TIME:0.007352
+RECIEVED: to=litbub from=gate command=your_time_is data=0.01409088888888889 time_stamp=0.012005      ##AT_TIME:0.007401
+RECIEVED: to=litbub from=gate command=lets_see_how_fast_you_are data= time_stamp=0.01293      ##AT_TIME:0.007504
+SENT:     to=gate from=heater command=this_is_how_fast_i_am data= time_stamp=0.007512      ##AT_TIME:0.007539
+RECIEVED: to=litbub from=gate command=give_me_your_time data= time_stamp=0.013043      ##AT_TIME:0.007562
+SENT:     to=gate from=heater command=my_time_is data=[0.007546, 1] time_stamp=0.00757      ##AT_TIME:0.007585
+RECIEVED: to=litbub from=gate command=your_time_is data=0.013757666666666666 time_stamp=0.01323      ##AT_TIME:0.007605
+RECIEVED: to=litbub from=gate command=lets_see_how_fast_you_are data= time_stamp=0.013706      ##AT_TIME:0.007686
+SENT:     to=gate from=heater command=this_is_how_fast_i_am data= time_stamp=0.007695      ##AT_TIME:0.007719
+RECIEVED: to=litbub from=gate command=give_me_your_time data= time_stamp=0.013818      ##AT_TIME:0.00774
+SENT:     to=gate from=heater command=my_time_is data=[0.007725, 1] time_stamp=0.007745      ##AT_TIME:0.00776
+RECIEVED: to=litbub from=gate command=your_time_is data=0.013672111111111112 time_stamp=0.013985      ##AT_TIME:0.007805
+RECIEVED: to=litbub from=gate command=lets_see_how_fast_you_are data= time_stamp=0.014487      ##AT_TIME:0.007888
+SENT:     to=gate from=heater command=this_is_how_fast_i_am data= time_stamp=0.007894      ##AT_TIME:0.00791
+RECIEVED: to=litbub from=gate command=give_me_your_time data= time_stamp=0.014591      ##AT_TIME:0.007932
+SENT:     to=gate from=heater command=my_time_is data=[0.007916, 1] time_stamp=0.007939      ##AT_TIME:0.007955
+RECIEVED: to=litbub from=gate command=your_time_is data=0.013579777777777777 time_stamp=0.014747      ##AT_TIME:0.007976
+SENT:     to=['to', 'enviro', 'from', 'heater', 'time', 1] from=heater command=i_choose_you data=0 time_stamp=0.001112      ##AT_TIME:0.001163
+RECIEVED: to=['to', 'heater', 'from', 'enviro', 'time', 3] from=motdet command=i_choose_you data=1 time_stamp=0.001834      ##AT_TIME:0.001241
+NEW NODE AWOKEN!!! follower names is    heater city is         motdet             parent is  [1.00012614887456, <postalservice.clockbox object at 0x7f5caa31d128>, 'enviro'] children are [] edges are    [[1.0001875538922347, <postalservice.clockbox object at 0x7f5caa31d0f0>, 'gate']]
+RECIEVED: to=['to', 'heater', 'from', 'enviro', 'time', 4] from=motdet command=search data=1 time_stamp=0.001962      ##AT_TIME:0.001325
+SENT:     to=['to', 'enviro', 'from', 'heater', 'time', 2] from=motdet command=my_min_is data=1.0001875538922347 time_stamp=0.00134      ##AT_TIME:0.001364
+RECIEVED: to=['to', 'heater', 'from', 'enviro', 'time', 4] from=motdet command=you_are_not_min data=1 time_stamp=0.002001      ##AT_TIME:0.001428
+RECIEVED: to=['to', 'heater', 'from', 'enviro', 'time', 5] from=user command=search data=2 time_stamp=0.002152      ##AT_TIME:0.001516
+SENT:     to=['to', 'enviro', 'from', 'heater', 'time', 3] from=user command=my_min_is data=1.0001875538922347 time_stamp=0.001532      ##AT_TIME:0.001555
+RECIEVED: to=['to', 'heater', 'from', 'enviro', 'time', 5] from=user command=you_are_not_min data=2 time_stamp=0.00219      ##AT_TIME:0.001637
+RECIEVED: to=['to', 'heater', 'from', 'enviro', 'time', 6] from=user command=search data=2 time_stamp=0.00235      ##AT_TIME:0.001697
+SENT:     to=['to', 'enviro', 'from', 'heater', 'time', 4] from=user command=my_min_is data=1.0001875538922347 time_stamp=0.001709      ##AT_TIME:0.001731
+RECIEVED: to=['to', 'heater', 'from', 'enviro', 'time', 6] from=user command=you_are_not_min data=2 time_stamp=0.002388      ##AT_TIME:0.001806
+RECIEVED: to=['to', 'heater', 'from', 'enviro', 'time', 7] from=user command=search data=2 time_stamp=0.002541      ##AT_TIME:0.001865
+SENT:     to=['to', 'enviro', 'from', 'heater', 'time', 5] from=user command=my_min_is data=1.0001875538922347 time_stamp=0.001878      ##AT_TIME:0.001901
+RECIEVED: to=['to', 'heater', 'from', 'enviro', 'time', 7] from=user command=cycle data=2 time_stamp=0.00265      ##AT_TIME:0.001953
+SENT:     to=['to', 'enviro', 'from', 'heater', 'time', 5] from=user command=i_am_finished data=2 time_stamp=0.001968      ##AT_TIME:0.001991
+I AM FINISHED [1.00012614887456, <postalservice.clockbox object at 0x7f5caa31d128>, 'enviro'] [] follower
+RECIEVED: to=['to', 'heater', 'from', 'enviro', 'time', 8] from=user command=search data=2 time_stamp=0.002763      ##AT_TIME:0.002056
+RECIEVED: to=heater from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.003162      ##AT_TIME:0.002091
+SENT:     to=enviro from=heater command=this_is_how_fast_i_am data= time_stamp=0.002098      ##AT_TIME:0.002116
+RECIEVED: to=heater from=enviro command=give_me_your_time data= time_stamp=0.003481      ##AT_TIME:0.002143
+SENT:     to=enviro from=heater command=my_time_is data=[0.002123, 1] time_stamp=0.00215      ##AT_TIME:0.002166
+RECIEVED: to=heater from=enviro command=your_time_is data=0.029589444444444484 time_stamp=0.003649      ##AT_TIME:0.002196
+RECIEVED: to=heater from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.010237      ##AT_TIME:0.008061
+SENT:     to=enviro from=heater command=this_is_how_fast_i_am data= time_stamp=0.008087      ##AT_TIME:0.008136
+RECIEVED: to=heater from=enviro command=give_me_your_time data= time_stamp=0.010425      ##AT_TIME:0.008171
+SENT:     to=enviro from=heater command=my_time_is data=[0.008146, 1] time_stamp=0.008181      ##AT_TIME:0.008234
+RECIEVED: to=heater from=enviro command=your_time_is data=0.025899555555555558 time_stamp=0.010662      ##AT_TIME:0.008268
+RECIEVED: to=heater from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.010953      ##AT_TIME:0.008397
+SENT:     to=enviro from=heater command=this_is_how_fast_i_am data= time_stamp=0.008404      ##AT_TIME:0.008424
+RECIEVED: to=heater from=enviro command=give_me_your_time data= time_stamp=0.011027      ##AT_TIME:0.008444
+SENT:     to=enviro from=heater command=my_time_is data=[0.008429, 1] time_stamp=0.00845      ##AT_TIME:0.008469
+RECIEVED: to=heater from=enviro command=your_time_is data=0.02337766666666667 time_stamp=0.01114      ##AT_TIME:0.008501
+RECIEVED: to=heater from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.011423      ##AT_TIME:0.008609
+SENT:     to=enviro from=heater command=this_is_how_fast_i_am data= time_stamp=0.008617      ##AT_TIME:0.008639
+RECIEVED: to=heater from=enviro command=give_me_your_time data= time_stamp=0.011502      ##AT_TIME:0.008663
+SENT:     to=enviro from=heater command=my_time_is data=[0.008644, 1] time_stamp=0.008672      ##AT_TIME:0.008689
+RECIEVED: to=heater from=enviro command=your_time_is data=0.02193444444444445 time_stamp=0.011658      ##AT_TIME:0.008718
+RECIEVED: to=heater from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.011994      ##AT_TIME:0.008816
+SENT:     to=enviro from=heater command=this_is_how_fast_i_am data= time_stamp=0.008828      ##AT_TIME:0.008858
+RECIEVED: to=heater from=enviro command=give_me_your_time data= time_stamp=0.012066      ##AT_TIME:0.008896
+SENT:     to=enviro from=heater command=my_time_is data=[0.008868, 1] time_stamp=0.008907      ##AT_TIME:0.008934
+RECIEVED: to=heater from=enviro command=your_time_is data=0.020491111111111106 time_stamp=0.012188      ##AT_TIME:0.008966
+SENT:     to=['to', 'gate', 'from', 'backend', 'time', 1] from=backend command=i_choose_you data=0 time_stamp=0.001095      ##AT_TIME:0.001138
+RECIEVED: to=['to', 'backend', 'from', 'gate', 'time', 8] from=user command=i_choose_you data=2 time_stamp=0.003543      ##AT_TIME:0.001194
+NEW NODE AWOKEN!!! follower names is    backend city is         user             parent is  [1.0004009354616434, <postalservice.clockbox object at 0x7f5caa318dd8>, 'gate'] children are [] edges are    []
+SENT:     to=['to', 'gate', 'from', 'backend', 'time', 1] from=user command=i_am_finished data=2 time_stamp=0.001227      ##AT_TIME:0.001245
+I AM FINISHED [1.0004009354616434, <postalservice.clockbox object at 0x7f5caa318dd8>, 'gate'] [] follower
+RECIEVED: to=['to', 'backend', 'from', 'gate', 'time', 9] from=user command=search data=2 time_stamp=0.003655      ##AT_TIME:0.001286
+RECIEVED: to=backend from=gate command=lets_see_how_fast_you_are data= time_stamp=0.003901      ##AT_TIME:0.001309
+SENT:     to=gate from=backend command=this_is_how_fast_i_am data= time_stamp=0.001318      ##AT_TIME:0.00134
+RECIEVED: to=backend from=gate command=give_me_your_time data= time_stamp=0.004017      ##AT_TIME:0.001425
+SENT:     to=gate from=backend command=my_time_is data=[0.001349, 1] time_stamp=0.001435      ##AT_TIME:0.001457
+RECIEVED: to=backend from=gate command=your_time_is data=0.009899111111111122 time_stamp=0.004163      ##AT_TIME:0.001521
+RECIEVED: to=backend from=gate command=lets_see_how_fast_you_are data= time_stamp=0.011747      ##AT_TIME:0.008164
+SENT:     to=gate from=backend command=this_is_how_fast_i_am data= time_stamp=0.008172      ##AT_TIME:0.008195
+RECIEVED: to=backend from=gate command=give_me_your_time data= time_stamp=0.011883      ##AT_TIME:0.008246
+SENT:     to=gate from=backend command=my_time_is data=[0.008201, 1] time_stamp=0.008256      ##AT_TIME:0.008279
+RECIEVED: to=backend from=gate command=your_time_is data=0.01402788888888889 time_stamp=0.012042      ##AT_TIME:0.00834
+RECIEVED: to=backend from=gate command=lets_see_how_fast_you_are data= time_stamp=0.013008      ##AT_TIME:0.008469
+SENT:     to=gate from=backend command=this_is_how_fast_i_am data= time_stamp=0.008476      ##AT_TIME:0.008493
+RECIEVED: to=backend from=gate command=give_me_your_time data= time_stamp=0.013116      ##AT_TIME:0.008514
+SENT:     to=gate from=backend command=my_time_is data=[0.008498, 1] time_stamp=0.008519      ##AT_TIME:0.008535
+RECIEVED: to=backend from=gate command=your_time_is data=0.013753666666666666 time_stamp=0.013266      ##AT_TIME:0.008556
+RECIEVED: to=backend from=gate command=lets_see_how_fast_you_are data= time_stamp=0.013782      ##AT_TIME:0.008585
+SENT:     to=gate from=backend command=this_is_how_fast_i_am data= time_stamp=0.008593      ##AT_TIME:0.008611
+RECIEVED: to=backend from=gate command=give_me_your_time data= time_stamp=0.013889      ##AT_TIME:0.008655
+SENT:     to=gate from=backend command=my_time_is data=[0.008617, 1] time_stamp=0.008664      ##AT_TIME:0.008679
+RECIEVED: to=backend from=gate command=your_time_is data=0.013670111111111112 time_stamp=0.014021      ##AT_TIME:0.0087
+RECIEVED: to=backend from=gate command=lets_see_how_fast_you_are data= time_stamp=0.014556      ##AT_TIME:0.008724
+SENT:     to=gate from=backend command=this_is_how_fast_i_am data= time_stamp=0.008731      ##AT_TIME:0.008748
+RECIEVED: to=backend from=gate command=give_me_your_time data= time_stamp=0.014663      ##AT_TIME:0.008771
+SENT:     to=gate from=backend command=my_time_is data=[0.008755, 1] time_stamp=0.008777      ##AT_TIME:0.008792
+RECIEVED: to=backend from=gate command=your_time_is data=0.013581777777777778 time_stamp=0.014782      ##AT_TIME:0.008816
+['away', 'sensor', 'door']
+['off', 'device', 'motion']
+['on', 'device', 'temperature']
+[0, 'sensor', 'temperature']
+['on', 'sensor', 'motion']
+['away', 'sensor', 'security']
+RECIEVED: to=backend from=gate command=heater_change data=on time_stamp=0.0108      ##AT_TIME:0.008919
+RECIEVED: to=backend from=gate command=temp_change data=0 time_stamp=0.012399      ##AT_TIME:0.008927
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=0.01277      ##AT_TIME:0.008935
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=0.012826      ##AT_TIME:0.008942
+RECIEVED: to=backend from=gate command=bulb_change data=off time_stamp=0.013436      ##AT_TIME:0.008948
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=0.013589      ##AT_TIME:0.008952
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=0.013636      ##AT_TIME:0.008955
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=0.014354      ##AT_TIME:0.00896
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=0.014408      ##AT_TIME:0.008965
+
+SENT:     to=enviro from=motdet command=lets_see_how_fast_you_are data= time_stamp=0.009913      ##AT_TIME:0.009929
+RECIEVED: to=motdet from=enviro command=this_is_how_fast_i_am data= time_stamp=0.010146      ##AT_TIME:0.009952
+SENT:     to=enviro from=motdet command=give_me_your_time data= time_stamp=0.009958      ##AT_TIME:0.009972
+RECIEVED: to=motdet from=enviro command=my_time_is data=[0.008940666666666668, 3] time_stamp=0.010527      ##AT_TIME:0.009992
+RECIEVED: to=motdet from=gate command=give_me_your_time data= time_stamp=0.011828      ##AT_TIME:0.01001
+SENT:     to=gate from=motdet command=my_time_is data=[0.009205250000000002, 4] time_stamp=0.010027      ##AT_TIME:0.010042
+RECIEVED: to=motdet from=gate command=your_time_is data=0.01405788888888889 time_stamp=0.012025      ##AT_TIME:0.010059
+SENT:     to=enviro from=motdet command=your_time_is data=0.01816177777777778 time_stamp=0.010065      ##AT_TIME:0.010079
+RECIEVED: to=motdet from=gate command=lets_see_how_fast_you_are data= time_stamp=0.01297      ##AT_TIME:0.010209
+SENT:     to=gate from=motdet command=this_is_how_fast_i_am data= time_stamp=0.010218      ##AT_TIME:0.010236
+SENT:     to=enviro from=motdet command=lets_see_how_fast_you_are data= time_stamp=0.010241      ##AT_TIME:0.010256
+RECIEVED: to=motdet from=enviro command=this_is_how_fast_i_am data= time_stamp=0.010894      ##AT_TIME:0.010304
+SENT:     to=enviro from=motdet command=give_me_your_time data= time_stamp=0.010311      ##AT_TIME:0.010325
+RECIEVED: to=motdet from=enviro command=my_time_is data=[0.009313666666666666, 3] time_stamp=0.011078      ##AT_TIME:0.01037
+RECIEVED: to=motdet from=gate command=give_me_your_time data= time_stamp=0.01308      ##AT_TIME:0.010388
+SENT:     to=gate from=motdet command=my_time_is data=[0.00957975, 4] time_stamp=0.010393      ##AT_TIME:0.010409
+RECIEVED: to=motdet from=gate command=your_time_is data=0.013755666666666666 time_stamp=0.013249      ##AT_TIME:0.010428
+SENT:     to=enviro from=motdet command=your_time_is data=0.017202333333333333 time_stamp=0.010435      ##AT_TIME:0.01045
+RECIEVED: to=motdet from=gate command=lets_see_how_fast_you_are data= time_stamp=0.013745      ##AT_TIME:0.010555
+SENT:     to=gate from=motdet command=this_is_how_fast_i_am data= time_stamp=0.01056      ##AT_TIME:0.010577
+SENT:     to=enviro from=motdet command=lets_see_how_fast_you_are data= time_stamp=0.010586      ##AT_TIME:0.0106
+RECIEVED: to=motdet from=enviro command=this_is_how_fast_i_am data= time_stamp=0.011363      ##AT_TIME:0.010618
+SENT:     to=enviro from=motdet command=give_me_your_time data= time_stamp=0.010623      ##AT_TIME:0.010636
+RECIEVED: to=motdet from=enviro command=my_time_is data=[0.009622, 3] time_stamp=0.011551      ##AT_TIME:0.010657
+RECIEVED: to=motdet from=gate command=give_me_your_time data= time_stamp=0.013854      ##AT_TIME:0.010674
+SENT:     to=gate from=motdet command=my_time_is data=[0.0098825, 4] time_stamp=0.010678      ##AT_TIME:0.010693
+RECIEVED: to=motdet from=gate command=your_time_is data=0.013671111111111113 time_stamp=0.014004      ##AT_TIME:0.010711
+SENT:     to=enviro from=motdet command=your_time_is data=0.016715222222222225 time_stamp=0.010718      ##AT_TIME:0.010733
+RECIEVED: to=motdet from=gate command=lets_see_how_fast_you_are data= time_stamp=0.014521      ##AT_TIME:0.010812
+SENT:     to=gate from=motdet command=this_is_how_fast_i_am data= time_stamp=0.010819      ##AT_TIME:0.010835
+SENT:     to=enviro from=motdet command=lets_see_how_fast_you_are data= time_stamp=0.01084      ##AT_TIME:0.010852
+RECIEVED: to=motdet from=enviro command=this_is_how_fast_i_am data= time_stamp=0.011935      ##AT_TIME:0.010872
+SENT:     to=enviro from=motdet command=give_me_your_time data= time_stamp=0.010878      ##AT_TIME:0.010891
+RECIEVED: to=motdet from=enviro command=my_time_is data=[0.009961333333333334, 3] time_stamp=0.012116      ##AT_TIME:0.010912
+RECIEVED: to=motdet from=gate command=give_me_your_time data= time_stamp=0.014627      ##AT_TIME:0.010929
+SENT:     to=gate from=motdet command=my_time_is data=[0.010201, 4] time_stamp=0.010934      ##AT_TIME:0.010949
+RECIEVED: to=motdet from=gate command=your_time_is data=0.013580777777777777 time_stamp=0.014765      ##AT_TIME:0.01097
+SENT:     to=enviro from=motdet command=your_time_is data=0.016278555555555553 time_stamp=0.010976      ##AT_TIME:0.010992
+
+SENT:     to=motdet from=enviro command=this_is_how_fast_i_am data= time_stamp=0.011935      ##AT_TIME:0.011952
+SENT:     to=thermo from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.011958      ##AT_TIME:0.011971
+RECIEVED: to=enviro from=thermo command=this_is_how_fast_i_am data= time_stamp=0.008894      ##AT_TIME:0.011989
+SENT:     to=heater from=enviro command=lets_see_how_fast_you_are data= time_stamp=0.011994      ##AT_TIME:0.012008
+RECIEVED: to=enviro from=heater command=this_is_how_fast_i_am data= time_stamp=0.008828      ##AT_TIME:0.012026
+SENT:     to=thermo from=enviro command=give_me_your_time data= time_stamp=0.012031      ##AT_TIME:0.012044
+RECIEVED: to=enviro from=thermo command=my_time_is data=[0.008914, 1] time_stamp=0.00893      ##AT_TIME:0.01206
+SENT:     to=heater from=enviro command=give_me_your_time data= time_stamp=0.012066      ##AT_TIME:0.012079
+RECIEVED: to=enviro from=heater command=my_time_is data=[0.008868, 1] time_stamp=0.008907      ##AT_TIME:0.012097
+RECIEVED: to=enviro from=motdet command=give_me_your_time data= time_stamp=0.010878      ##AT_TIME:0.012112
+SENT:     to=motdet from=enviro command=my_time_is data=[0.009961333333333334, 3] time_stamp=0.012116      ##AT_TIME:0.01213
+RECIEVED: to=enviro from=motdet command=your_time_is data=0.016278555555555553 time_stamp=0.010976      ##AT_TIME:0.012151
+SENT:     to=thermo from=enviro command=your_time_is data=0.020491111111111106 time_stamp=0.01216      ##AT_TIME:0.012179
+SENT:     to=heater from=enviro command=your_time_is data=0.020491111111111106 time_stamp=0.012188      ##AT_TIME:0.01221
+
+RECIEVED: to=gate from=user command=give_me_your_time data= time_stamp=0.048907      ##AT_TIME:0.013186
+SENT:     to=user from=gate command=my_time_is data=[0.009648142857142857, 7] time_stamp=0.013192      ##AT_TIME:0.013207
+RECIEVED: to=gate from=user command=your_time_is data=0.013446333333333333 time_stamp=0.048988      ##AT_TIME:0.013224
+SENT:     to=litbub from=gate command=your_time_is data=0.013757666666666666 time_stamp=0.01323      ##AT_TIME:0.013244
+SENT:     to=motdet from=gate command=your_time_is data=0.013755666666666666 time_stamp=0.013249      ##AT_TIME:0.013261
+SENT:     to=backend from=gate command=your_time_is data=0.013753666666666666 time_stamp=0.013266      ##AT_TIME:0.013277
+RECIEVED: to=gate from=user command=lets_see_how_fast_you_are data= time_stamp=0.049207      ##AT_TIME:0.013677
+SENT:     to=user from=gate command=this_is_how_fast_i_am data= time_stamp=0.013684      ##AT_TIME:0.0137
+SENT:     to=litbub from=gate command=lets_see_how_fast_you_are data= time_stamp=0.013706      ##AT_TIME:0.013718
+RECIEVED: to=gate from=heater command=this_is_how_fast_i_am data= time_stamp=0.007695      ##AT_TIME:0.013738
+SENT:     to=motdet from=gate command=lets_see_how_fast_you_are data= time_stamp=0.013745      ##AT_TIME:0.013758
+RECIEVED: to=gate from=motdet command=this_is_how_fast_i_am data= time_stamp=0.01056      ##AT_TIME:0.013777
+SENT:     to=backend from=gate command=lets_see_how_fast_you_are data= time_stamp=0.013782      ##AT_TIME:0.013795
+RECIEVED: to=gate from=backend command=this_is_how_fast_i_am data= time_stamp=0.008593      ##AT_TIME:0.013813
+SENT:     to=litbub from=gate command=give_me_your_time data= time_stamp=0.013818      ##AT_TIME:0.013831
+RECIEVED: to=gate from=heater command=my_time_is data=[0.007725, 1] time_stamp=0.007745      ##AT_TIME:0.013848
+SENT:     to=motdet from=gate command=give_me_your_time data= time_stamp=0.013854      ##AT_TIME:0.013866
+RECIEVED: to=gate from=motdet command=my_time_is data=[0.0098825, 4] time_stamp=0.010678      ##AT_TIME:0.013884
+SENT:     to=backend from=gate command=give_me_your_time data= time_stamp=0.013889      ##AT_TIME:0.013902
+RECIEVED: to=gate from=backend command=my_time_is data=[0.008617, 1] time_stamp=0.008664      ##AT_TIME:0.013921
+RECIEVED: to=gate from=user command=give_me_your_time data= time_stamp=0.049325      ##AT_TIME:0.013936
+SENT:     to=user from=gate command=my_time_is data=[0.009971285714285714, 7] time_stamp=0.013945      ##AT_TIME:0.01396
+RECIEVED: to=gate from=user command=your_time_is data=0.013780555555555556 time_stamp=0.049444      ##AT_TIME:0.013979
+SENT:     to=litbub from=gate command=your_time_is data=0.013672111111111112 time_stamp=0.013985      ##AT_TIME:0.013998
+SENT:     to=motdet from=gate command=your_time_is data=0.013671111111111113 time_stamp=0.014004      ##AT_TIME:0.014016
+SENT:     to=backend from=gate command=your_time_is data=0.013670111111111112 time_stamp=0.014021      ##AT_TIME:0.014032
+RECIEVED: to=gate from=user command=lets_see_how_fast_you_are data= time_stamp=0.0497      ##AT_TIME:0.01446
+SENT:     to=user from=gate command=this_is_how_fast_i_am data= time_stamp=0.014466      ##AT_TIME:0.014481
+SENT:     to=litbub from=gate command=lets_see_how_fast_you_are data= time_stamp=0.014487      ##AT_TIME:0.014499
+RECIEVED: to=gate from=heater command=this_is_how_fast_i_am data= time_stamp=0.007894      ##AT_TIME:0.014515
+SENT:     to=motdet from=gate command=lets_see_how_fast_you_are data= time_stamp=0.014521      ##AT_TIME:0.014534
+RECIEVED: to=gate from=motdet command=this_is_how_fast_i_am data= time_stamp=0.010819      ##AT_TIME:0.01455
+SENT:     to=backend from=gate command=lets_see_how_fast_you_are data= time_stamp=0.014556      ##AT_TIME:0.014569
+RECIEVED: to=gate from=backend command=this_is_how_fast_i_am data= time_stamp=0.008731      ##AT_TIME:0.014586
+SENT:     to=litbub from=gate command=give_me_your_time data= time_stamp=0.014591      ##AT_TIME:0.014605
+RECIEVED: to=gate from=heater command=my_time_is data=[0.007916, 1] time_stamp=0.007939      ##AT_TIME:0.014621
+SENT:     to=motdet from=gate command=give_me_your_time data= time_stamp=0.014627      ##AT_TIME:0.01464
+RECIEVED: to=gate from=motdet command=my_time_is data=[0.010201, 4] time_stamp=0.010934      ##AT_TIME:0.014658
+SENT:     to=backend from=gate command=give_me_your_time data= time_stamp=0.014663      ##AT_TIME:0.014676
+RECIEVED: to=gate from=backend command=my_time_is data=[0.008755, 1] time_stamp=0.008777      ##AT_TIME:0.014692
+RECIEVED: to=gate from=user command=give_me_your_time data= time_stamp=0.049816      ##AT_TIME:0.014707
+SENT:     to=user from=gate command=my_time_is data=[0.010310285714285715, 7] time_stamp=0.014711      ##AT_TIME:0.014725
+RECIEVED: to=gate from=user command=your_time_is data=0.014121888888888889 time_stamp=0.04988      ##AT_TIME:0.014741
+SENT:     to=litbub from=gate command=your_time_is data=0.013579777777777777 time_stamp=0.014747      ##AT_TIME:0.01476
+SENT:     to=motdet from=gate command=your_time_is data=0.013580777777777777 time_stamp=0.014765      ##AT_TIME:0.014777
+SENT:     to=backend from=gate command=your_time_is data=0.013581777777777778 time_stamp=0.014782      ##AT_TIME:0.014793
+SENT:     to=doorboy from=user command=lets_see_how_fast_you_are data= time_stamp=0.049533      ##AT_TIME:0.049553
+RECIEVED: to=user from=doorboy command=this_is_how_fast_i_am data= time_stamp=0.004335      ##AT_TIME:0.04969
+SENT:     to=gate from=user command=lets_see_how_fast_you_are data= time_stamp=0.0497      ##AT_TIME:0.049721
+RECIEVED: to=user from=gate command=this_is_how_fast_i_am data= time_stamp=0.014466      ##AT_TIME:0.049766
+SENT:     to=doorboy from=user command=give_me_your_time data= time_stamp=0.049772      ##AT_TIME:0.049787
+RECIEVED: to=user from=doorboy command=my_time_is data=[0.004422, 1] time_stamp=0.004458      ##AT_TIME:0.049809
+SENT:     to=gate from=user command=give_me_your_time data= time_stamp=0.049816      ##AT_TIME:0.049829
+RECIEVED: to=user from=gate command=my_time_is data=[0.010310285714285715, 7] time_stamp=0.014711      ##AT_TIME:0.049848
+SENT:     to=doorboy from=user command=your_time_is data=0.014215888888888886 time_stamp=0.049857      ##AT_TIME:0.049871
+SENT:     to=gate from=user command=your_time_is data=0.014121888888888889 time_stamp=0.04988      ##AT_TIME:0.049897

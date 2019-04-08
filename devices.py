@@ -40,11 +40,11 @@ class heater:
         self.register_self(mbox)
         while time_until_we_all_die < life_of_universe:
             x = pipeboxes[self.idnum].wait_on_mail(self.offset)
-            if berkeley_or_lamport == "lamport":
-                current_time = pipeboxes[self.idnum].timestamp(self.offset)
-                if x.time > current_time :
-                    self.offset = x.time - current_time + 1
-            self.change_state(x.data)
+            if berkeley_or_lamport == "lamport":                              #This performs the Lamport logical clocks algorithm: everytime the process
+                current_time = pipeboxes[self.idnum].timestamp(self.offset)   #recieves a new message it compares it's own clock time to that of the
+                if x.time > current_time :                                    #timestamp in the message; if the time in the timestamp is larger than the
+                    self.offset = x.time - current_time + 1                   #time in its own logical clock then it knows that it is a contradicton and
+            self.change_state(x.data)                                         #it must add the difference between (plus 1) to its current offset
             ff = message("envirobox","heater","change", self.state, envirobox.timestamp(self.offset))
             envirobox.deliver_mail(self.offset,ff)
             time_until_we_all_die = time_until_we_all_die + 1
@@ -89,11 +89,11 @@ class light_bulb:
         self.register_self(mbox)
         while time_until_we_all_die < life_of_universe:
             x = pipeboxes[self.idnum].wait_on_mail(self.offset)
-            if berkeley_or_lamport == "lamport":
-                current_time = pipeboxes[self.idnum].timestamp(self.offset)
-                if x.time > current_time :
-                    self.offset = x.time - current_time + 1
-            self.change_state(x.data)
+            if berkeley_or_lamport == "lamport":                                                   #This performs the Lamport logical clocks algorithm: everytime the process
+                current_time = pipeboxes[self.idnum].timestamp(self.offset)                        #recieves a new message it compares it's own clock time to that of the
+                if x.time > current_time :                                                         #timestamp in the message; if the time in the timestamp is larger than the
+                    self.offset = x.time - current_time + 1                                        #time in its own logical clock then it knows that it is a contradicton and
+            self.change_state(x.data)                                                              #it must add the difference between (plus 1) to its current offset 
             ff = message("envirobox","lit_bub","change", self.state, lit_bubtoenviro.timestamp(self.offset))
             lit_bubtoenviro.deliver_mail(self.offset,ff)
             time_until_we_all_die = time_until_we_all_die + 1

@@ -53,4 +53,4 @@ home
 away
 home
 away
-home" | python3 main.py
+home" | python3 main.py >> outputberkeley.txt

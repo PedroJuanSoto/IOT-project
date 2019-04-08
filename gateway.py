@@ -75,11 +75,11 @@ class gateway:
         pipeboxes[idnum ].deliver_mail(self.offset,hola)
         if life +1< death:                 #sometimes there is a deadlock issue
             x = pipeboxes[idnum].wait_on_query(self.offset,"gate")#on the last iteration of the
-            if berkeley_or_lamport == "lamport":
-                current_time = pipeboxes[idnum].timestamp(self.offset)
-                if x.time > current_time :
-                    self.offset = x.time - current_time + 1
-            self.should_i_alert_heater(x.data, backbox)        #while loop and therefore
+            if berkeley_or_lamport == "lamport":                                                         #This performs the Lamport logical clocks algorithm: everytime the process
+                current_time = pipeboxes[idnum].timestamp(self.offset)                                   #recieves a new message it compares it's own clock time to that of the
+                if x.time > current_time :                                                               #timestamp in the message; if the time in the timestamp is larger than the
+                    self.offset = x.time - current_time + 1                                              #time in its own logical clock then it knows that it is a contradicton and
+            self.should_i_alert_heater(x.data, backbox)        #while loop and therefore                 #it must add the difference between (plus 1) to its current offset
             newstatus = message("backend", "gate", "temp_change", x.data, backbox.timestamp(self.offset))
             backbox.deliver_mail(self.offset,newstatus)                   #the gateway ignores the final messsage
 
@@ -140,11 +140,11 @@ class gateway:
             self.change_state(self.heateridnum, self.alertheater, pipeboxes)
             self.query_state(self.thermoidnum, pipeboxes, time_until_we_all_die, life_of_universe, gatetobackend, berkeley_or_lamport)
             isthere_intruder = pipeboxes[self.mot_detidnum].wait_on_query(self.offset,"gate")
-            if berkeley_or_lamport == "lamport":
-                current_time = pipeboxes[self.mot_detidnum].timestamp(self.offset)
-                if isthere_intruder.time > current_time :
-                    self.offset = isthere_intruder.time - current_time + 1
-            oldbulbstatus = self.should_i_turn_on_bulb
+            if berkeley_or_lamport == "lamport":                                             #This performs the Lamport logical clocks algorithm: everytime the process
+                current_time = pipeboxes[self.mot_detidnum].timestamp(self.offset)           #recieves a new message it compares it's own clock time to that of the
+                if isthere_intruder.time > current_time :                                    #timestamp in the message; if the time in the timestamp is larger than the
+                    self.offset = isthere_intruder.time - current_time + 1                   #time in its own logical clock then it knows that it is a contradicton and
+            oldbulbstatus = self.should_i_turn_on_bulb                                       #it must add the difference between (plus 1) to its current offset
             if oldmotdetdata != isthere_intruder.data:
                 newmotdetbstatus = message("backend", "gate", "motion_change", isthere_intruder.data, gatetobackend.timestamp(self.offset))
                 gatetobackend.deliver_mail(self.offset,newmotdetbstatus)
@@ -174,11 +174,11 @@ class gateway:
                 oldstatus = message("backend", "gate", "no_change", "", gatetobackend.timestamp(self.offset))
                 gatetobackend.deliver_mail(self.offset,oldstatus)
             userstatus = usertogate.wait_on_query(self.offset,"gate")
-            if berkeley_or_lamport == "lamport":
-                current_time = usertogate.timestamp(self.offset)
-                if userstatus.time > current_time :
-                    self.offset = userstatus.time - current_time + 1
-            oldpresencestatus = self.mode
+            if berkeley_or_lamport == "lamport":                                   #This performs the Lamport logical clocks algorithm: everytime the process
+                current_time = usertogate.timestamp(self.offset)                   #recieves a new message it compares it's own clock time to that of the
+                if userstatus.time > current_time :                                #timestamp in the message; if the time in the timestamp is larger than the
+                    self.offset = userstatus.time - current_time + 1               #time in its own logical clock then it knows that it is a contradicton and
+            oldpresencestatus = self.mode                                          #it must add the difference between (plus 1) to its current offset
             if userstatus.data == "home":
                 self.mode = "home"
             elif userstatus.data == "away":
@@ -190,11 +190,11 @@ class gateway:
                 oldstatus = message("backend", "gate", "no_change", "", gatetobackend.timestamp(self.offset))
                 gatetobackend.deliver_mail(self.offset,oldstatus)
             doorstatus = pipeboxes[self.door_detidnum].wait_on_query(self.offset,"gate")
-            if berkeley_or_lamport == "lamport":
-                current_time = pipeboxes[self.door_detidnum].timestamp(self.offset)
-                if doorstatus.time > current_time :
-                    self.offset = doorstatus.time - current_time + 1
-            if doorstatus.data == "statechange":
+            if berkeley_or_lamport == "lamport":                                       #This performs the Lamport logical clocks algorithm: everytime the process
+                current_time = pipeboxes[self.door_detidnum].timestamp(self.offset)    #recieves a new message it compares it's own clock time to that of the
+                if doorstatus.time > current_time :                                    #timestamp in the message; if the time in the timestamp is larger than the
+                    self.offset = doorstatus.time - current_time + 1                   #time in its own logical clock then it knows that it is a contradicton and
+            if doorstatus.data == "statechange":                                       #it must add the difference between (plus 1) to its current offset
                 newdoorstatus = message("backend", "gate", "door_change", self.mode, gatetobackend.timestamp(self.offset))
                 gatetobackend.deliver_mail(self.offset,newdoorstatus)
             else:
@@ -249,11 +249,11 @@ class backend:
             time_until_we_all_die = time_until_we_all_die + 1
             for q in range(6):
                 christmastime = gatetobackend.wait_on_mail(self.offset)
-                if berkeley_or_lamport == "lamport":
-                    current_time = gatetobackend.timestamp(self.offset)
-                    if christmastime.time > current_time :
-                        self.offset = christmastime.time - current_time + 1
-                if christmastime.command == "no_change":
+                if berkeley_or_lamport == "lamport":                              #This performs the Lamport logical clocks algorithm: everytime the process
+                    current_time = gatetobackend.timestamp(self.offset)           #recieves a new message it compares it's own clock time to that of the
+                    if christmastime.time > current_time :                        #timestamp in the message; if the time in the timestamp is larger than the
+                        self.offset = christmastime.time - current_time + 1       #time in its own logical clock then it knows that it is a contradicton and
+                if christmastime.command == "no_change":                          #it must add the difference between (plus 1) to its current offset
                     pass
                 else:
                     if christmastime.command == "temp_change":
@@ -282,11 +282,11 @@ class backend:
             self.time=berkeley_clock_synch("backend", self.offset, parent, children, status)
         for q in range(8):
             christmastime = gatetobackend.wait_on_mail(self.offset)
-            if berkeley_or_lamport == "lamport":
-                current_time = gatetobackend.timestamp(self.offset)
-                if christmastime.time > current_time :
-                    self.offset = christmastime.time - current_time + 1
-            if christmastime.command == "no_change":
+            if berkeley_or_lamport == "lamport":                              #This performs the Lamport logical clocks algorithm: everytime the process
+                current_time = gatetobackend.timestamp(self.offset)           #recieves a new message it compares it's own clock time to that of the
+                if christmastime.time > current_time :                        #timestamp in the message; if the time in the timestamp is larger than the
+                    self.offset = christmastime.time - current_time + 1       #time in its own logical clock then it knows that it is a contradicton and
+            if christmastime.command == "no_change":                          #it must add the difference between (plus 1) to its current offset 
                 pass
             else:
                 if christmastime.command == "temp_change":

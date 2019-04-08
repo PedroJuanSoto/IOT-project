@@ -2,30 +2,30 @@ from postalservice import message
 import time
 import random
 
-def create_edges(name, seedy,neighbors =[]):
-   random.seed(2**seedy)
-   edges = []
-   for friend in neighbors:
-       timey = time.clock()
-       my_first_message = message("", name, "first", "", timey)
-       friend.ssssend(0,my_first_message)
-       new_edge = [time,friend]
-       edges.append(new_edge)
-   for edge in edges:
+def create_edges(name, seedy,neighbors =[]):      #In order to perform "A Distributed Algorithm for
+   random.seed(2**seedy)                          #Spanning Trees " by R. G. GALLAGER we need
+   edges = []                                     #to give the edges weights that are equal to the
+   for friend in neighbors:                       #communication delay between two processes
+       timey = time.clock()                       #In order to avoid complications I added a little tiny bit
+       my_first_message = message("", name, "first", "", timey) #of random noise (because random.random() \in (0,1)) 
+       friend.ssssend(0,my_first_message)         #to avoid having two edges with the same weights,
+       new_edge = [time,friend]                   #further we pick the larger of the two delays or else
+       edges.append(new_edge)                     #we would have to implement a directed edge
+   for edge in edges:                             #algorithm (which is easy but tedious)
        friends_firstmessage = edge[1].rrrrecv(0)
        edge[1].ssssend(0,friends_firstmessage)
        edge.append(friends_firstmessage.fromy)
    for edge in edges:
        my_first_message_returns = edge[1].rrrrecv(0)
-       timey = time.clock()
-       timey = 2**( random.random()*(timey- my_first_message_returns.time))
-       edge[0] = timey
+       timey = time.clock()                      #I had to force the noise to have an exponential effect or
+       timey = 2**( random.random()*(timey- my_first_message_returns.time))#else there is a small chance that
+       edge[0] = timey                           #two edges have the same weight creating errors
        my_second_message = message("", name, "second", "", timey)
        edge[1].ssssend(0,my_second_message)
    for edge in edges:
        friends_second_message = edge[1].rrrrecv(0)
-       if friends_second_message.time > edge[0]:
-           edge[0] = friends_second_message.time
+       if friends_second_message.time > edge[0]:  #We take the larger of the two comunication delays
+           edge[0] = friends_second_message.time  #as the weight of the edge
    return edges
 
 def find_min(neighborss =[]):

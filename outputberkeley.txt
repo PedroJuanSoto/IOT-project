@@ -1,0 +1,489 @@
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+Hello! Welcome to Haibin and Pedro's Smart Home Simulation
+There is only two possible commands inside the simulation:
+You can type in the string "home" or the string "away",
+to respectively perform the action of staying home or going away.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+You can also hold down the enter key if you wish to stay at your
+current location for a long time (it is a great way to test the program
+for a large number of loops.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+Just a few questions before we start:
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+Would you like to see all the communications between the gateway and
+the devices?
+(Please enter "yes" or "no")
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+Would you like to see all the interactions between the enviroment and
+the devices?
+(Please enter "yes" or "no")
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+Would you like to use the Berkeley or Lamport algorithm to perform 
+clock synchronization?
+(Please enter "berkeley" or "lamport")
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+For how many "hours" would you like to run the simulation
+(1 virtual hour is one gateway while loop,
+i.e. 100000 virtual hours = approx. 1 real minute)
+(Please enter a positive integer 3<x<10^7 )
+50
+      A        L            EEEEEEEEEEE    RRRRRRRR    TTTTTTTTTTTTT
+     A A       L            E              R       R         T     
+    A   A      L            E              R       R         T     
+   AAAAAAA     L            EEEEEEEEEEE    R RRRRRR          T     
+  A       A    L            E              R       R         T     
+ A         A   L            E              R        R        T     
+A           A  LLLLLLLLLLL  EEEEEEEEEEE    R         R       T     
+      A        L            EEEEEEEEEEE    RRRRRRRR    TTTTTTTTTTTTT
+     A A       L            E              R       R         T     
+    A   A      L            E              R       R         T     
+   AAAAAAA     L            EEEEEEEEEEE    R RRRRRR          T     
+  A       A    L            E              R       R         T     
+ A         A   L            E              R        R        T     
+A           A  LLLLLLLLLLL  EEEEEEEEEEE    R         R       T     
+      A        L            EEEEEEEEEEE    RRRRRRRR    TTTTTTTTTTTTT
+     A A       L            E              R       R         T     
+    A   A      L            E              R       R         T     
+   AAAAAAA     L            EEEEEEEEEEE    R RRRRRR          T     
+  A       A    L            E              R       R         T     
+ A         A   L            E              R        R        T     
+A           A  LLLLLLLLLLL  EEEEEEEEEEE    R         R       T     
+      A        L            EEEEEEEEEEE    RRRRRRRR    TTTTTTTTTTTTT
+     A A       L            E              R       R         T     
+    A   A      L            E              R       R         T     
+   AAAAAAA     L            EEEEEEEEEEE    R RRRRRR          T     
+  A       A    L            E              R       R         T     
+ A         A   L            E              R        R        T     
+A           A  LLLLLLLLLLL  EEEEEEEEEEE    R         R       T     
+      A        L            EEEEEEEEEEE    RRRRRRRR    TTTTTTTTTTTTT
+     A A       L            E              R       R         T     
+    A   A      L            E              R       R         T     
+   AAAAAAA     L            EEEEEEEEEEE    R RRRRRR          T     
+  A       A    L            E              R       R         T     
+ A         A   L            E              R        R        T     
+A           A  LLLLLLLLLLL  EEEEEEEEEEE    R         R       T     
+[0, 'sensor', 'temperature']
+['off', 'device', 'motion']
+['away', 'sensor', 'door']
+['no', 'sensor', 'motion']
+['on', 'device', 'temperature']
+['away', 'sensor', 'security']
+RECIEVED: to=backend from=gate command=heater_change data=on time_stamp=2.0048950000000003      ##AT_TIME:1.2656759799625243
+RECIEVED: to=backend from=gate command=temp_change data=0 time_stamp=3.00577      ##AT_TIME:1.2656999799625244
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=3.0060230000000003      ##AT_TIME:1.2657099799625244
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=2.0056559999999997      ##AT_TIME:1.2657169799625243
+RECIEVED: to=backend from=gate command=bulb_change data=off time_stamp=2.0056149999999993      ##AT_TIME:1.2657239799625244
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=2.005763999999999      ##AT_TIME:1.2657299799625243
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=3.0064570000000006      ##AT_TIME:1.2657369799625244
+RECIEVED: to=backend from=gate command=heater_change data=off time_stamp=3.006681000000001      ##AT_TIME:1.2657439799625243
+RECIEVED: to=backend from=gate command=temp_change data=1 time_stamp=3.0066860000000006      ##AT_TIME:1.2657509799625244
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=3.006929000000001      ##AT_TIME:1.2657589799625244
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=2.0058499999999992      ##AT_TIME:1.2657669799625244
+RECIEVED: to=backend from=gate command=temp_change data=2 time_stamp=2.0036199999999997      ##AT_TIME:1.2657739799625245
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=1.049084000000002      ##AT_TIME:1.2657809799625244
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=3.964223999999998      ##AT_TIME:1.2657889799625244
+RECIEVED: to=backend from=gate command=temp_change data=3 time_stamp=3.964390999999998      ##AT_TIME:1.2657959799625245
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=3.9646229999999982      ##AT_TIME:1.2658029799625243
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=1.049198000000002      ##AT_TIME:1.2658099799625244
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=2.916461999999992      ##AT_TIME:1.2658169799625245
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=2.097899000000008      ##AT_TIME:1.2658229799625245
+RECIEVED: to=backend from=gate command=temp_change data=2 time_stamp=2.0980660000000078      ##AT_TIME:1.2658299799625243
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=1.8740799999999884      ##AT_TIME:1.2658369799625244
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=3.140834000000012      ##AT_TIME:1.2658439799625245
+RECIEVED: to=backend from=gate command=temp_change data=1 time_stamp=3.141012000000012      ##AT_TIME:1.2658509799625244
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=3.141248000000012      ##AT_TIME:1.2658579799625245
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=1.8741859999999881      ##AT_TIME:1.2658659799625245
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=1.874561999999988      ##AT_TIME:1.2658719799625244
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=3.1413510000000118      ##AT_TIME:1.2658789799625243
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=3.1417480000000118      ##AT_TIME:1.2658859799625244
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=1.8746569999999882      ##AT_TIME:1.2658929799625245
+RECIEVED: to=backend from=gate command=heater_change data=on time_stamp=1.8748159999999883      ##AT_TIME:1.2658999799625243
+RECIEVED: to=backend from=gate command=temp_change data=0 time_stamp=1.8748209999999883      ##AT_TIME:1.2659059799625243
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=1.404024000000035      ##AT_TIME:1.2659139799625243
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=3.6128779999999643      ##AT_TIME:1.2659209799625244
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=3.6132519999999646      ##AT_TIME:1.2659289799625244
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=1.4041230000000353      ##AT_TIME:1.2659349799625244
+RECIEVED: to=backend from=gate command=temp_change data=-1 time_stamp=1.2395369999999313      ##AT_TIME:1.2659419799625244
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=1.7984449999998853      ##AT_TIME:1.2659489799625243
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=3.2193940000001144      ##AT_TIME:1.2659559799625244
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=3.2197460000001143      ##AT_TIME:1.2659629799625245
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=1.7985429999998859      ##AT_TIME:1.2659699799625244
+RECIEVED: to=backend from=gate command=temp_change data=0 time_stamp=1.798699999999886      ##AT_TIME:1.2659769799625245
+RECIEVED: to=backend from=gate command=motion_change data=yes time_stamp=1.8948440000002555      ##AT_TIME:1.2659849799625245
+RECIEVED: to=backend from=gate command=bulb_change data=on time_stamp=1.8948700000002556      ##AT_TIME:1.2659909799625244
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=1.2137389999999333      ##AT_TIME:1.2659979799625245
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=3.805021000000067      ##AT_TIME:1.2660049799625244
+RECIEVED: to=backend from=gate command=bulb_change data=off time_stamp=3.8052810000000674      ##AT_TIME:1.2660119799625245
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=3.8054080000000674      ##AT_TIME:1.2660169799625245
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=1.213823999999933      ##AT_TIME:1.2660219799625243
+RECIEVED: to=backend from=gate command=bulb_change data=on time_stamp=1.338301999999422      ##AT_TIME:1.2660259799625244
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=2.4294890000004563      ##AT_TIME:1.2660329799625245
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=2.590284999999544      ##AT_TIME:1.2660379799625243
+RECIEVED: to=backend from=gate command=heater_change data=off time_stamp=1.228210000000087      ##AT_TIME:1.2660419799625244
+RECIEVED: to=backend from=gate command=temp_change data=1 time_stamp=1.2282170000000872      ##AT_TIME:1.2660459799625243
+RECIEVED: to=backend from=gate command=bulb_change data=off time_stamp=1.3749560000007763      ##AT_TIME:1.2660499799625244
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=2.3934989999991023      ##AT_TIME:1.2660539799625243
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=2.6267860000008985      ##AT_TIME:1.2660589799625244
+RECIEVED: to=backend from=gate command=motion_change data=no time_stamp=3.077586000000948      ##AT_TIME:1.2660629799625245
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=3.077783000000948      ##AT_TIME:1.2660669799625244
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=1.943072999999052      ##AT_TIME:1.2660709799625245
+RECIEVED: to=backend from=gate command=temp_change data=2 time_stamp=1.876632000000579      ##AT_TIME:1.2660749799625244
+RECIEVED: to=backend from=gate command=motion_change data=yes time_stamp=2.3938529999991016      ##AT_TIME:1.2660789799625245
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=2.3940409999991017      ##AT_TIME:1.2660829799625244
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=2.627370000000898      ##AT_TIME:1.2660869799625245
+RECIEVED: to=backend from=gate command=temp_change data=1 time_stamp=2.627533000000898      ##AT_TIME:1.2660899799625245
+RECIEVED: to=backend from=gate command=motion_change data=no time_stamp=1.6434869999987822      ##AT_TIME:1.2660939799625244
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=1.4428929999992504      ##AT_TIME:1.2661329799625245
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=3.57901400000075      ##AT_TIME:1.2661399799625244
+RECIEVED: to=backend from=gate command=heater_change data=on time_stamp=3.5791680000007497      ##AT_TIME:1.2661439799625245
+RECIEVED: to=backend from=gate command=temp_change data=0 time_stamp=3.5791740000007497      ##AT_TIME:1.2661479799625244
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=3.57939500000075      ##AT_TIME:1.2661519799625245
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=1.4430179999992505      ##AT_TIME:1.2661559799625244
+RECIEVED: to=backend from=gate command=temp_change data=-1 time_stamp=2.8417340000029094      ##AT_TIME:1.2661599799625245
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=2.8419690000029094      ##AT_TIME:1.2661639799625244
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=2.180949999997091      ##AT_TIME:1.2661679799625245
+RECIEVED: to=backend from=gate command=temp_change data=-2 time_stamp=2.104327000005069      ##AT_TIME:1.2661719799625244
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=2.104576000005069      ##AT_TIME:1.2661759799625245
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=2.9188499999949307      ##AT_TIME:1.2661799799625244
+RECIEVED: to=backend from=gate command=temp_change data=-1 time_stamp=2.9190119999949307      ##AT_TIME:1.2661839799625243
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=1.356419000008505      ##AT_TIME:1.2661879799625244
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=3.667508999991495      ##AT_TIME:1.2661919799625243
+RECIEVED: to=backend from=gate command=temp_change data=0 time_stamp=3.6676939999914953      ##AT_TIME:1.2661959799625244
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=3.6679339999914955      ##AT_TIME:1.2661999799625243
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=1.3565000000085048      ##AT_TIME:1.2662039799625244
+RECIEVED: to=backend from=gate command=heater_change data=off time_stamp=2.6316660000004966      ##AT_TIME:1.2662079799625243
+RECIEVED: to=backend from=gate command=temp_change data=1 time_stamp=2.6316780000004965      ##AT_TIME:1.2662119799625244
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=2.1494299999958133      ##AT_TIME:1.2662159799625243
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=2.8755220000041866      ##AT_TIME:1.2662199799625244
+RECIEVED: to=backend from=gate command=temp_change data=2 time_stamp=1.1131970000048144      ##AT_TIME:1.2662239799625243
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=2.802642999981804      ##AT_TIME:1.2662279799625245
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=2.2228360000181957      ##AT_TIME:1.2662319799625243
+RECIEVED: to=backend from=gate command=temp_change data=3 time_stamp=1.7664359999908053      ##AT_TIME:1.2662359799625245
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=2.1499789999958137      ##AT_TIME:1.2662399799625244
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=2.8760280000041867      ##AT_TIME:1.2662439799625245
+RECIEVED: to=backend from=gate command=temp_change data=2 time_stamp=2.8762060000041867      ##AT_TIME:1.2662479799625244
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=1.040791999982432      ##AT_TIME:1.2662519799625245
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=3.985759000017568      ##AT_TIME:1.2662559799625244
+RECIEVED: to=backend from=gate command=temp_change data=1 time_stamp=3.985922000017568      ##AT_TIME:1.2662599799625245
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=3.9861620000175684      ##AT_TIME:1.2662639799625244
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=1.0409069999824316      ##AT_TIME:1.2662679799625245
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=1.9179300001307154      ##AT_TIME:1.2662719799625244
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=3.1096499998692844      ##AT_TIME:1.2662749799625244
+RECIEVED: to=backend from=gate command=heater_change data=on time_stamp=3.109803999869284      ##AT_TIME:1.2662799799625244
+RECIEVED: to=backend from=gate command=temp_change data=0 time_stamp=3.1098149998692843      ##AT_TIME:1.2662839799625245
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=3.1100589998692842      ##AT_TIME:1.2662879799625244
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=1.9180550001307157      ##AT_TIME:1.2662909799625244
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=1.1247179997076187      ##AT_TIME:1.2662949799625245
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=3.903888000292382      ##AT_TIME:1.2662989799625244
+RECIEVED: to=backend from=gate command=motion_change data=yes time_stamp=3.904107000292382      ##AT_TIME:1.2663029799625245
+RECIEVED: to=backend from=gate command=bulb_change data=on time_stamp=3.904133000292382      ##AT_TIME:1.2663069799625244
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=3.9042900002923817      ##AT_TIME:1.2663119799625244
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=1.1248199997076183      ##AT_TIME:1.2663159799625243
+RECIEVED: to=backend from=gate command=heater_change data=off time_stamp=2.4978570006173797      ##AT_TIME:1.2663189799625245
+RECIEVED: to=backend from=gate command=temp_change data=1 time_stamp=2.4978640006173793      ##AT_TIME:1.2663229799625244
+RECIEVED: to=backend from=gate command=motion_change data=no time_stamp=1.8687379995643874      ##AT_TIME:1.2663269799625243
+RECIEVED: to=backend from=gate command=bulb_change data=off time_stamp=1.8687669995643874      ##AT_TIME:1.2663309799625244
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=2.08316300088966      ##AT_TIME:1.2663349799625243
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=2.9464479991103394      ##AT_TIME:1.2663389799625244
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=2.53197299938262      ##AT_TIME:1.2663429799625243
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=2.4981520006173796      ##AT_TIME:1.2663469799625244
+RECIEVED: to=backend from=gate command=motion_change data=yes time_stamp=1.8692929995643872      ##AT_TIME:1.2663509799625243
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=2.08375700088966      ##AT_TIME:1.2663549799625244
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=2.9468789991103392      ##AT_TIME:1.2663579799625244
+RECIEVED: to=backend from=gate command=heater_change data=on time_stamp=2.9470539991103393      ##AT_TIME:1.2663619799625243
+RECIEVED: to=backend from=gate command=temp_change data=0 time_stamp=2.9470609991103394      ##AT_TIME:1.2663659799625244
+RECIEVED: to=backend from=gate command=motion_change data=no time_stamp=1.421067001071428      ##AT_TIME:1.2663699799625243
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=2.53256899938262      ##AT_TIME:1.2663739799625244
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=2.49861600061738      ##AT_TIME:1.2663779799625243
+RECIEVED: to=backend from=gate command=temp_change data=-1 time_stamp=2.49877300061738      ##AT_TIME:1.2663819799625244
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=2.0843810008896613      ##AT_TIME:1.2663859799625243
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=2.9473329991103387      ##AT_TIME:1.2663899799625244
+RECIEVED: to=backend from=gate command=temp_change data=-2 time_stamp=2.9474649991103385      ##AT_TIME:1.2663939799625243
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=2.9477069991103386      ##AT_TIME:1.2664089799625244
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=2.0844910008896615      ##AT_TIME:1.2664169799625244
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=1.185060002200883      ##AT_TIME:1.2664209799625243
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=3.8476899977991166      ##AT_TIME:1.2664249799625245
+RECIEVED: to=backend from=gate command=temp_change data=-1 time_stamp=3.8478489977991166      ##AT_TIME:1.2664289799625243
+RECIEVED: to=backend from=gate command=motion_change data=yes time_stamp=3.8479009977991163      ##AT_TIME:1.2664329799625245
+RECIEVED: to=backend from=gate command=bulb_change data=on time_stamp=3.8479279977991165      ##AT_TIME:1.2664369799625244
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=3.8480759977991164      ##AT_TIME:1.2664409799625245
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=1.1851610022008838      ##AT_TIME:1.2664449799625244
+RECIEVED: to=backend from=gate command=bulb_change data=off time_stamp=2.17553700214817      ##AT_TIME:1.2664489799625245
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=2.578820992106354      ##AT_TIME:1.2664529799625244
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=2.4549490078936462      ##AT_TIME:1.2664569799625245
+RECIEVED: to=backend from=gate command=bulb_change data=on time_stamp=3.280304004189659      ##AT_TIME:1.2664609799625244
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=1.4746199900648649      ##AT_TIME:1.2664649799625245
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=3.5596600099351354      ##AT_TIME:1.2664689799625244
+RECIEVED: to=backend from=gate command=motion_change data=no time_stamp=3.559887009935135      ##AT_TIME:1.2664729799625245
+RECIEVED: to=backend from=gate command=bulb_change data=off time_stamp=3.559919009935135      ##AT_TIME:1.2664769799625244
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=1.1956019843193888      ##AT_TIME:1.2664809799625245
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=3.839222015680611      ##AT_TIME:1.2664849799625244
+RECIEVED: to=backend from=gate command=temp_change data=0 time_stamp=3.839397015680611      ##AT_TIME:1.2664889799625243
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=3.839636015680611      ##AT_TIME:1.2664929799625244
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=1.195723984319389      ##AT_TIME:1.2664969799625243
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=3.231751011934025      ##AT_TIME:1.2664999799625245
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=1.8040919880659754      ##AT_TIME:1.2665039799625244
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=1.5255059823204988      ##AT_TIME:1.2665079799625245
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=3.510818017679501      ##AT_TIME:1.2665119799625244
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+Hello! Welcome to Haibin and Pedro's Smart Home Simulation
+There is only two possible commands inside the simulation:
+You can type in the string "home" or the string "away",
+to respectively perform the action of staying home or going away.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+You can also hold down the enter key if you wish to stay at your
+current location for a long time (it is a great way to test the program
+for a large number of loops.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+Just a few questions before we start:
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+Would you like to see all the communications between the gateway and
+the devices?
+(Please enter "yes" or "no")
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+Would you like to see all the interactions between the enviroment and
+the devices?
+(Please enter "yes" or "no")
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+Would you like to use the Berkeley or Lamport algorithm to perform 
+clock synchronization?
+(Please enter "berkeley" or "lamport")
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+For how many "hours" would you like to run the simulation
+(1 virtual hour is one gateway while loop,
+i.e. 100000 virtual hours = approx. 1 real minute)
+(Please enter a positive integer 3<x<10^7 )
+50
+      A        L            EEEEEEEEEEE    RRRRRRRR    TTTTTTTTTTTTT
+     A A       L            E              R       R         T     
+    A   A      L            E              R       R         T     
+   AAAAAAA     L            EEEEEEEEEEE    R RRRRRR          T     
+  A       A    L            E              R       R         T     
+ A         A   L            E              R        R        T     
+A           A  LLLLLLLLLLL  EEEEEEEEEEE    R         R       T     
+      A        L            EEEEEEEEEEE    RRRRRRRR    TTTTTTTTTTTTT
+     A A       L            E              R       R         T     
+    A   A      L            E              R       R         T     
+   AAAAAAA     L            EEEEEEEEEEE    R RRRRRR          T     
+  A       A    L            E              R       R         T     
+ A         A   L            E              R        R        T     
+A           A  LLLLLLLLLLL  EEEEEEEEEEE    R         R       T     
+      A        L            EEEEEEEEEEE    RRRRRRRR    TTTTTTTTTTTTT
+     A A       L            E              R       R         T     
+    A   A      L            E              R       R         T     
+   AAAAAAA     L            EEEEEEEEEEE    R RRRRRR          T     
+  A       A    L            E              R       R         T     
+ A         A   L            E              R        R        T     
+A           A  LLLLLLLLLLL  EEEEEEEEEEE    R         R       T     
+      A        L            EEEEEEEEEEE    RRRRRRRR    TTTTTTTTTTTTT
+     A A       L            E              R       R         T     
+    A   A      L            E              R       R         T     
+   AAAAAAA     L            EEEEEEEEEEE    R RRRRRR          T     
+  A       A    L            E              R       R         T     
+ A         A   L            E              R        R        T     
+A           A  LLLLLLLLLLL  EEEEEEEEEEE    R         R       T     
+      A        L            EEEEEEEEEEE    RRRRRRRR    TTTTTTTTTTTTT
+     A A       L            E              R       R         T     
+    A   A      L            E              R       R         T     
+   AAAAAAA     L            EEEEEEEEEEE    R RRRRRR          T     
+  A       A    L            E              R       R         T     
+ A         A   L            E              R        R        T     
+A           A  LLLLLLLLLLL  EEEEEEEEEEE    R         R       T     
+      A        L            EEEEEEEEEEE    RRRRRRRR    TTTTTTTTTTTTT
+     A A       L            E              R       R         T     
+    A   A      L            E              R       R         T     
+   AAAAAAA     L            EEEEEEEEEEE    R RRRRRR          T     
+  A       A    L            E              R       R         T     
+ A         A   L            E              R        R        T     
+A           A  LLLLLLLLLLL  EEEEEEEEEEE    R         R       T     
+      A        L            EEEEEEEEEEE    RRRRRRRR    TTTTTTTTTTTTT
+     A A       L            E              R       R         T     
+    A   A      L            E              R       R         T     
+   AAAAAAA     L            EEEEEEEEEEE    R RRRRRR          T     
+  A       A    L            E              R       R         T     
+ A         A   L            E              R        R        T     
+A           A  LLLLLLLLLLL  EEEEEEEEEEE    R         R       T     
+[0, 'sensor', 'temperature']
+['on', 'device', 'temperature']
+['no', 'sensor', 'motion']
+['off', 'device', 'motion']
+['away', 'sensor', 'door']
+['away', 'sensor', 'security']
+RECIEVED: to=backend from=gate command=heater_change data=on time_stamp=2.004751      ##AT_TIME:3.9010099970590852
+RECIEVED: to=backend from=gate command=heater_change data=off time_stamp=3.0055090000000004      ##AT_TIME:3.901036997059085
+RECIEVED: to=backend from=gate command=temp_change data=1 time_stamp=3.0055150000000004      ##AT_TIME:3.9010459970590854
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=3.0057860000000005      ##AT_TIME:3.901052997059085
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=2.0054919999999994      ##AT_TIME:3.9010609970590853
+RECIEVED: to=backend from=gate command=heater_change data=on time_stamp=2.0035820000000015      ##AT_TIME:3.9010679970590854
+RECIEVED: to=backend from=gate command=temp_change data=0 time_stamp=2.003589000000001      ##AT_TIME:3.901074997059085
+RECIEVED: to=backend from=gate command=bulb_change data=off time_stamp=2.0077059999999984      ##AT_TIME:3.901080997059085
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=2.0078549999999984      ##AT_TIME:3.901088997059085
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=3.004002000000002      ##AT_TIME:3.9010929970590853
+RECIEVED: to=backend from=gate command=heater_change data=off time_stamp=3.004177000000002      ##AT_TIME:3.901096997059085
+RECIEVED: to=backend from=gate command=temp_change data=1 time_stamp=3.0041850000000023      ##AT_TIME:3.901100997059085
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=2.006736000000001      ##AT_TIME:3.901104997059085
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=3.0056149999999993      ##AT_TIME:3.9011089970590853
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=3.0060629999999993      ##AT_TIME:3.901112997059085
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=2.0068420000000016      ##AT_TIME:3.901116997059085
+RECIEVED: to=backend from=gate command=temp_change data=2 time_stamp=2.003200000000001      ##AT_TIME:3.901120997059085
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=1.0391210000000015      ##AT_TIME:3.901125997059085
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=3.9742639999999985      ##AT_TIME:3.901129997059085
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=3.974652999999998      ##AT_TIME:3.9011339970590853
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=1.039221000000002      ##AT_TIME:3.9011379970590854
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=1.010524      ##AT_TIME:3.9011409970590853
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=4.003845000000001      ##AT_TIME:3.901144997059085
+RECIEVED: to=backend from=gate command=temp_change data=1 time_stamp=4.004018000000001      ##AT_TIME:3.901148997059085
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=4.004249000000001      ##AT_TIME:3.9011539970590854
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=1.0106389999999994      ##AT_TIME:3.901157997059085
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=1.111294000000003      ##AT_TIME:3.901161997059085
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=3.9040859999999973      ##AT_TIME:3.9011659970590853
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=3.9044859999999972      ##AT_TIME:3.901169997059085
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=1.111392000000003      ##AT_TIME:3.9011729970590854
+RECIEVED: to=backend from=gate command=motion_change data=yes time_stamp=1.2565520000000037      ##AT_TIME:3.901176997059085
+RECIEVED: to=backend from=gate command=bulb_change data=on time_stamp=1.2565790000000037      ##AT_TIME:3.9011819970590853
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=2.63070899999999      ##AT_TIME:3.901185997059085
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=2.38567800000001      ##AT_TIME:3.901189997059085
+RECIEVED: to=backend from=gate command=bulb_change data=off time_stamp=2.530817000000011      ##AT_TIME:3.901193997059085
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=1.357061999999983      ##AT_TIME:3.9011979970590853
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=3.6598170000000176      ##AT_TIME:3.901201997059085
+RECIEVED: to=backend from=gate command=heater_change data=on time_stamp=3.6599850000000176      ##AT_TIME:3.901205997059085
+RECIEVED: to=backend from=gate command=temp_change data=0 time_stamp=3.659994000000018      ##AT_TIME:3.901209997059085
+RECIEVED: to=backend from=gate command=motion_change data=no time_stamp=3.6600520000000176      ##AT_TIME:3.9012139970590853
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=3.6602340000000178      ##AT_TIME:3.901217997059085
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=1.3571629999999824      ##AT_TIME:3.901221997059085
+RECIEVED: to=backend from=gate command=temp_change data=-1 time_stamp=1.3573239999999822      ##AT_TIME:3.9012259970590852
+RECIEVED: to=backend from=gate command=motion_change data=yes time_stamp=2.660038000000018      ##AT_TIME:3.9012299970590854
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=2.660226000000018      ##AT_TIME:3.901233997059085
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=2.357697999999982      ##AT_TIME:3.901237997059085
+RECIEVED: to=backend from=gate command=temp_change data=-2 time_stamp=2.357858999999982      ##AT_TIME:3.9012419970590853
+RECIEVED: to=backend from=gate command=bulb_change data=on time_stamp=1.6600500000000178      ##AT_TIME:3.9012459970590854
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=1.229464999999976      ##AT_TIME:3.901249997059085
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=3.788968000000024      ##AT_TIME:3.901253997059085
+RECIEVED: to=backend from=gate command=temp_change data=-3 time_stamp=3.789143000000024      ##AT_TIME:3.9012579970590853
+RECIEVED: to=backend from=gate command=bulb_change data=off time_stamp=3.789228000000024      ##AT_TIME:3.9012619970590854
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=3.789384000000024      ##AT_TIME:3.901265997059085
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=1.2295909999999757      ##AT_TIME:3.901269997059085
+RECIEVED: to=backend from=gate command=temp_change data=-2 time_stamp=2.9618610000000296      ##AT_TIME:3.9012739970590853
+RECIEVED: to=backend from=gate command=bulb_change data=on time_stamp=1.0571069999999703      ##AT_TIME:3.901277997059085
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=2.91224400000006      ##AT_TIME:3.901281997059085
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=2.10727299999994      ##AT_TIME:3.901285997059085
+RECIEVED: to=backend from=gate command=temp_change data=-3 time_stamp=2.0847080000000653      ##AT_TIME:3.9012899970590853
+RECIEVED: to=backend from=gate command=bulb_change data=off time_stamp=1.934802999999935      ##AT_TIME:3.901293997059085
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=2.035161000000095      ##AT_TIME:3.901297997059085
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=2.984892999999905      ##AT_TIME:3.901301997059085
+RECIEVED: to=backend from=gate command=motion_change data=no time_stamp=2.812336999999899      ##AT_TIME:3.9013059970590853
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=1.1581760000001309      ##AT_TIME:3.901309997059085
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=3.862433999999869      ##AT_TIME:3.901313997059085
+RECIEVED: to=backend from=gate command=temp_change data=-2 time_stamp=3.862640999999869      ##AT_TIME:3.9013469970590853
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=3.8628939999998693      ##AT_TIME:3.901351997059085
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=1.158294000000131      ##AT_TIME:3.901355997059085
+RECIEVED: to=backend from=gate command=temp_change data=-1 time_stamp=1.1131520000000668      ##AT_TIME:3.9013599970590853
+RECIEVED: to=backend from=gate command=motion_change data=yes time_stamp=2.907978999999933      ##AT_TIME:3.901363997059085
+RECIEVED: to=backend from=gate command=bulb_change data=on time_stamp=2.908009999999933      ##AT_TIME:3.901367997059085
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=2.908147999999933      ##AT_TIME:3.901371997059085
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=2.1135460000000665      ##AT_TIME:3.9013759970590853
+RECIEVED: to=backend from=gate command=temp_change data=0 time_stamp=2.1137080000000665      ##AT_TIME:3.901379997059085
+RECIEVED: to=backend from=gate command=motion_change data=no time_stamp=1.9079279999999332      ##AT_TIME:3.901383997059085
+RECIEVED: to=backend from=gate command=bulb_change data=off time_stamp=1.9079579999999332      ##AT_TIME:3.901386997059085
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=1.1095340000001606      ##AT_TIME:3.901390997059085
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=3.91264299999984      ##AT_TIME:3.9013949970590853
+RECIEVED: to=backend from=gate command=heater_change data=off time_stamp=3.91281599999984      ##AT_TIME:3.901398997059085
+RECIEVED: to=backend from=gate command=temp_change data=1 time_stamp=3.91282199999984      ##AT_TIME:3.9014039970590852
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=3.91305199999984      ##AT_TIME:3.9014079970590854
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=1.1096100000001596      ##AT_TIME:3.9014109970590853
+RECIEVED: to=backend from=gate command=temp_change data=2 time_stamp=3.1010199999994343      ##AT_TIME:3.901414997059085
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=3.1012439999994346      ##AT_TIME:3.9014199970590853
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=1.921915000000566      ##AT_TIME:3.9014239970590854
+RECIEVED: to=backend from=gate command=temp_change data=3 time_stamp=1.9221480000005662      ##AT_TIME:3.901427997059085
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=1.9223750000005662      ##AT_TIME:3.901431997059085
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=3.1013209999994347      ##AT_TIME:3.9014359970590853
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=3.1017419999994345      ##AT_TIME:3.901439997059085
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=1.922461000000566      ##AT_TIME:3.901443997059085
+RECIEVED: to=backend from=gate command=temp_change data=4 time_stamp=1.922621000000566      ##AT_TIME:3.901446997059085
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=1.465020999997991      ##AT_TIME:3.9014519970590853
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=3.5596860000020096      ##AT_TIME:3.9014549970590853
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=3.5600770000020097      ##AT_TIME:3.9014589970590854
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=1.4651129999979906      ##AT_TIME:3.901463997059085
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=1.7551860000089061      ##AT_TIME:3.9014679970590853
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=3.2705229999910945      ##AT_TIME:3.901471997059085
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=3.2708969999910944      ##AT_TIME:3.901475997059085
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=1.755289000008906      ##AT_TIME:3.901479997059085
+RECIEVED: to=backend from=gate command=temp_change data=3 time_stamp=2.2206719999843263      ##AT_TIME:3.901482997059085
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=2.2208949999843264      ##AT_TIME:3.9014869970590853
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=2.805764000015674      ##AT_TIME:3.901491997059085
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=2.806138000015674      ##AT_TIME:3.901494997059085
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=2.220994999984326      ##AT_TIME:3.901498997059085
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=1.0340820000355662      ##AT_TIME:3.9015029970590853
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=3.9935219999644347      ##AT_TIME:3.901506997059085
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=3.9938949999644344      ##AT_TIME:3.901510997059085
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=1.034176000035566      ##AT_TIME:3.901514997059085
+RECIEVED: to=backend from=gate command=temp_change data=2 time_stamp=3.1562879999347193      ##AT_TIME:3.9015189970590853
+RECIEVED: to=backend from=gate command=motion_change data=yes time_stamp=3.1563389999347193      ##AT_TIME:3.901522997059085
+RECIEVED: to=backend from=gate command=bulb_change data=on time_stamp=3.1563669999347193      ##AT_TIME:3.901526997059085
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=3.156511999934719      ##AT_TIME:3.9015309970590852
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=1.8720300000652816      ##AT_TIME:3.9015349970590854
+RECIEVED: to=backend from=gate command=temp_change data=1 time_stamp=1.8721760000652816      ##AT_TIME:3.901538997059085
+RECIEVED: to=backend from=gate command=motion_change data=no time_stamp=1.5058459999135867      ##AT_TIME:3.901542997059085
+RECIEVED: to=backend from=gate command=bulb_change data=off time_stamp=1.5058729999135867      ##AT_TIME:3.9015469970590853
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=1.345026000075688      ##AT_TIME:3.9015509970590854
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=3.683984999924312      ##AT_TIME:3.901554997059085
+RECIEVED: to=backend from=gate command=heater_change data=on time_stamp=3.6841289999243116      ##AT_TIME:3.901557997059085
+RECIEVED: to=backend from=gate command=temp_change data=0 time_stamp=3.6841349999243116      ##AT_TIME:3.901561997059085
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=3.6843649999243118      ##AT_TIME:3.9015659970590852
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=1.3451220000756887      ##AT_TIME:3.9015699970590854
+RECIEVED: to=backend from=gate command=temp_change data=-1 time_stamp=2.784533999929576      ##AT_TIME:3.901573997059085
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=1.1398730000054607      ##AT_TIME:3.901577997059085
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=3.8900889999945396      ##AT_TIME:3.9015819970590853
+RECIEVED: to=backend from=gate command=temp_change data=-2 time_stamp=3.8902329999945398      ##AT_TIME:3.9015859970590854
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=3.8904669999945396      ##AT_TIME:3.901589997059085
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=1.13996200000546      ##AT_TIME:3.901593997059085
+RECIEVED: to=backend from=gate command=motion_change data=yes time_stamp=3.4067349999844536      ##AT_TIME:3.9015979970590853
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=3.4069129999844536      ##AT_TIME:3.9016019970590854
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=1.6240000000155463      ##AT_TIME:3.901605997059085
+RECIEVED: to=backend from=gate command=bulb_change data=on time_stamp=2.9232389999743678      ##AT_TIME:3.9016209970590854
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=2.923380999974368      ##AT_TIME:3.901625997059085
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=2.1080580000256326      ##AT_TIME:3.901628997059085
+RECIEVED: to=backend from=gate command=bulb_change data=off time_stamp=2.4397719999642815      ##AT_TIME:3.9016329970590853
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=2.4399369999642815      ##AT_TIME:3.901636997059085
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=2.592039000035719      ##AT_TIME:3.901640997059085
+RECIEVED: to=backend from=gate command=temp_change data=-1 time_stamp=1.9562679999541945      ##AT_TIME:3.901644997059085
+RECIEVED: to=backend from=gate command=motion_change data=no time_stamp=1.2112579999834419      ##AT_TIME:3.9016489970590853
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=1.7488879999314222      ##AT_TIME:3.901652997059085
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=3.2836280000685787      ##AT_TIME:3.901656997059085
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=1.0579459998985625      ##AT_TIME:3.901660997059085
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=3.9751050001014376      ##AT_TIME:3.9016649970590853
+RECIEVED: to=backend from=gate command=temp_change data=0 time_stamp=3.9752670001014376      ##AT_TIME:3.901668997059085
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=3.975508000101438      ##AT_TIME:3.901672997059085
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=1.0580869998985623      ##AT_TIME:3.901676997059085
+RECIEVED: to=backend from=gate command=motion_change data=yes time_stamp=1.409773999982761      ##AT_TIME:3.9016809970590853
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=2.7043390002038126      ##AT_TIME:3.901684997059085
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=2.329769999796188      ##AT_TIME:3.901688997059085
+RECIEVED: to=backend from=gate command=motion_change data=no time_stamp=1.1747149996207988      ##AT_TIME:3.9016929970590852
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=2.939948000565775      ##AT_TIME:3.9016969970590853
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=2.094662999434225      ##AT_TIME:3.9016999970590853
+RECIEVED: to=backend from=gate command=presence_change data=home time_stamp=2.0203420007523483      ##AT_TIME:3.901703997059085
+RECIEVED: to=backend from=gate command=door_change data=home time_stamp=3.0146669992476527      ##AT_TIME:3.901707997059085
+RECIEVED: to=backend from=gate command=presence_change data=away time_stamp=1.1008180009389212      ##AT_TIME:3.9017119970590852
+RECIEVED: to=backend from=gate command=door_change data=away time_stamp=3.934669999061079      ##AT_TIME:3.9017159970590853

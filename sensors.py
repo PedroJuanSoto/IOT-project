@@ -39,18 +39,18 @@ class thermostat:
         self.register_self(rbox)
         while time_until_we_all_die < life_of_universe:
             x = pipeboxes[self.idnum].wait_on_query(self.offset,self.idnum)
-            if berkeley_or_lamport == "lamport":
-                current_time = pipeboxes[self.idnum].timestamp(self.offset)
-                if x.time > current_time :
-                    self.offset = x.time - current_time + 1
-            if x.command == "query":
+            if berkeley_or_lamport == "lamport":                                #This performs the Lamport logical clocks algorithm: everytime the process
+                current_time = pipeboxes[self.idnum].timestamp(self.offset)     #recieves a new message it compares it's own clock time to that of the
+                if x.time > current_time :                                      #timestamp in the message; if the time in the timestamp is larger than the
+                    self.offset = x.time - current_time + 1                     #time in its own logical clock then it knows that it is a contradicton and
+            if x.command == "query":                                            #it must add the difference between (plus 1) to its current offset
                 self.query_response(pipeboxes)
             temp = envirobox.wait_on_mail(self.offset)
-            if berkeley_or_lamport == "lamport":
-                current_time = envirobox.timestamp(self.offset)
-                if temp.time > current_time :
-                    self.offset = temp.time - current_time + 1
-            self.state = temp.data
+            if berkeley_or_lamport == "lamport":                                #This performs the Lamport logical clocks algorithm: everytime the process
+                current_time = envirobox.timestamp(self.offset)                 #recieves a new message it compares it's own clock time to that of the
+                if temp.time > current_time :                                   #timestamp in the message; if the time in the timestamp is larger than the
+                    self.offset = temp.time - current_time + 1                  #time in its own logical clock then it knows that it is a contradicton and
+            self.state = temp.data                                              #it must add the difference between (plus 1) to its current offset
             time_until_we_all_die = time_until_we_all_die + 1
             if berkeley_or_lamport == "berkeley":
                 self.time=berkeley_clock_synch("thermo", self.offset, parent, children, status)
@@ -92,11 +92,11 @@ class motion_detect:
         self.register_self(rbox)
         while time_until_we_all_die < life_of_universe:
             isthereintruder = envirotomotdet.wait_on_mail(self.offset)
-            if berkeley_or_lamport == "lamport":
-                current_time = envirotomotdet.timestamp(self.offset)
-                if isthereintruder.time > current_time :
-                    self.offset = isthereintruder.time - current_time + 1
-            self.state = isthereintruder.data
+            if berkeley_or_lamport == "lamport":                               #This performs the Lamport logical clocks algorithm: everytime the process
+                current_time = envirotomotdet.timestamp(self.offset)           #recieves a new message it compares it's own clock time to that of the
+                if isthereintruder.time > current_time :                       #timestamp in the message; if the time in the timestamp is larger than the
+                    self.offset = isthereintruder.time - current_time + 1      #time in its own logical clock then it knows that it is a contradicton and
+            self.state = isthereintruder.data                                  #it must add the difference between (plus 1) to its current offset
             time_until_we_all_die = time_until_we_all_die + 1
             self.report_state(pipeboxes)
             if berkeley_or_lamport == "berkeley":
@@ -139,11 +139,11 @@ class door_detect:
         self.register_self(rbox)
         while time_until_we_all_die < life_of_universe:
             isdooropen = usertodoortdet.wait_on_mail(self.offset)
-            if berkeley_or_lamport == "lamport":
-                current_time = usertodoortdet.timestamp(self.offset)
-                if isdooropen.time > current_time :
-                    self.offset = isdooropen.time - current_time + 1
-            self.state = isdooropen.command
+            if berkeley_or_lamport == "lamport":                              #This performs the Lamport logical clocks algorithm: everytime the process
+                current_time = usertodoortdet.timestamp(self.offset)          #recieves a new message it compares it's own clock time to that of the
+                if isdooropen.time > current_time :                           #timestamp in the message; if the time in the timestamp is larger than the
+                    self.offset = isdooropen.time - current_time + 1          #time in its own logical clock then it knows that it is a contradicton and
+            self.state = isdooropen.command                                   #it must add the difference between (plus 1) to its current offset 
             time_until_we_all_die = time_until_we_all_die + 1
             self.report_state(pipeboxes)
             if berkeley_or_lamport == "berkeley":
